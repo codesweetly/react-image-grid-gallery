@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import FsLightbox from "fslightbox-react";
 import uniqid from "uniqid";
 
-export default function ImageGallery({ imgArray }) {
+interface ImgArryProps {
+  imgArray: Array<{
+    alt: string;
+    caption: string;
+    src: string;
+  }>;
+}
+
+export default function ImageGallery({ imgArray }: ImgArryProps) {
   const [lightboxController, setLightboxController] = useState({
     toggler: false,
     slide: 1,
@@ -20,7 +28,7 @@ export default function ImageGallery({ imgArray }) {
     </figure>
   ));
 
-  function openLightboxOnSlide(number) {
+  function openLightboxOnSlide(number: number) {
     setLightboxController({
       toggler: !lightboxController.toggler,
       slide: number,
