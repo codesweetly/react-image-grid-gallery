@@ -1,0 +1,27 @@
+.image-figure {
+  text-align: center;
+}
+
+.image-figure figcaption {
+  font-size: 0.85rem;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+[data-theme="light"] .image-figure figcaption {
+  color: #505050;
+}
+
+.codesweetly-imgs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-gap: 0 1rem;
+}
+
+.codesweetly-imgs-container figure {
+  margin: 0;
+}
+
+.codesweetly-img {
+  cursor: pointer;
+}
