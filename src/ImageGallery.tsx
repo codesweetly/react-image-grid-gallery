@@ -22,7 +22,6 @@ export default function ImageGallery({ imgArray }: ImgArrayType) {
       <img
         alt={item.alt}
         src={item.src}
-        className="codesweetly-rigg-img"
         onClick={() => openLightboxOnSlide(index + 1)}
       />
       {item.caption ? <figcaption>{item.caption}</figcaption> : ""}

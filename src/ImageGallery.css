@@ -1,21 +1,21 @@
-.codesweetly-rigg-image-figure {
-  margin: 0;
-  text-align: center;
-}
-
-.codesweetly-rigg-image-figure figcaption {
-  padding-top: 0.4rem;
-  font-size: 0.85rem;
-  text-align: center;
-}
-
 .codesweetly-rigg-imgs-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   grid-gap: 1rem;
 }
 
-.codesweetly-rigg-img {
+.codesweetly-rigg-image-figure {
+  margin: 0;
+  text-align: center;
+}
+
+.codesweetly-rigg-image-figure img {
   width: 100%;
   cursor: pointer;
+}
+
+.codesweetly-rigg-image-figure figcaption {
+  padding-top: 0.4rem;
+  font-size: 0.85rem;
+  text-align: center;
 }
