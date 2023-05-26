@@ -3,7 +3,7 @@ import FsLightbox from "fslightbox-react";
 import uniqid from "uniqid";
 import "./ImageGallery.css";
 
-interface ImgArryProps {
+interface ImgArrayType {
   imgArray: Array<{
     alt: string;
     caption?: string;
@@ -11,7 +11,7 @@ interface ImgArryProps {
   }>;
 }
 
-export default function ImageGallery({ imgArray }: ImgArryProps) {
+export default function ImageGallery({ imgArray }: ImgArrayType) {
   const [lightboxController, setLightboxController] = useState({
     toggler: false,
     slide: 1,
