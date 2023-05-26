@@ -4,6 +4,9 @@
     "emitDeclarationOnly": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "target": "es6",
+    "outDir": "dist"
   }
 }
