@@ -25,7 +25,7 @@ export default function ImageGallery({ imgArray }: ImgArryProps) {
         className="codesweetly-img"
         onClick={() => openLightboxOnSlide(index + 1)}
       />
-      <figcaption>{item.caption}</figcaption>
+      {item.caption ? <figcaption>{item.caption}</figcaption> : ""}
     </figure>
   ));
 
