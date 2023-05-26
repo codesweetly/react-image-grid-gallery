@@ -6,7 +6,7 @@
 .codesweetly-rigg-image-figure figcaption {
   font-size: 0.85rem;
   text-align: center;
-  padding-bottom: 1rem;
+  padding-top: 0.4rem;
 }
 
 [data-theme="light"] .codesweetly-rigg-image-figure figcaption {
@@ -16,7 +16,7 @@
 .codesweetly-rigg-imgs-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  grid-gap: 0 1rem;
+  grid-gap: 1rem;
 }
 
 .codesweetly-rigg-img {
