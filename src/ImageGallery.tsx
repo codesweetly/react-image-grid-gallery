@@ -18,11 +18,11 @@ export default function ImageGallery({ imgArray }: ImgArrayType) {
   });
 
   const imgElementArray = imgArray.map((item, index) => (
-    <figure className="image-figure" key={uniqid()}>
+    <figure className="codesweetly-rigg-image-figure" key={uniqid()}>
       <img
         alt={item.alt}
         src={item.src}
-        className="codesweetly-img"
+        className="codesweetly-rigg-img"
         onClick={() => openLightboxOnSlide(index + 1)}
       />
       {item.caption ? <figcaption>{item.caption}</figcaption> : ""}
@@ -37,7 +37,7 @@ export default function ImageGallery({ imgArray }: ImgArrayType) {
   }
 
   return (
-    <div className="codesweetly-imgs-container">
+    <div className="codesweetly-rigg-imgs-container">
       {imgElementArray}
       <FsLightbox
         toggler={lightboxController.toggler}

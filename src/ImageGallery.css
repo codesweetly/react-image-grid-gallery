@@ -1,28 +1,25 @@
-.image-figure {
+.codesweetly-rigg-image-figure {
+  margin: 0;
   text-align: center;
 }
 
-.image-figure figcaption {
+.codesweetly-rigg-image-figure figcaption {
   font-size: 0.85rem;
   text-align: center;
   padding-bottom: 1rem;
 }
 
-[data-theme="light"] .image-figure figcaption {
+[data-theme="light"] .codesweetly-rigg-image-figure figcaption {
   color: #505050;
 }
 
-.codesweetly-imgs-container {
+.codesweetly-rigg-imgs-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   grid-gap: 0 1rem;
 }
 
-.codesweetly-imgs-container figure {
-  margin: 0;
-}
-
-.codesweetly-img {
+.codesweetly-rigg-img {
   width: 100%;
   cursor: pointer;
 }
