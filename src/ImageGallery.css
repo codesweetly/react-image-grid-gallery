@@ -4,13 +4,9 @@
 }
 
 .codesweetly-rigg-image-figure figcaption {
+  padding-top: 0.4rem;
   font-size: 0.85rem;
   text-align: center;
-  padding-top: 0.4rem;
-}
-
-[data-theme="light"] .codesweetly-rigg-image-figure figcaption {
-  color: #505050;
 }
 
 .codesweetly-rigg-imgs-container {
