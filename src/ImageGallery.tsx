@@ -6,7 +6,7 @@ import "./ImageGallery.css";
 interface ImgArryProps {
   imgArray: Array<{
     alt: string;
-    caption: string;
+    caption?: string;
     src: string;
   }>;
 }
