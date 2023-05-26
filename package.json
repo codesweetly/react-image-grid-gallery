@@ -2,7 +2,7 @@
   "name": "react-image-grid-gallery",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "ImageGallery.js",
   "scripts": {
     "build": "babel src -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
