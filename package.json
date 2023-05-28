@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src -d dist",
     "copy-files": "cp README.md package.json src/ImageGallery.css dist",
-    "release": "release-it",
+    "release": "dotenv release-it --",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
     "@types/fslightbox-react": "^1.7.3",
     "@types/react": "^18.2.6",
     "@types/uniqid": "^5.3.2",
+    "dotenv-cli": "^7.2.1",
     "fslightbox-react": "^1.7.4",
     "husky": "^8.0.3",
     "react": "^18.2.0",
