@@ -4,8 +4,9 @@
   "description": "",
   "main": "ImageGallery.js",
   "scripts": {
-    "copy-files": "cp README.md package.json src/ImageGallery.css dist",
     "build": "babel src -d dist",
+    "copy-files": "cp README.md package.json src/ImageGallery.css dist",
+    "release": "release-it",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -25,6 +26,7 @@
     "fslightbox-react": "^1.7.4",
     "husky": "^8.0.3",
     "react": "^18.2.0",
+    "release-it": "^15.10.3",
     "typescript": "^5.0.4",
     "uniqid": "^5.4.0"
   },
