@@ -1,6 +1,6 @@
 {
   "npm": {
-    "publishPath": "dist"
+    "publishPath": "./dist"
   },
   "git": {
     "commitMessage": "chore: Release v${version}"
