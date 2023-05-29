@@ -16,10 +16,13 @@
       "preset": {
         "name": "conventionalcommits",
         "types": [
-          { "type": "chore", "section": "🏠 Internal" },
+          { "type": "build", "section": "🧱 Dependency" },
+          { "type": "chore", "section": "🏠 Chores" },
           { "type": "docs", "section": "📝 Documentation" },
           { "type": "feat", "section": "🚀 New Feature" },
-          { "type": "fix", "section": "🐛 Bug Fix" }
+          { "type": "fix", "section": "🐛 Bug Fix" },
+          { "type": "refactor", "section": "🔄️ Code Refactoring" },
+          { "type": "style", "section": "💅 Styling and Formatting" }
         ]
       }
     }
