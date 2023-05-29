@@ -1,22 +1,30 @@
 {
   "name": "react-image-grid-gallery",
   "version": "0.0.0",
-  "description": "",
+  "description": "A simple image gallery component for displaying a grid of images in React apps",
   "main": "ImageGallery.js",
   "types": "ImageGallery.d.ts",
+  "homepage": "https://codesweetly.com/react-image-grid-gallery",
+  "author": "Oluwatobi Sofela (https://www.codesweetly.com)",
+  "license": "MIT",
   "scripts": {
     "build": "babel src -d dist",
     "copy-files": "cp README.md package.json src/ImageGallery.css dist",
     "release": "dotenv release-it --",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "image",
+    "grid",
+    "gallery",
+    "lightbox",
+    "component"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/codesweetly/react-image-grid-gallery.git"
   },
-  "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.21.5",
     "@babel/core": "^7.21.8",
