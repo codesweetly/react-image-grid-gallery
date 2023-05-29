@@ -5,11 +5,11 @@
   "main": "ImageGallery.js",
   "types": "ImageGallery.d.ts",
   "homepage": "https://codesweetly.com/react-image-grid-gallery",
-  "author": "Oluwatobi Sofela (https://www.codesweetly.com)",
+  "author": "Oluwatobi Sofela <contact@codesweetly.com> (https://www.codesweetly.com)",
   "license": "MIT",
   "scripts": {
     "build": "babel src -d dist",
-    "copy-files": "cp README.md package.json src/ImageGallery.css dist",
+    "copy-files": "cp LICENSE README.md package.json src/ImageGallery.css dist",
     "release": "dotenv release-it --",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
