@@ -1,6 +1,6 @@
 {
   "name": "react-image-grid-gallery",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A simple image gallery component for displaying a grid of images in React apps",
   "main": "ImageGallery.js",
   "types": "ImageGallery.d.ts",
