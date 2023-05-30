@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/codesweetly/react-image-grid-gallery/compare/0.9.0...0.9.1) (2023-05-30)
+
+
+### 📝 Documentation
+
+* Write about the 'columnWidth' and 'gapSize' props ([0637ae4](https://github.com/codesweetly/react-image-grid-gallery/commit/0637ae46d9103b0ccde9ac48189e0908e606be6c))
+
 ## [0.9.0](https://github.com/codesweetly/react-image-grid-gallery/compare/0.8.0...0.9.0) (2023-05-30)
 
 
