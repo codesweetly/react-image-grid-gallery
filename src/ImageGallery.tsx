@@ -10,11 +10,13 @@ interface ImageGalleryPropsType {
     src: string;
   }>;
   columnWidth?: number;
+  gapSize?: number;
 }
 
 export default function ImageGallery({
   imgArray,
   columnWidth = 230,
+  gapSize = 24,
 }: ImageGalleryPropsType) {
   const [lightboxController, setLightboxController] = useState({
     toggler: false,
@@ -22,7 +24,11 @@ export default function ImageGallery({
   });
 
   const imgElementArray = imgArray.map((item, index) => (
-    <figure className="codesweetly-rigg-image-figure" key={uniqid()}>
+    <figure
+      className="codesweetly-rigg-image-figure"
+      style={{ marginBottom: `${gapSize}px` }}
+      key={uniqid()}
+    >
       <img
         alt={item.alt}
         src={item.src}
@@ -42,7 +48,7 @@ export default function ImageGallery({
   return (
     <div
       className="codesweetly-rigg-imgs-container"
-      style={{ columnWidth: `${columnWidth}px` }}
+      style={{ columnWidth: `${columnWidth}px`, columnGap: `${gapSize}px` }}
     >
       {imgElementArray}
       <FsLightbox

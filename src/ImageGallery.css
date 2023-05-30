@@ -1,14 +1,10 @@
-.codesweetly-rigg-imgs-container {
-  column-gap: 24px;
-}
-
 .codesweetly-rigg-image-figure {
   margin: 0;
-  margin-bottom: 24px;
   position: relative;
 }
 
 .codesweetly-rigg-image-figure img {
+  display: block;
   width: 100%;
   cursor: pointer;
 }
