@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.9.0](https://github.com/codesweetly/react-image-grid-gallery/compare/0.8.0...0.9.0) (2023-05-30)
+
+
+### 🐛 Bug Fix
+
+* Use github readme as homepage ([5cb07b4](https://github.com/codesweetly/react-image-grid-gallery/commit/5cb07b4b023d3663f2b318bbc7da858304a465a8))
+
+
+### 💅 Styling and Formatting
+
+* Use mansory grid layout format for the image gallery ([55697e3](https://github.com/codesweetly/react-image-grid-gallery/commit/55697e3f0b919178835406660811409e705e46a9))
+
+
+### 🚀 New Feature
+
+* Give users the option to specify gallery's gap size ([b42efe4](https://github.com/codesweetly/react-image-grid-gallery/commit/b42efe4744c307e1f24871d6b5919619a44d011a))
+* Provide users the option to specify gallery's column width ([c54eaa4](https://github.com/codesweetly/react-image-grid-gallery/commit/c54eaa46e409cb6ca0e3ee00f949852a42bf2d9d))
+
 ## 0.8.0 (2023-05-29)
 
 
