@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.2](https://github.com/codesweetly/react-image-grid-gallery/compare/0.9.1...0.9.2) (2023-05-30)
+
+
+### 💅 Styling and Formatting
+
+* Change figcaption background's maximum opacity to 1 ([46c624f](https://github.com/codesweetly/react-image-grid-gallery/commit/46c624f8d7a61548562c09cd020a5f1ee8b5736c))
+* Change padding-inline to padding ([74b638c](https://github.com/codesweetly/react-image-grid-gallery/commit/74b638cc8492dd75390c859501119e6668a5f38e))
+
 ## [0.9.1](https://github.com/codesweetly/react-image-grid-gallery/compare/0.9.0...0.9.1) (2023-05-30)
 
 
