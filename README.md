@@ -1,6 +1,8 @@
 # React Image Grid Gallery
 
-It's here! A simple, easy-to-use, and responsive image gallery component for displaying a grid of images in React apps.
+A simple, easy-to-use, and responsive image gallery component for displaying a grid of images in React apps.
+
+![npm](https://img.shields.io/npm/v/react-image-grid-gallery) ![NPM](https://img.shields.io/npm/l/react-image-grid-gallery)
 
 ## Installation
 
@@ -14,6 +16,12 @@ Using yarn:
 
 ```
 yarn add react-image-grid-gallery
+```
+
+Using pnpm:
+
+```
+pnpm add react-image-grid-gallery
 ```
 
 ## Usage
@@ -40,16 +48,51 @@ const imagesArray = [
 ];
 
 function App() {
-  return <ImageGallery imgArray={imagesArray} />;
+  return <ImageGallery imgArray={imagesArray} columnWidth={300} gapSize={7} />;
 }
 ```
 
 ## Required Props
 
-### `imgArray`
+<table>
+<thead>
+<tr>
+<th>Props</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>imgArray</code></td>
+<td>
 
-The `imgArray` props is an array of objects containing the following properties:
+Required. The `imgArray` prop is an array of objects containing the following properties:
 
-- `alt`: The image's [alternative text](https://webaim.org/techniques/alttext/). This property is required.
-- `caption`: A [description of the image](https://www.studysmarter.co.uk/explanations/english/blog/image-caption/). This property is optional.
-- `src`: The [URL](https://codesweetly.com/web-address-url) of the image. This property is required.
+- `alt`: Required. The image's [alternative text](https://webaim.org/techniques/alttext/).
+- `caption`: Optional. A [description of the image](https://www.studysmarter.co.uk/explanations/english/blog/image-caption/).
+- `src`: Required. The [URL](https://codesweetly.com/web-address-url) of the image.
+
+</td>
+</tr>
+<tr>
+<td><code>columnWidth</code></td>
+<td>
+
+Optional. The `columnWidth` prop is a number specifying the minimum width of the gallery's columns.
+
+`230` is the default value.
+
+</td>
+</tr>
+<tr>
+<td><code>gapSize</code></td>
+<td>
+
+Optional. The `gapSize` prop is a number specifying the gallery [gap's size](https://codesweetly.com/css-gap-property).
+
+`24` is the default value.
+
+</td>
+</tr>
+</tbody>
+</table>
