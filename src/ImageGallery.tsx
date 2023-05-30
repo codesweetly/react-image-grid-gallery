@@ -3,15 +3,19 @@ import FsLightbox from "fslightbox-react";
 import uniqid from "uniqid";
 import "./ImageGallery.css";
 
-interface ImgArrayType {
+interface ImageGalleryPropsType {
   imgArray: Array<{
     alt: string;
     caption?: string;
     src: string;
   }>;
+  columnWidth?: number;
 }
 
-export default function ImageGallery({ imgArray }: ImgArrayType) {
+export default function ImageGallery({
+  imgArray,
+  columnWidth = 230,
+}: ImageGalleryPropsType) {
   const [lightboxController, setLightboxController] = useState({
     toggler: false,
     slide: 1,
@@ -36,7 +40,10 @@ export default function ImageGallery({ imgArray }: ImgArrayType) {
   }
 
   return (
-    <div className="codesweetly-rigg-imgs-container">
+    <div
+      className="codesweetly-rigg-imgs-container"
+      style={{ columnWidth: `${columnWidth}px` }}
+    >
       {imgElementArray}
       <FsLightbox
         toggler={lightboxController.toggler}
