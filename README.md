@@ -6,19 +6,19 @@ A simple, easy-to-use, and responsive image gallery component for displaying a g
 
 ## Installation
 
-Using npm:
+NPM:
 
 ```
 npm install react-image-grid-gallery
 ```
 
-Using yarn:
+Yarn:
 
 ```
 yarn add react-image-grid-gallery
 ```
 
-Using pnpm:
+PNPM:
 
 ```
 pnpm add react-image-grid-gallery
