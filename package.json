@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "fslightbox-react": "^1.7.4",
+    "prop-types": "^15.8.1",
     "uniqid": "^5.4.0"
   },
   "devDependencies": {
