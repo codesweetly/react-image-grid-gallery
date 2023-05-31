@@ -47,8 +47,8 @@ const imagesArray = [
   },
 ];
 
-function App() {
-  return <ImageGallery imgArray={imagesArray} columnWidth={300} gapSize={7} />;
+function Home() {
+  return <ImageGallery imgArray={imagesArray} columnWidth={230} gapSize={24} />;
 }
 ```
 
@@ -58,39 +58,43 @@ function App() {
 <thead>
 <tr>
 <th>Props</th>
+<th>Type</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>imgArray</code></td>
+<td>array</td>
+<td><code>undefined</code></td>
 <td>
 
-Required. The `imgArray` prop is an array of objects containing the following properties:
+_Required._ An array of objects containing the following properties:
 
-- `alt`: Required. The image's [alternative text](https://webaim.org/techniques/alttext/).
-- `caption`: Optional. A [description of the image](https://www.studysmarter.co.uk/explanations/english/blog/image-caption/).
-- `src`: Required. The [URL](https://codesweetly.com/web-address-url) of the image.
+- `alt`: The image's [alternative text](https://webaim.org/techniques/alttext/). _Required._
+- `caption`: The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption/). _Optional._
+- `src`: The image's [URL](/web-address-url). _Required._
 
 </td>
 </tr>
 <tr>
 <td><code>columnWidth</code></td>
+<td>number</td>
+<td><code>230</code></td>
 <td>
 
-Optional. The `columnWidth` prop is a number specifying the minimum width of the gallery's columns.
-
-`230` is the default value.
+_Optional._ The minimum width of the gallery's columns.
 
 </td>
 </tr>
 <tr>
 <td><code>gapSize</code></td>
+<td>number</td>
+<td><code>24</code></td>
 <td>
 
-Optional. The `gapSize` prop is a number specifying the gallery [gap's size](https://codesweetly.com/css-gap-property).
-
-`24` is the default value.
+_Optional._ The gallery's [gap size](/css-gap-property).
 
 </td>
 </tr>
