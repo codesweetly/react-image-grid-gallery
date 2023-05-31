@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.4](https://github.com/codesweetly/react-image-grid-gallery/compare/0.9.3...0.9.4) (2023-05-31)
+
+
+### 🧱 Dependency
+
+* Add prop-types to dependencies ([c9b2141](https://github.com/codesweetly/react-image-grid-gallery/commit/c9b214105aa0152b6dc369b481b72e2a90b73d39))
+
 ## [0.9.3](https://github.com/codesweetly/react-image-grid-gallery/compare/0.9.2...0.9.3) (2023-05-31)
 
 
