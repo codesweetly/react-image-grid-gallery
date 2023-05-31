@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.3](https://github.com/codesweetly/react-image-grid-gallery/compare/0.9.2...0.9.3) (2023-05-31)
+
+
+### 🧱 Dependency
+
+* Move fslightbox-react and uniqid to dependencies field ([eec267b](https://github.com/codesweetly/react-image-grid-gallery/commit/eec267bbfa56e645d9e8112636a4c0d43cdcfafb))
+
 ## [0.9.2](https://github.com/codesweetly/react-image-grid-gallery/compare/0.9.1...0.9.2) (2023-05-30)
 
 
