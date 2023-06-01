@@ -4,12 +4,16 @@ A simple, easy-to-use, and responsive image gallery component for displaying a g
 
 ![npm](https://img.shields.io/npm/v/react-image-grid-gallery) ![NPM](https://img.shields.io/npm/l/react-image-grid-gallery)
 
+## Live Demo and Tutorial
+
+Available at: https://codesweetly.com/react-image-grid-gallery
+
 ## Installation
 
 NPM:
 
 ```
-npm install react-image-grid-gallery
+npm install react-image-grid-gallery --save
 ```
 
 Yarn:
@@ -74,7 +78,7 @@ _Required._ An array of objects containing the following properties:
 
 - `alt`: The image's [alternative text](https://webaim.org/techniques/alttext/). _Required._
 - `caption`: The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption/). _Optional._
-- `src`: The image's [URL](/web-address-url). _Required._
+- `src`: The image's [URL](https://codesweetly.com/web-address-url). _Required._
 
 </td>
 </tr>
@@ -94,7 +98,7 @@ _Optional._ The minimum width of the gallery's columns.
 <td><code>24</code></td>
 <td>
 
-_Optional._ The gallery's [gap size](/css-gap-property).
+_Optional._ The gallery's [gap size](https://codesweetly.com/css-gap-property).
 
 </td>
 </tr>
