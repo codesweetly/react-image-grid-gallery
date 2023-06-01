@@ -51,7 +51,7 @@ const imagesArray = [
   },
 ];
 
-function Home() {
+function App() {
   return <ImageGallery imgArray={imagesArray} columnWidth={230} gapSize={24} />;
 }
 ```
@@ -104,3 +104,7 @@ _Optional._ The gallery's [gap size](https://codesweetly.com/css-gap-property).
 </tr>
 </tbody>
 </table>
+
+## YouTube Demo
+
+[React Image Grid Gallery Demo](https://youtu.be/WoqO2AFxEMY)
