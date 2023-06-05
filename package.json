@@ -4,7 +4,7 @@
   "description": "A simple image gallery component for displaying a grid of images in React apps",
   "main": "ImageGallery.js",
   "types": "ImageGallery.d.ts",
-  "homepage": "https://github.com/codesweetly/react-image-grid-gallery.git#readme",
+  "homepage": "https://codesweetly.com/react-image-grid-gallery",
   "author": "Oluwatobi Sofela <contact@codesweetly.com> (https://www.codesweetly.com)",
   "license": "MIT",
   "scripts": {
