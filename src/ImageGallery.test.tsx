@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { test } from "@jest/globals";
-import ImageGallery from "./ImageGallery";
+import { ImageGallery } from "./ImageGallery";
 
 const imagesArray = [
   {

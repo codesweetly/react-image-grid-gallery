@@ -13,7 +13,7 @@ interface ImageGalleryPropsType {
   gapSize?: number;
 }
 
-export default function ImageGallery({
+export function ImageGallery({
   imgArray,
   columnWidth = 230,
   gapSize = 24,
