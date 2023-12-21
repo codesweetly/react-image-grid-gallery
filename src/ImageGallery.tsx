@@ -3,7 +3,7 @@ import FsLightbox from "fslightbox-react";
 import uniqid from "uniqid";
 
 interface ImageGalleryPropsType {
-  imagesArray: Array<{
+  imagesInfoArray: Array<{
     alt: string;
     caption?: string;
     src: string;
@@ -51,7 +51,7 @@ class ImageGalleryStyles {
 }
 
 export function ImageGallery({
-  imagesArray,
+  imagesInfoArray,
   columnWidth = 230,
   gapSize = 24,
 }: ImageGalleryPropsType) {
@@ -67,7 +67,7 @@ export function ImageGallery({
   const imageStyle = new ImageGalleryStyles().imageStyle;
   const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
 
-  const imageElementsArray = imagesArray.map((item, index) => (
+  const imageElementsArray = imagesInfoArray.map((item, index) => (
     <figure style={imageContainerStyle} key={uniqid()}>
       <img
         alt={item.alt}
@@ -102,7 +102,7 @@ export function ImageGallery({
       <FsLightbox
         toggler={lightboxController.toggler}
         slide={lightboxController.slide}
-        sources={imagesArray.map((item) => item.src)}
+        sources={imagesInfoArray.map((item) => item.src)}
       />
     </div>
   );
