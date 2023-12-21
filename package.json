@@ -11,7 +11,6 @@
     "build": "rm -r dist && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "copy-files": "cp LICENSE README.md package.json src/ImageGallery.css dist",
     "release": "dotenv release-it --",
     "test": "jest --config jest.config.js"
   },
