@@ -67,7 +67,7 @@ export function ImageGallery({
   const imageStyle = new ImageGalleryStyles().imageStyle;
   const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
 
-  const imgElementArray = imagesArray.map((item, index) => (
+  const imageElementsArray = imagesArray.map((item, index) => (
     <figure style={imageContainerStyle} key={uniqid()}>
       <img
         alt={item.alt}
@@ -98,7 +98,7 @@ export function ImageGallery({
 
   return (
     <div style={galleryContainerStyle}>
-      {imgElementArray}
+      {imageElementsArray}
       <FsLightbox
         toggler={lightboxController.toggler}
         slide={lightboxController.slide}
