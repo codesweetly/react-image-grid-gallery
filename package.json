@@ -8,7 +8,7 @@
   "author": "Oluwatobi Sofela <contact@codesweetly.com> (https://www.codesweetly.com)",
   "license": "MIT",
   "scripts": {
-    "build": "babel src -d dist",
+    "build": "rm -r dist && tsc",
     "copy-files": "cp LICENSE README.md package.json src/ImageGallery.css dist",
     "release": "dotenv release-it --",
     "test": "jest --config jest.config.js"
