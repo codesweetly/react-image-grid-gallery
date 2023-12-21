@@ -23,7 +23,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/codesweetly/react-image-grid-gallery.git"
+    "url": "https://github.com/codesweetly/react-image-grid-gallery"
+  },
+  "bugs": {
+    "url": "https://github.com/codesweetly/react-image-grid-gallery/issues",
+    "email": "contact@codesweetly.com"
   },
   "dependencies": {
     "fslightbox-react": "^1.7.6",
