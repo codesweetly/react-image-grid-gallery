@@ -13,11 +13,16 @@ interface ImageGalleryPropsType {
 }
 
 class ImageGalleryStyles {
+  galleryContainerStyle: React.CSSProperties;
   imageContainerStyle: React.CSSProperties;
   imageStyle: React.CSSProperties;
   imageCaptionStyle: React.CSSProperties;
 
-  constructor(gapSize?: number) {
+  constructor(gapSize?: number, columnWidth?: number) {
+    this.galleryContainerStyle = {
+      columnWidth: `${columnWidth}px`,
+      columnGap: `${gapSize}px`,
+    };
     this.imageContainerStyle = {
       marginBottom: `${gapSize}px`,
       margin: 0,
@@ -55,6 +60,8 @@ export function ImageGallery({
     slide: 1,
   });
 
+  const galleryContainerStyle = new ImageGalleryStyles(gapSize, columnWidth)
+    .galleryContainerStyle;
   const imageContainerStyle = new ImageGalleryStyles(gapSize)
     .imageContainerStyle;
   const imageStyle = new ImageGalleryStyles().imageStyle;
@@ -90,7 +97,7 @@ export function ImageGallery({
   }
 
   return (
-    <div style={{ columnWidth: `${columnWidth}px`, columnGap: `${gapSize}px` }}>
+    <div style={galleryContainerStyle}>
       {imgElementArray}
       <FsLightbox
         toggler={lightboxController.toggler}
