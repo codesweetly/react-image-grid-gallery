@@ -1,16 +1,7 @@
 import React, { useState } from "react";
+import { ImageGalleryPropsType } from "./ImageGallery.types";
 import FsLightbox from "fslightbox-react";
 import uniqid from "uniqid";
-
-interface ImageGalleryPropsType {
-  imagesInfoArray: Array<{
-    alt: string;
-    caption?: string;
-    src: string;
-  }>;
-  columnWidth?: number;
-  gapSize?: number;
-}
 
 class ImageGalleryStyles {
   galleryContainerStyle: React.CSSProperties;
