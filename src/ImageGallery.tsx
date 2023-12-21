@@ -13,6 +13,39 @@ interface ImageGalleryPropsType {
   gapSize?: number;
 }
 
+class ImageGalleryStyles {
+  imageContainerStyle: React.CSSProperties;
+  imageStyle: React.CSSProperties;
+  imageCaptionStyle: React.CSSProperties;
+
+  constructor(gapSize?: number) {
+    this.imageContainerStyle = {
+      marginBottom: `${gapSize}px`,
+      margin: 0,
+      position: "relative",
+    };
+    this.imageStyle = {
+      display: "block",
+      width: "100%",
+      cursor: "pointer",
+    };
+    this.imageCaptionStyle = {
+      opacity: 0,
+      position: "absolute",
+      bottom: 0,
+      zIndex: "1000",
+      width: "100%",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      background:
+        "linear-gradient(180deg, rgba(25, 27, 38, 0), rgba(25, 27, 38, 1))",
+      padding: "16px",
+      fontSize: "0.85rem",
+      textAlign: "center",
+      color: "#fff",
+    };
+  }
+}
+
 export function ImageGallery({
   imgArray,
   columnWidth = 230,
@@ -23,18 +56,34 @@ export function ImageGallery({
     slide: 1,
   });
 
+  const imageContainerStyle = new ImageGalleryStyles(gapSize)
+    .imageContainerStyle;
+  const imageStyle = new ImageGalleryStyles().imageStyle;
+  const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
+
   const imgElementArray = imgArray.map((item, index) => (
     <figure
       className="codesweetly-rigg-image-figure"
-      style={{ marginBottom: `${gapSize}px` }}
+      style={imageContainerStyle}
       key={uniqid()}
     >
       <img
         alt={item.alt}
         src={item.src}
         onClick={() => openLightboxOnSlide(index + 1)}
+        style={imageStyle}
       />
-      {item.caption ? <figcaption>{item.caption}</figcaption> : ""}
+      {item.caption ? (
+        <figcaption
+          style={imageCaptionStyle}
+          onMouseOver={() => "this.style.opacity=1"}
+          onMouseOut={() => "this.style.opacity=0"}
+        >
+          {item.caption}
+        </figcaption>
+      ) : (
+        ""
+      )}
     </figure>
   ));
 
