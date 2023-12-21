@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FsLightbox from "fslightbox-react";
 import uniqid from "uniqid";
-import "./ImageGallery.css";
+// import "./ImageGallery.css";
 
 interface ImageGalleryPropsType {
   imgArray: Array<{
