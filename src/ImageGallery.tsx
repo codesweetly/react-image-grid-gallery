@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import FsLightbox from "fslightbox-react";
 import uniqid from "uniqid";
-// import "./ImageGallery.css";
 
 interface ImageGalleryPropsType {
   imgArray: Array<{
@@ -62,11 +61,7 @@ export function ImageGallery({
   const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
 
   const imgElementArray = imgArray.map((item, index) => (
-    <figure
-      className="codesweetly-rigg-image-figure"
-      style={imageContainerStyle}
-      key={uniqid()}
-    >
+    <figure style={imageContainerStyle} key={uniqid()}>
       <img
         alt={item.alt}
         src={item.src}
@@ -95,10 +90,7 @@ export function ImageGallery({
   }
 
   return (
-    <div
-      className="codesweetly-rigg-imgs-container"
-      style={{ columnWidth: `${columnWidth}px`, columnGap: `${gapSize}px` }}
-    >
+    <div style={{ columnWidth: `${columnWidth}px`, columnGap: `${gapSize}px` }}>
       {imgElementArray}
       <FsLightbox
         toggler={lightboxController.toggler}
