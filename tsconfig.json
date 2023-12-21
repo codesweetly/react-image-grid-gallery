@@ -1,4 +1,6 @@
 {
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.tsx"],
   "compilerOptions": {
     "jsx": "react",
     "module": "esnext",
