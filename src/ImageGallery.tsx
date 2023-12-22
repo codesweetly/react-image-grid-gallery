@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
 import { ImageGalleryStyles } from "./ImageGalleryStyles";
 import FsLightbox from "fslightbox-react";
-import uniqid from "uniqid";
 
 export function ImageGallery({
   imagesInfoArray,
@@ -37,7 +36,7 @@ export function ImageGallery({
   const imageElementsArray = imagesInfoArray.map((item, index) => (
     <figure
       style={imageContainerStyle}
-      key={uniqid()}
+      key={crypto.randomUUID()}
       onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
       onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
     >
