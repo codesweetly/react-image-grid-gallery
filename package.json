@@ -15,6 +15,9 @@
     "release": "dotenv release-it --",
     "test": "jest --config jest.config.js"
   },
+  "files": [
+    "./dist"
+  ],
   "keywords": [
     "react",
     "image",
@@ -25,7 +28,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/codesweetly/react-image-grid-gallery"
+    "url": "https://github.com/codesweetly/react-image-grid-gallery.git"
   },
   "bugs": {
     "url": "https://github.com/codesweetly/react-image-grid-gallery/issues",
