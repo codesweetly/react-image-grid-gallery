@@ -20,8 +20,27 @@ export function ImageGallery({
   const imageStyle = new ImageGalleryStyles().imageStyle;
   const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
 
+  function handleImageContainerMouseEnter(
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    const figcaption = e.currentTarget.querySelector("figcaption");
+    if (figcaption) figcaption.style.opacity = "1";
+  }
+
+  function handleImageContainerMouseLeave(
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    const figcaption = e.currentTarget.querySelector("figcaption");
+    if (figcaption) figcaption.style.opacity = "0";
+  }
+
   const imageElementsArray = imagesInfoArray.map((item, index) => (
-    <figure style={imageContainerStyle} key={uniqid()}>
+    <figure
+      style={imageContainerStyle}
+      key={uniqid()}
+      onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
+      onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
+    >
       <img
         alt={item.alt}
         src={item.src}
@@ -29,13 +48,7 @@ export function ImageGallery({
         style={imageStyle}
       />
       {item.caption ? (
-        <figcaption
-          style={imageCaptionStyle}
-          onMouseOver={() => "this.style.opacity=1"}
-          onMouseOut={() => "this.style.opacity=0"}
-        >
-          {item.caption}
-        </figcaption>
+        <figcaption style={imageCaptionStyle}>{item.caption}</figcaption>
       ) : (
         ""
       )}
