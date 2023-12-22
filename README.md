@@ -31,7 +31,7 @@ pnpm add react-image-grid-gallery
 ## Usage
 
 ```js
-import ImageGallery from "react-image-grid-gallery";
+import { ImageGallery } from "react-image-grid-gallery";
 
 const imagesArray = [
   {
@@ -52,7 +52,13 @@ const imagesArray = [
 ];
 
 function App() {
-  return <ImageGallery imgArray={imagesArray} columnWidth={230} gapSize={24} />;
+  return (
+    <ImageGallery
+      imagesInfoArray={imagesArray}
+      columnWidth={230}
+      gapSize={24}
+    />
+  );
 }
 ```
 
@@ -69,16 +75,16 @@ function App() {
 </thead>
 <tbody>
 <tr>
-<td><code>imgArray</code></td>
+<td><code>imagesInfoArray</code></td>
 <td>array</td>
 <td><code>undefined</code></td>
 <td>
 
-_Required._ An array of objects containing the following properties:
+(**Required**) An array of objects containing the following properties:
 
-- `alt`: The image's [alternative text](https://webaim.org/techniques/alttext/). _Required._
-- `caption`: The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption/). _Optional._
-- `src`: The image's [URL](https://codesweetly.com/web-address-url). _Required._
+- `alt`: (**Required**) The image's [alternative text](https://webaim.org/techniques/alttext).
+- `caption`: (**Optional**) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
+- `src`: (**Required**) The image's [URL](https://codesweetly.com/web-address-url).
 
 </td>
 </tr>
@@ -88,7 +94,7 @@ _Required._ An array of objects containing the following properties:
 <td><code>230</code></td>
 <td>
 
-_Optional._ The minimum width of the gallery's columns.
+(**Optional**) The minimum width of the gallery's columns.
 
 </td>
 </tr>
@@ -98,12 +104,53 @@ _Optional._ The minimum width of the gallery's columns.
 <td><code>24</code></td>
 <td>
 
-_Optional._ The gallery's [gap size](https://codesweetly.com/css-gap-property).
+(**Optional**) The gallery's [gap size](https://codesweetly.com/css-gap-property).
 
 </td>
 </tr>
 </tbody>
 </table>
+
+## Note for Remix Users
+
+[Remix](https://remix.run/docs/en/1.19.0) users should add `"react-image-grid-gallery"` to their `remix.config.js` file:
+
+```diff
+/** @type {import('@remix-run/dev').AppConfig} */
+module.exports = {
+  ignoredRouteFiles: ["**/.*"],
++ serverDependenciesToBundle: ["react-image-grid-gallery"],
+  serverModuleFormat: "cjs",
+};
+```
+
+The [`serverDependenciesToBundle`](https://remix.run/docs/en/1.19.0/file-conventions/remix-config#serverdependenciestobundle) field tells Remix to transpile and include the `"react-image-grid-gallery"` package in the server bundle.
+
+## Note for NextJS users
+
+[NextJS](https://nextjs.org/) users should declare the [`"use client"`](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive) directive at the top of their file. It should sit above all other `import` statements like so:
+
+```diff
++ "use client";
+import { ImageGallery } from "react-image-grid-gallery";
+import { YouTubePlaylist } from "@codesweetly/react-youtube-playlist";
+```
+
+The `"use client"` directive tells NextJS to consider all modules imported into the page as part of the Client Component module graph.
+
+The `ImageGallery` package works _only_ as a Client Component because it uses React's State and Lifecycle effects, such as `useState()` and `useEffect()`.
+
+## Build
+
+```bash
+npm run build
+```
+
+## Dependencies
+
+- [fslightbox-react](https://github.com/banthagroup/fslightbox-react)
+- [prop-types](https://github.com/facebook/prop-types)
+- [react](https://github.com/facebook/react)
 
 ## YouTube Demo
 
