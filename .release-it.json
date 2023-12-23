@@ -22,7 +22,8 @@
           { "type": "feat", "section": "🚀 New Feature" },
           { "type": "fix", "section": "🐛 Bug Fix" },
           { "type": "refactor", "section": "🔄️ Code Refactoring" },
-          { "type": "style", "section": "💅 Styling and Formatting" }
+          { "type": "style", "section": "💅 Styling and Formatting" },
+          { "type": "test", "section": "🧪 Code Testing" }
         ]
       }
     }
