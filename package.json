@@ -13,7 +13,7 @@
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "release": "dotenv release-it --",
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.ts"
   },
   "files": [
     "./dist"
@@ -52,6 +52,7 @@
     "react": "^18.2.0",
     "release-it": "^17.0.1",
     "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
