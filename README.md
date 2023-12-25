@@ -10,19 +10,21 @@ Available at: https://codesweetly.com/react-image-grid-gallery
 
 ## Installation
 
-NPM:
+This section shows how to install the React Image Grid Gallery package.
+
+### Using npm
 
 ```
 npm install react-image-grid-gallery --save
 ```
 
-Yarn:
+### Using yarn
 
 ```
 yarn add react-image-grid-gallery
 ```
 
-PNPM:
+### Using pnpm
 
 ```
 pnpm add react-image-grid-gallery
