@@ -1,12 +1,23 @@
 {
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.tsx"],
   "compilerOptions": {
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "jsx": "preserve",
+    "jsx": "react",
+    "module": "esnext",
     "moduleResolution": "node",
-    "target": "es6",
-    "outDir": "dist"
+    "outDir": "dist/esm",
+    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "noEmitOnError": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "strict": true
   }
 }

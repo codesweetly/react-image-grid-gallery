@@ -1,20 +1,10 @@
 import React, { useState } from "react";
+import { ImageGalleryPropsType } from "./ImageGallery.types";
+import { ImageGalleryStyles } from "./ImageGalleryStyles";
 import FsLightbox from "fslightbox-react";
-import uniqid from "uniqid";
-import "./ImageGallery.css";
 
-interface ImageGalleryPropsType {
-  imgArray: Array<{
-    alt: string;
-    caption?: string;
-    src: string;
-  }>;
-  columnWidth?: number;
-  gapSize?: number;
-}
-
-export default function ImageGallery({
-  imgArray,
+export function ImageGallery({
+  imagesInfoArray,
   columnWidth = 230,
   gapSize = 24,
 }: ImageGalleryPropsType) {
@@ -22,19 +12,45 @@ export default function ImageGallery({
     toggler: false,
     slide: 1,
   });
+  const galleryContainerStyle = new ImageGalleryStyles(gapSize, columnWidth)
+    .galleryContainerStyle;
+  const imageContainerStyle = new ImageGalleryStyles(gapSize)
+    .imageContainerStyle;
+  const imageStyle = new ImageGalleryStyles().imageStyle;
+  const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
 
-  const imgElementArray = imgArray.map((item, index) => (
+  function handleImageContainerMouseEnter(
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    const figcaption = e.currentTarget.querySelector("figcaption");
+    if (figcaption) figcaption.style.opacity = "1";
+  }
+
+  function handleImageContainerMouseLeave(
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    const figcaption = e.currentTarget.querySelector("figcaption");
+    if (figcaption) figcaption.style.opacity = "0";
+  }
+
+  const imageElementsArray = imagesInfoArray.map((item, index) => (
     <figure
-      className="codesweetly-rigg-image-figure"
-      style={{ marginBottom: `${gapSize}px` }}
-      key={uniqid()}
+      style={imageContainerStyle}
+      key={crypto.randomUUID()}
+      onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
+      onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
     >
       <img
         alt={item.alt}
         src={item.src}
         onClick={() => openLightboxOnSlide(index + 1)}
+        style={imageStyle}
       />
-      {item.caption ? <figcaption>{item.caption}</figcaption> : ""}
+      {item.caption ? (
+        <figcaption style={imageCaptionStyle}>{item.caption}</figcaption>
+      ) : (
+        ""
+      )}
     </figure>
   ));
 
@@ -46,15 +62,12 @@ export default function ImageGallery({
   }
 
   return (
-    <div
-      className="codesweetly-rigg-imgs-container"
-      style={{ columnWidth: `${columnWidth}px`, columnGap: `${gapSize}px` }}
-    >
-      {imgElementArray}
+    <div style={galleryContainerStyle}>
+      {imageElementsArray}
       <FsLightbox
         toggler={lightboxController.toggler}
         slide={lightboxController.slide}
-        sources={imgArray.map((item) => item.src)}
+        sources={imagesInfoArray.map((item) => item.src)}
       />
     </div>
   );
