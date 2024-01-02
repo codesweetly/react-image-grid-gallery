@@ -44,7 +44,7 @@
     "@release-it/conventional-changelog": "^8.0.1",
     "@testing-library/react": "^14.1.2",
     "@types/fslightbox-react": "^1.7.7",
-    "@types/react": "^18.2.45",
+    "@types/react": "^18.2.46",
     "dotenv-cli": "^7.3.0",
     "husky": "^8.0.3",
     "jest": "^29.7.0",
