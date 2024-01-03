@@ -10,8 +10,8 @@ export class ImageGalleryStyles {
       columnGap: `${gapSize}px`,
     };
     this.imageContainerStyle = {
-      marginBottom: `${gapSize}px`,
       margin: 0,
+      marginBottom: `${gapSize}px`,
       position: "relative",
     };
     this.imageStyle = {
