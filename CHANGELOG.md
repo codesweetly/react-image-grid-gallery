@@ -1,5 +1,80 @@
 # Changelog
 
+## [2.0.0](https://github.com/codesweetly/react-image-grid-gallery/compare/v1.0.3...v2.0.0) (2024-01-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* Rename imagesArray prop to imagesInfoArray
+* Rename imgArray prop to imagesArray
+* Users must now use named importation to add the package to their apps.
+
+Named importation provides better compatibility with node and babel-like tools.
+
+Ref: https://esbuild.github.io/content-types/#default-interop
+
+### 🧱 Dependency
+
+* Bump @types/react ([2515713](https://github.com/codesweetly/react-image-grid-gallery/commit/2515713d69e221e4c6fded51badffa7229dc0d59))
+* Bump packages ([3340792](https://github.com/codesweetly/react-image-grid-gallery/commit/3340792c20c6ad5128795885aaa93da57cdb2d91))
+* Configure script for building es modules and commonjs compilations ([14a6251](https://github.com/codesweetly/react-image-grid-gallery/commit/14a62518ba0331b7068f34e558363d120be79a1a))
+* Configure script for building es modules compilations ([390e63a](https://github.com/codesweetly/react-image-grid-gallery/commit/390e63adf84d6f48379332851ff749faeea05336))
+* Configure typescript as the package's compiler ([3738a8e](https://github.com/codesweetly/react-image-grid-gallery/commit/3738a8e990bf118f7f3c8f68690186acf5aa168b))
+* Delete the copy-files script ([6da1df0](https://github.com/codesweetly/react-image-grid-gallery/commit/6da1df08897eade35b5d988055d774855509cac0))
+* Specify items typescript should compile ([280f7d1](https://github.com/codesweetly/react-image-grid-gallery/commit/280f7d13f289ab743a354944115dc2bf39e5450f))
+* Uninstall babel packages ([f1f9e8f](https://github.com/codesweetly/react-image-grid-gallery/commit/f1f9e8fcbd7b986c72c1043a4b05e753ac96c0b6))
+
+
+### 🏠 Chores
+
+* Define package's entry point ([45f3c19](https://github.com/codesweetly/react-image-grid-gallery/commit/45f3c19c8c597d9d2f5fac8bc8494d606df330dd))
+* Delete babel configuration ([846a6cf](https://github.com/codesweetly/react-image-grid-gallery/commit/846a6cf7ec34cd1e554fd0d2e42a26ed32513e50))
+* Provide url and email for raising issues and reporting bugs ([7d0319c](https://github.com/codesweetly/react-image-grid-gallery/commit/7d0319c1ae47dda5b5e1e43a55bf42a33d3a5f8b))
+* Specify additional ignore rules ([4659bde](https://github.com/codesweetly/react-image-grid-gallery/commit/4659bde774de21546d65e7c5dcef3c7ed8f8fe71))
+* Specify files to publish to npm ([b05e3d1](https://github.com/codesweetly/react-image-grid-gallery/commit/b05e3d1a98083a8fa8ed71e4d29a89a33185f27a))
+* Specify package's declaration file ([b8d634d](https://github.com/codesweetly/react-image-grid-gallery/commit/b8d634d753cfd1a570fb3d7e1368bfd8a152e38b))
+
+
+### 📝 Documentation
+
+* Add headers to installation section ([d0c444b](https://github.com/codesweetly/react-image-grid-gallery/commit/d0c444bcd76c7e2fa10148175e51ccc6fd9ef27e))
+* Update readme ([1946f5c](https://github.com/codesweetly/react-image-grid-gallery/commit/1946f5c67d2f5004abe4b872d870c5aa16df5052))
+
+
+### 🐛 Bug Fix
+
+* Resolve crypto.randomUUID is not a function jest error ([d3196a2](https://github.com/codesweetly/react-image-grid-gallery/commit/d3196a22341580d4391c80363b8decdbd95f8495))
+
+
+### 🔄️ Code Refactoring
+
+* Add test section to changelog ([cc924ff](https://github.com/codesweetly/react-image-grid-gallery/commit/cc924ff00a8e874ec9ff6cb2dc107e38a87f3ee0))
+* Change imagegallery's export mode from default to named exportation ([d38624c](https://github.com/codesweetly/react-image-grid-gallery/commit/d38624c59842a39b83579c8d7723e629af776e8b))
+* Convert commitlint configuration file to typescript ([b4bbe51](https://github.com/codesweetly/react-image-grid-gallery/commit/b4bbe5119a282f21c7af05a67c5ccabc0f0e6453))
+* Move css rulesets into imagegallerystyles file ([4529b1e](https://github.com/codesweetly/react-image-grid-gallery/commit/4529b1eba963c3827db876422e9756a75162e3c7))
+* Move interface into types file ([24c2f9e](https://github.com/codesweetly/react-image-grid-gallery/commit/24c2f9ecc15f57c6e75d05af3928cb045ef9d188))
+* Rename imagesArray prop to imagesInfoArray ([753fc2a](https://github.com/codesweetly/react-image-grid-gallery/commit/753fc2a7767b661003e4370e5adb6107b37d559d))
+* Rename imgArray prop to imagesArray ([2b7f611](https://github.com/codesweetly/react-image-grid-gallery/commit/2b7f611ba0d97b1836576093a5945ff7d99bd66f))
+* Rename imgElementArray to imageElementsArray ([a975321](https://github.com/codesweetly/react-image-grid-gallery/commit/a9753214965474878941dfe1d996b926b02e5b6f))
+* Replace uniqid with crypto.randomuuid ([06bd0ee](https://github.com/codesweetly/react-image-grid-gallery/commit/06bd0eefbb27839b7536d087174a7a34314fdf12))
+* Use release-it's default publish path ([2a5be4a](https://github.com/codesweetly/react-image-grid-gallery/commit/2a5be4a2a304d643873f1026f3be66f0fde1ba2a))
+
+
+### 💅 Styling and Formatting
+
+* Delete stylesheet ([f61ef5d](https://github.com/codesweetly/react-image-grid-gallery/commit/f61ef5dc238d5d799e2ef51d267748aa8e10624a))
+* Move the gallery container's rulesets into the imagegallerystyles class ([db209e5](https://github.com/codesweetly/react-image-grid-gallery/commit/db209e5cb7f15e4c306c9d8ad359127ccd6f4043))
+* Show figcaption on hover ([16b3708](https://github.com/codesweetly/react-image-grid-gallery/commit/16b370820a7e392f8471b4392538cf261e672708))
+* Use inline css styling technique ([d2951ca](https://github.com/codesweetly/react-image-grid-gallery/commit/d2951cac95039bbf5d224d610a021dc1d553b7ee))
+
+
+### 🧪 Code Testing
+
+* Configure jest as the package's testing tool ([89fcdc3](https://github.com/codesweetly/react-image-grid-gallery/commit/89fcdc3cc08cc7442bb8f4becc8291812a3d0d8b))
+* Confirm that the image gallery renders correctly ([671c90d](https://github.com/codesweetly/react-image-grid-gallery/commit/671c90d945ba9240d8064a54059283a961b5ad28))
+* Convert jest configuration file to typescript ([3845d9c](https://github.com/codesweetly/react-image-grid-gallery/commit/3845d9c88908ac5835d43dd81242059c5ecc15d1))
+* Rename imgArray prop to imagesArray ([3d5839d](https://github.com/codesweetly/react-image-grid-gallery/commit/3d5839d92a6a25b6ab44abe251243076af388382))
+
 ## [0.9.4](https://github.com/codesweetly/react-image-grid-gallery/compare/0.9.3...0.9.4) (2023-05-31)
 
 
