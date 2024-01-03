@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.0.0...v2.0.1) (2024-01-03)
+
+
+### 🐛 Bug Fix
+
+* Change image container's margin-bottom specificity ([ecf9f16](https://github.com/codesweetly/react-image-grid-gallery/commit/ecf9f1628bc5c09b065157f8f6eecbfa5fd53cb7))
+
 ## [2.0.0](https://github.com/codesweetly/react-image-grid-gallery/compare/v1.0.3...v2.0.0) (2024-01-03)
 
 
