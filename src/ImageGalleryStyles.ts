@@ -35,3 +35,7 @@ export class ImageGalleryStyles {
     };
   }
 }
+
+// Ref:
+// - https://www.typescriptlang.org/docs/handbook/2/classes.html#this-types
+// - https://www.typescriptlang.org/docs/handbook/2/functions.html#declaring-this-in-a-function
