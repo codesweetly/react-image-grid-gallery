@@ -87,10 +87,18 @@ export function ImageGallery({
         </span>
       </section>
       <section style={modalSlideShowSectionStyle}>
-        <span style={modalSlideArrowsStyle} title="Previous">
+        <span
+          style={modalSlideArrowsStyle}
+          title="Previous"
+          onClick={() => changeSlide(-1)}
+        >
           &#129120;
         </span>
-        <span style={modalSlideArrowsStyle} title="Next">
+        <span
+          style={modalSlideArrowsStyle}
+          title="Next"
+          onClick={() => changeSlide(1)}
+        >
           &#129122;
         </span>
       </section>
@@ -110,6 +118,19 @@ export function ImageGallery({
     //   toggler: !lightboxController.toggler,
     //   slide: number,
     // });
+  }
+
+  function changeSlide(directionNumber: number) {
+    const totalImages = imagesInfoArray.length;
+    let newSlideNumber = slideNumber + directionNumber;
+
+    newSlideNumber < 1 && (newSlideNumber = imagesInfoArray.length);
+    newSlideNumber > imagesInfoArray.length && (newSlideNumber = 1);
+
+    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
+      setSlideNumber(newSlideNumber);
+      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
+    }
   }
 
   function closeLightbox() {
