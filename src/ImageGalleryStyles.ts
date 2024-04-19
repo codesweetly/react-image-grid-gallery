@@ -5,6 +5,7 @@ export class ImageGalleryStyles {
   imageCaptionStyle: React.CSSProperties;
   modalMainContainerStyle: React.CSSProperties;
   modalNavSectionStyle: React.CSSProperties;
+  modalPaginationStyle: React.CSSProperties;
   modalCloseBtnStyle: React.CSSProperties;
   modalSlideShowSectionStyle: React.CSSProperties;
   modalSlideArrowsStyle: React.CSSProperties;
@@ -46,19 +47,25 @@ export class ImageGalleryStyles {
     this.modalMainContainerStyle = {
       position: "fixed",
       display: `${showModal ? "block" : "none"}`,
-      zIndex: 2000,
+      zIndex: 7000000000,
       top: 0,
       left: 0,
       width: "100vw",
       height: "100vh",
-      backgroundColor: "rgba(0,0,0,0.7)",
+      backgroundColor: "rgba(0,0,0,0.77)",
+      WebkitBackdropFilter: "blur(5px)",
+      backdropFilter: "blur(5px)",
     };
     this.modalNavSectionStyle = {
       position: "absolute",
       display: "flex",
       justifyContent: "space-between",
-      paddingInline: "30px",
+      alignItems: "center",
+      padding: "10px 37px",
       width: "inherit",
+    };
+    this.modalPaginationStyle = {
+      fontSize: "0.93rem",
     };
     this.modalCloseBtnStyle = {
       fontSize: "2.1rem",

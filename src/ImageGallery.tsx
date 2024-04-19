@@ -27,6 +27,7 @@ export function ImageGallery({
     showModal
   ).modalMainContainerStyle;
   const modalNavSectionStyle = new ImageGalleryStyles().modalNavSectionStyle;
+  const modalPaginationStyle = new ImageGalleryStyles().modalPaginationStyle;
   const modalCloseBtnStyle = new ImageGalleryStyles().modalCloseBtnStyle;
   const modalSlideShowSectionStyle = new ImageGalleryStyles(
     undefined,
@@ -74,7 +75,9 @@ export function ImageGallery({
   const lightBoxElement = (
     <article style={modalMainContainerStyle}>
       <section style={modalNavSectionStyle}>
-        <span>{`${slideNumber} / ${imagesInfoArray.length}`}</span>
+        <span
+          style={modalPaginationStyle}
+        >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
         <span
           style={modalCloseBtnStyle}
           title="Close"
