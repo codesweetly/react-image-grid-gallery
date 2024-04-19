@@ -7,6 +7,7 @@ export class ImageGalleryStyles {
   modalNavSectionStyle: React.CSSProperties;
   modalCloseBtnStyle: React.CSSProperties;
   modalSlideShowSectionStyle: React.CSSProperties;
+  modalSlideArrowsStyle: React.CSSProperties;
 
   constructor(
     gapSize?: number,
@@ -65,12 +66,19 @@ export class ImageGalleryStyles {
     };
     this.modalSlideShowSectionStyle = {
       display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      paddingInline: "30px",
       width: "inherit",
       height: "inherit",
       backgroundImage: `url(${imageSrc})`,
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
       backgroundSize: "contain",
+    };
+    this.modalSlideArrowsStyle = {
+      fontSize: "1.3rem",
+      cursor: "pointer",
     };
   }
 }

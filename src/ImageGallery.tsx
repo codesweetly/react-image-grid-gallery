@@ -34,6 +34,7 @@ export function ImageGallery({
     undefined,
     imageSrc
   ).modalSlideShowSectionStyle;
+  const modalSlideArrowsStyle = new ImageGalleryStyles().modalSlideArrowsStyle;
 
   function handleImageContainerMouseEnter(
     e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -83,8 +84,12 @@ export function ImageGallery({
         </span>
       </section>
       <section style={modalSlideShowSectionStyle}>
-        <span title="Previous">&#10094;</span>
-        <span title="Next">&#10095;</span>
+        <span style={modalSlideArrowsStyle} title="Previous">
+          &#129120;
+        </span>
+        <span style={modalSlideArrowsStyle} title="Next">
+          &#129122;
+        </span>
       </section>
       {/*
       <section>
