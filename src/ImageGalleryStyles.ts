@@ -43,8 +43,8 @@ export class ImageGalleryStyles {
       color: "#fff",
     };
     this.modalMainContainerStyle = {
-      display: `${showModal ? "block" : "none"}`,
       position: "fixed",
+      display: `${showModal ? "block" : "none"}`,
       zIndex: 2000,
       top: 0,
       left: 0,
@@ -53,9 +53,11 @@ export class ImageGalleryStyles {
       backgroundColor: "rgba(0,0,0,0.7)",
     };
     this.modalNavSectionStyle = {
+      position: "absolute",
       display: "flex",
       justifyContent: "space-between",
       paddingInline: "30px",
+      width: "inherit",
     };
     this.modalCloseBtnStyle = {
       fontSize: "2.1rem",
