@@ -4,10 +4,16 @@ export class ImageGalleryStyles {
   imageStyle: React.CSSProperties;
   imageCaptionStyle: React.CSSProperties;
   modalMainContainerStyle: React.CSSProperties;
-  modalNavContainerStyle: React.CSSProperties;
+  modalNavSectionStyle: React.CSSProperties;
   modalCloseBtnStyle: React.CSSProperties;
+  modalSlideShowSectionStyle: React.CSSProperties;
 
-  constructor(gapSize?: number, columnWidth?: number, showModal?: boolean) {
+  constructor(
+    gapSize?: number,
+    columnWidth?: number,
+    showModal?: boolean,
+    imageSrc?: string
+  ) {
     this.galleryContainerStyle = {
       columnWidth: `${columnWidth}px`,
       columnGap: `${gapSize}px`,
@@ -46,7 +52,7 @@ export class ImageGalleryStyles {
       height: "100vh",
       backgroundColor: "rgba(0,0,0,0.7)",
     };
-    this.modalNavContainerStyle = {
+    this.modalNavSectionStyle = {
       display: "flex",
       justifyContent: "space-between",
       paddingInline: "30px",
@@ -54,6 +60,15 @@ export class ImageGalleryStyles {
     this.modalCloseBtnStyle = {
       fontSize: "2.1rem",
       cursor: "pointer",
+    };
+    this.modalSlideShowSectionStyle = {
+      display: "flex",
+      width: "inherit",
+      height: "inherit",
+      backgroundImage: `url(${imageSrc})`,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      backgroundSize: "contain",
     };
   }
 }

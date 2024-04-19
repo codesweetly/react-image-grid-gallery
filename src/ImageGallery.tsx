@@ -9,6 +9,7 @@ export function ImageGallery({
   gapSize = 24,
 }: ImageGalleryPropsType) {
   const [showModal, setShowModal] = useState(false);
+  const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
   // const [lightboxController, setLightboxController] = useState({
   //   toggler: false,
@@ -25,9 +26,14 @@ export function ImageGallery({
     undefined,
     showModal
   ).modalMainContainerStyle;
-  const modalNavContainerStyle = new ImageGalleryStyles()
-    .modalNavContainerStyle;
+  const modalNavSectionStyle = new ImageGalleryStyles().modalNavSectionStyle;
   const modalCloseBtnStyle = new ImageGalleryStyles().modalCloseBtnStyle;
+  const modalSlideShowSectionStyle = new ImageGalleryStyles(
+    undefined,
+    undefined,
+    undefined,
+    imageSrc
+  ).modalSlideShowSectionStyle;
 
   function handleImageContainerMouseEnter(
     e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -53,7 +59,7 @@ export function ImageGallery({
       <img
         alt={item.alt}
         src={item.src}
-        onClick={() => openLightboxOnSlide(index + 1)}
+        onClick={() => openLightboxOnSlide(item.src, index + 1)}
         style={imageStyle}
       />
       {item.caption ? (
@@ -66,7 +72,7 @@ export function ImageGallery({
 
   const lightBoxElement = (
     <article style={modalMainContainerStyle}>
-      <section style={modalNavContainerStyle}>
+      <section style={modalNavSectionStyle}>
         <span>{`${slideNumber} / ${imagesInfoArray.length}`}</span>
         <span
           style={modalCloseBtnStyle}
@@ -76,12 +82,11 @@ export function ImageGallery({
           &times;
         </span>
       </section>
-      {/*
-      <section>
-        <span>pre</span>
-        <img src="" alt="" />
-        <span>next</span>
+      <section style={modalSlideShowSectionStyle}>
+        <span title="Previous">&#10094;</span>
+        <span title="Next">&#10095;</span>
       </section>
+      {/*
       <section>
         <p>Caption</p>
         <img src="" alt="" />
@@ -89,8 +94,9 @@ export function ImageGallery({
     </article>
   );
 
-  function openLightboxOnSlide(number: number) {
+  function openLightboxOnSlide(imgSrc: string, number: number) {
     setShowModal(true);
+    setImageSrc(imgSrc);
     setSlideNumber(number);
     // setLightboxController({
     //   toggler: !lightboxController.toggler,
