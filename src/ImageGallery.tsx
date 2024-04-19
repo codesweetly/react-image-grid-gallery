@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
 import { ImageGalleryStyles } from "./ImageGalleryStyles";
-import FsLightbox from "fslightbox-react";
+// import FsLightbox from "fslightbox-react";
 
 export function ImageGallery({
   imagesInfoArray,
   columnWidth = 230,
   gapSize = 24,
 }: ImageGalleryPropsType) {
-  const [lightboxController, setLightboxController] = useState({
-    toggler: false,
-    slide: 1,
-  });
+  const [showModal, setShowModal] = useState(false);
+  // const [lightboxController, setLightboxController] = useState({
+  //   toggler: false,
+  //   slide: 1,
+  // });
   const galleryContainerStyle = new ImageGalleryStyles(gapSize, columnWidth)
     .galleryContainerStyle;
   const imageContainerStyle = new ImageGalleryStyles(gapSize)
@@ -54,21 +55,39 @@ export function ImageGallery({
     </figure>
   ));
 
+  const lightBoxElement = (
+    <article
+      style={{
+        display: `${showModal ? "block" : "none"}`,
+        position: "fixed",
+        zIndex: 2000,
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "rgba(0,0,0,0.7)",
+      }}
+    ></article>
+  );
+
   function openLightboxOnSlide(number: number) {
-    setLightboxController({
-      toggler: !lightboxController.toggler,
-      slide: number,
-    });
+    setShowModal(true);
+    console.log(number);
+    // setLightboxController({
+    //   toggler: !lightboxController.toggler,
+    //   slide: number,
+    // });
   }
 
   return (
     <div style={galleryContainerStyle}>
       {imageElementsArray}
-      <FsLightbox
+      {lightBoxElement}
+      {/* <FsLightbox
         toggler={lightboxController.toggler}
         slide={lightboxController.slide}
         sources={imagesInfoArray.map((item) => item.src)}
-      />
+      /> */}
     </div>
   );
 }
