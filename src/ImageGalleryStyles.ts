@@ -4,6 +4,8 @@ export class ImageGalleryStyles {
   imageStyle: React.CSSProperties;
   imageCaptionStyle: React.CSSProperties;
   modalMainContainerStyle: React.CSSProperties;
+  modalNavContainerStyle: React.CSSProperties;
+  modalCloseBtnStyle: React.CSSProperties;
 
   constructor(gapSize?: number, columnWidth?: number, showModal?: boolean) {
     this.galleryContainerStyle = {
@@ -43,6 +45,15 @@ export class ImageGalleryStyles {
       width: "100vw",
       height: "100vh",
       backgroundColor: "rgba(0,0,0,0.7)",
+    };
+    this.modalNavContainerStyle = {
+      display: "flex",
+      justifyContent: "space-between",
+      paddingInline: "30px",
+    };
+    this.modalCloseBtnStyle = {
+      fontSize: "2.1rem",
+      cursor: "pointer",
     };
   }
 }

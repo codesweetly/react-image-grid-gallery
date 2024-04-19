@@ -25,6 +25,9 @@ export function ImageGallery({
     undefined,
     showModal
   ).modalMainContainerStyle;
+  const modalNavContainerStyle = new ImageGalleryStyles()
+    .modalNavContainerStyle;
+  const modalCloseBtnStyle = new ImageGalleryStyles().modalCloseBtnStyle;
 
   function handleImageContainerMouseEnter(
     e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -63,9 +66,15 @@ export function ImageGallery({
 
   const lightBoxElement = (
     <article style={modalMainContainerStyle}>
-      <section>
+      <section style={modalNavContainerStyle}>
         <span>{`${slideNumber} / ${imagesInfoArray.length}`}</span>
-        <span>close</span>
+        <span
+          style={modalCloseBtnStyle}
+          title="Close"
+          onClick={() => closeLightbox()}
+        >
+          &times;
+        </span>
       </section>
       {/*
       <section>
@@ -87,6 +96,10 @@ export function ImageGallery({
     //   toggler: !lightboxController.toggler,
     //   slide: number,
     // });
+  }
+
+  function closeLightbox() {
+    setShowModal(false);
   }
 
   return (
