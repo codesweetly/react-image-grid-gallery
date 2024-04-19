@@ -52,7 +52,7 @@ export class ImageGalleryStyles {
       left: 0,
       width: "100vw",
       height: "100vh",
-      backgroundColor: "rgba(0,0,0,0.77)",
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
       WebkitBackdropFilter: "blur(5px)",
       backdropFilter: "blur(5px)",
     };
@@ -75,7 +75,6 @@ export class ImageGalleryStyles {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      paddingInline: "30px",
       width: "inherit",
       height: "inherit",
       backgroundImage: `url(${imageSrc})`,
@@ -84,6 +83,9 @@ export class ImageGalleryStyles {
       backgroundSize: "contain",
     };
     this.modalSlideArrowsStyle = {
+      marginInline: "7px",
+      padding: "10px 15px",
+      backgroundColor: "#000",
       fontSize: "1.3rem",
       cursor: "pointer",
       userSelect: "none",
