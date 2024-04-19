@@ -3,8 +3,9 @@ export class ImageGalleryStyles {
   imageContainerStyle: React.CSSProperties;
   imageStyle: React.CSSProperties;
   imageCaptionStyle: React.CSSProperties;
+  modalMainContainerStyle: React.CSSProperties;
 
-  constructor(gapSize?: number, columnWidth?: number) {
+  constructor(gapSize?: number, columnWidth?: number, showModal?: boolean) {
     this.galleryContainerStyle = {
       columnWidth: `${columnWidth}px`,
       columnGap: `${gapSize}px`,
@@ -32,6 +33,16 @@ export class ImageGalleryStyles {
       fontSize: "0.85rem",
       textAlign: "center",
       color: "#fff",
+    };
+    this.modalMainContainerStyle = {
+      display: `${showModal ? "block" : "none"}`,
+      position: "fixed",
+      zIndex: 2000,
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: "rgba(0,0,0,0.7)",
     };
   }
 }

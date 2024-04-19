@@ -20,6 +20,11 @@ export function ImageGallery({
     .imageContainerStyle;
   const imageStyle = new ImageGalleryStyles().imageStyle;
   const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
+  const modalMainContainerStyle = new ImageGalleryStyles(
+    undefined,
+    undefined,
+    showModal
+  ).modalMainContainerStyle;
 
   function handleImageContainerMouseEnter(
     e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -57,18 +62,7 @@ export function ImageGallery({
   ));
 
   const lightBoxElement = (
-    <article
-      style={{
-        display: `${showModal ? "block" : "none"}`,
-        position: "fixed",
-        zIndex: 2000,
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "rgba(0,0,0,0.7)",
-      }}
-    >
+    <article style={modalMainContainerStyle}>
       <section>
         <span>{`${slideNumber} / ${imagesInfoArray.length}`}</span>
         <span>close</span>
