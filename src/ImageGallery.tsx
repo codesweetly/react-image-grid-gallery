@@ -9,6 +9,7 @@ export function ImageGallery({
   gapSize = 24,
 }: ImageGalleryPropsType) {
   const [showModal, setShowModal] = useState(false);
+  const [slideNumber, setSlideNumber] = useState(1);
   // const [lightboxController, setLightboxController] = useState({
   //   toggler: false,
   //   slide: 1,
@@ -67,12 +68,27 @@ export function ImageGallery({
         height: "100vh",
         backgroundColor: "rgba(0,0,0,0.7)",
       }}
-    ></article>
+    >
+      <section>
+        <span>{`${slideNumber} / ${imagesInfoArray.length}`}</span>
+        <span>close</span>
+      </section>
+      {/*
+      <section>
+        <span>pre</span>
+        <img src="" alt="" />
+        <span>next</span>
+      </section>
+      <section>
+        <p>Caption</p>
+        <img src="" alt="" />
+      </section> */}
+    </article>
   );
 
   function openLightboxOnSlide(number: number) {
     setShowModal(true);
-    console.log(number);
+    setSlideNumber(number);
     // setLightboxController({
     //   toggler: !lightboxController.toggler,
     //   slide: number,
