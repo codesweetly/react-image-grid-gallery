@@ -86,6 +86,8 @@ export class ImageGalleryStyles {
     this.modalSlideArrowsStyle = {
       fontSize: "1.3rem",
       cursor: "pointer",
+      userSelect: "none",
+      WebkitUserSelect: "none",
     };
   }
 }
