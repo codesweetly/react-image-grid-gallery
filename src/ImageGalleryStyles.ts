@@ -52,7 +52,7 @@ export class ImageGalleryStyles {
       left: 0,
       width: "100vw",
       height: "100vh",
-      backgroundColor: "rgba(0, 0, 0, 0.75)",
+      backgroundColor: "rgba(0, 0, 0, 0.77)",
       WebkitBackdropFilter: "blur(5px)",
       backdropFilter: "blur(5px)",
     };
@@ -85,7 +85,7 @@ export class ImageGalleryStyles {
     this.modalSlideArrowsStyle = {
       marginInline: "7px",
       padding: "10px 15px",
-      backgroundColor: "#000",
+      backgroundColor: "rgba(0, 0, 0, 0.51)",
       fontSize: "1.3rem",
       cursor: "pointer",
       userSelect: "none",
