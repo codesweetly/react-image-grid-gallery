@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
 import { ImageGalleryStyles } from "./ImageGalleryStyles";
 // import FsLightbox from "fslightbox-react";
@@ -120,6 +120,10 @@ export function ImageGallery({
     // });
   }
 
+  function closeLightbox() {
+    setShowModal(false);
+  }
+
   function changeSlide(directionNumber: number) {
     const totalImages = imagesInfoArray.length;
     let newSlideNumber = slideNumber + directionNumber;
@@ -133,9 +137,21 @@ export function ImageGallery({
     }
   }
 
-  function closeLightbox() {
-    setShowModal(false);
-  }
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+      document.body.style.width = "100vw";
+      document.body.style.height = "100vh";
+      document.body.style.touchAction = "none";
+      document.body.style.overscrollBehavior = "none";
+    } else {
+      document.body.style.overflow = "unset";
+      document.body.style.width = "unset";
+      document.body.style.height = "unset";
+      document.body.style.touchAction = "unset";
+      document.body.style.overscrollBehavior = "unset";
+    }
+  }, [showModal]);
 
   return (
     <div style={galleryContainerStyle}>
