@@ -90,7 +90,7 @@ export function ImageGallery({
               ...modalNavBtnStyle,
             }}
             title="Enter fullscreen"
-            onClick={() => enterFullscreen()}
+            onClick={() => enterFullscreen(true)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +108,7 @@ export function ImageGallery({
               ...modalNavBtnStyle,
             }}
             title="Exit fullscreen"
-            onClick={() => exitFullscreen()}
+            onClick={() => enterFullscreen(false)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -171,12 +171,8 @@ export function ImageGallery({
     // });
   }
 
-  function enterFullscreen() {
-    setFullscreen(true);
-  }
-
-  function exitFullscreen() {
-    setFullscreen(false);
+  function enterFullscreen(mode: boolean) {
+    setFullscreen(mode);
   }
 
   function closeLightbox() {
@@ -205,7 +201,6 @@ export function ImageGallery({
   useEffect(() => {
     fullscreen &&
       document.getElementById("codesweetly-lightbox")?.requestFullscreen();
-
     document.fullscreenElement && document.exitFullscreen();
   }, [fullscreen]);
 
