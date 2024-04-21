@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
 import { ImageGalleryStyles } from "./ImageGalleryStyles";
-// import FsLightbox from "fslightbox-react";
 
 export function ImageGallery({
   imagesInfoArray,
@@ -12,11 +11,6 @@ export function ImageGallery({
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
   const [fullscreen, setFullscreen] = useState(false);
-
-  // const [lightboxController, setLightboxController] = useState({
-  //   toggler: false,
-  //   slide: 1,
-  // });
 
   const galleryContainerStyle = new ImageGalleryStyles(gapSize, columnWidth)
     .galleryContainerStyle;
@@ -159,11 +153,6 @@ export function ImageGallery({
           )}
         </span>
       </section>
-      {/*
-      <section>
-        <p>Caption</p>
-        <img src="" alt="" />
-      </section> */}
     </article>
   );
 
@@ -171,10 +160,6 @@ export function ImageGallery({
     setShowModal(true);
     setImageSrc(imgSrc);
     setSlideNumber(number);
-    // setLightboxController({
-    //   toggler: !lightboxController.toggler,
-    //   slide: number,
-    // });
   }
 
   function enterFullscreen(mode: boolean) {
@@ -214,11 +199,6 @@ export function ImageGallery({
     <div style={galleryContainerStyle}>
       {imageElementsArray}
       {lightBoxElement}
-      {/* <FsLightbox
-        toggler={lightboxController.toggler}
-        slide={lightboxController.slide}
-        sources={imagesInfoArray.map((item) => item.src)}
-      /> */}
     </div>
   );
 }

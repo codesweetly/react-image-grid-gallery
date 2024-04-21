@@ -34,16 +34,11 @@
     "url": "https://github.com/codesweetly/react-image-grid-gallery/issues",
     "email": "contact@codesweetly.com"
   },
-  "dependencies": {
-    "fslightbox-react": "^1.7.6",
-    "prop-types": "^15.8.1"
-  },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@release-it/conventional-changelog": "^8.0.1",
     "@testing-library/react": "^14.1.2",
-    "@types/fslightbox-react": "^1.7.7",
     "@types/react": "^18.2.46",
     "dotenv-cli": "^7.3.0",
     "husky": "^8.0.3",
