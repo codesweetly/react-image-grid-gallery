@@ -92,7 +92,6 @@ export class ImageGalleryStyles {
       marginInline: "7px",
       padding: "10px 15px",
       backgroundColor: "rgba(35, 35, 35, 0.65)",
-      fontSize: "1.3rem",
       cursor: "pointer",
       userSelect: "none",
       WebkitUserSelect: "none",
