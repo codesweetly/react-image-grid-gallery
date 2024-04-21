@@ -5,8 +5,9 @@ export class ImageGalleryStyles {
   imageCaptionStyle: React.CSSProperties;
   modalMainContainerStyle: React.CSSProperties;
   modalNavSectionStyle: React.CSSProperties;
-  modalPaginationStyle: React.CSSProperties;
-  modalCloseBtnStyle: React.CSSProperties;
+  modalNavSlideNumberStyle: React.CSSProperties;
+  modalNavToolbarStyle: React.CSSProperties;
+  modalNavBtnStyle: React.CSSProperties;
   modalSlideShowSectionStyle: React.CSSProperties;
   modalSlideArrowsStyle: React.CSSProperties;
 
@@ -52,7 +53,7 @@ export class ImageGalleryStyles {
       left: 0,
       width: "100vw",
       height: "100vh",
-      backgroundColor: "rgba(0, 0, 0, 0.77)",
+      backgroundColor: "rgba(0, 0, 0, 0.73)",
       WebkitBackdropFilter: "blur(5px)",
       backdropFilter: "blur(5px)",
     };
@@ -61,14 +62,19 @@ export class ImageGalleryStyles {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: "10px 37px",
       width: "inherit",
     };
-    this.modalPaginationStyle = {
+    this.modalNavSlideNumberStyle = {
+      padding: "13px",
       fontSize: "0.93rem",
     };
-    this.modalCloseBtnStyle = {
-      fontSize: "2.1rem",
+    this.modalNavToolbarStyle = {
+      display: "flex",
+      alignItems: "center",
+      backgroundColor: "rgba(35, 35, 35, 0.65)",
+    };
+    this.modalNavBtnStyle = {
+      padding: "13px",
       cursor: "pointer",
     };
     this.modalSlideShowSectionStyle = {
@@ -85,7 +91,7 @@ export class ImageGalleryStyles {
     this.modalSlideArrowsStyle = {
       marginInline: "7px",
       padding: "10px 15px",
-      backgroundColor: "rgba(0, 0, 0, 0.51)",
+      backgroundColor: "rgba(35, 35, 35, 0.65)",
       fontSize: "1.3rem",
       cursor: "pointer",
       userSelect: "none",

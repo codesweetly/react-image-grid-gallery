@@ -11,10 +11,13 @@ export function ImageGallery({
   const [showModal, setShowModal] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
+  const [fullscreen, setFullscreen] = useState(false);
+
   // const [lightboxController, setLightboxController] = useState({
   //   toggler: false,
   //   slide: 1,
   // });
+
   const galleryContainerStyle = new ImageGalleryStyles(gapSize, columnWidth)
     .galleryContainerStyle;
   const imageContainerStyle = new ImageGalleryStyles(gapSize)
@@ -27,8 +30,10 @@ export function ImageGallery({
     showModal
   ).modalMainContainerStyle;
   const modalNavSectionStyle = new ImageGalleryStyles().modalNavSectionStyle;
-  const modalPaginationStyle = new ImageGalleryStyles().modalPaginationStyle;
-  const modalCloseBtnStyle = new ImageGalleryStyles().modalCloseBtnStyle;
+  const modalNavSlideNumberStyle = new ImageGalleryStyles()
+    .modalNavSlideNumberStyle;
+  const modalNavToolbarStyle = new ImageGalleryStyles().modalNavToolbarStyle;
+  const modalNavBtnStyle = new ImageGalleryStyles().modalNavBtnStyle;
   const modalSlideShowSectionStyle = new ImageGalleryStyles(
     undefined,
     undefined,
@@ -73,17 +78,63 @@ export function ImageGallery({
   ));
 
   const lightBoxElement = (
-    <article style={modalMainContainerStyle}>
+    <article id="codesweetly-lightbox" style={modalMainContainerStyle}>
       <section style={modalNavSectionStyle}>
         <span
-          style={modalPaginationStyle}
+          style={modalNavSlideNumberStyle}
         >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
-        <span
-          style={modalCloseBtnStyle}
-          title="Close"
-          onClick={() => closeLightbox()}
-        >
-          &times;
+        <span style={modalNavToolbarStyle}>
+          <span
+            style={{
+              display: fullscreen ? "none" : "block",
+              ...modalNavBtnStyle,
+            }}
+            title="Enter fullscreen"
+            onClick={() => enterFullscreen()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
+            </svg>
+          </span>
+          <span
+            style={{
+              display: fullscreen ? "block" : "none",
+              ...modalNavBtnStyle,
+            }}
+            title="Exit fullscreen"
+            onClick={() => exitFullscreen()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />
+            </svg>
+          </span>
+          <span
+            style={modalNavBtnStyle}
+            title="Close"
+            onClick={() => closeLightbox()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+            </svg>
+          </span>
         </span>
       </section>
       <section style={modalSlideShowSectionStyle}>
@@ -120,6 +171,14 @@ export function ImageGallery({
     // });
   }
 
+  function enterFullscreen() {
+    setFullscreen(true);
+  }
+
+  function exitFullscreen() {
+    setFullscreen(false);
+  }
+
   function closeLightbox() {
     setShowModal(false);
   }
@@ -142,6 +201,13 @@ export function ImageGallery({
       ? (document.documentElement.style.overflow = "hidden")
       : (document.documentElement.style.overflow = "");
   }, [showModal]);
+
+  useEffect(() => {
+    fullscreen &&
+      document.getElementById("codesweetly-lightbox")?.requestFullscreen();
+
+    document.fullscreenElement && document.exitFullscreen();
+  }, [fullscreen]);
 
   return (
     <div style={galleryContainerStyle}>
