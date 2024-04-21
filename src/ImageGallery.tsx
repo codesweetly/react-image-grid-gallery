@@ -8,9 +8,9 @@ export function ImageGallery({
   gapSize = 24,
 }: ImageGalleryPropsType) {
   const [showModal, setShowModal] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
-  const [fullscreen, setFullscreen] = useState(false);
 
   const galleryContainerStyle = new ImageGalleryStyles(gapSize, columnWidth)
     .galleryContainerStyle;
@@ -18,11 +18,11 @@ export function ImageGallery({
     .imageContainerStyle;
   const imageStyle = new ImageGalleryStyles().imageStyle;
   const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
-  const modalMainContainerStyle = new ImageGalleryStyles(
+  const modalContainerStyle = new ImageGalleryStyles(
     undefined,
     undefined,
     showModal
-  ).modalMainContainerStyle;
+  ).modalContainerStyle;
   const modalNavSectionStyle = new ImageGalleryStyles().modalNavSectionStyle;
   const modalNavSlideNumberStyle = new ImageGalleryStyles()
     .modalNavSlideNumberStyle;
@@ -86,7 +86,7 @@ export function ImageGallery({
   }
 
   const lightBoxElement = (
-    <article id="codesweetly-lightbox" style={modalMainContainerStyle}>
+    <article id="codesweetly-lightbox" style={modalContainerStyle}>
       <section style={modalNavSectionStyle}>
         <span
           style={modalNavSlideNumberStyle}

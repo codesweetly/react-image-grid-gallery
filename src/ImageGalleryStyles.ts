@@ -3,7 +3,7 @@ export class ImageGalleryStyles {
   imageContainerStyle: React.CSSProperties;
   imageStyle: React.CSSProperties;
   imageCaptionStyle: React.CSSProperties;
-  modalMainContainerStyle: React.CSSProperties;
+  modalContainerStyle: React.CSSProperties;
   modalNavSectionStyle: React.CSSProperties;
   modalNavSlideNumberStyle: React.CSSProperties;
   modalNavToolbarStyle: React.CSSProperties;
@@ -45,7 +45,7 @@ export class ImageGalleryStyles {
       textAlign: "center",
       color: "#fff",
     };
-    this.modalMainContainerStyle = {
+    this.modalContainerStyle = {
       position: "fixed",
       display: `${showModal ? "block" : "none"}`,
       zIndex: 7000000000,
