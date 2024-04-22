@@ -205,8 +205,16 @@ export function ImageGallery({
 
   useEffect(() => {
     fullscreen &&
-      document.getElementById("codesweetly-lightbox")?.requestFullscreen();
-    document.fullscreenElement && document.exitFullscreen();
+      document
+        .getElementById("codesweetly-lightbox")
+        ?.requestFullscreen()
+        .catch((error) => {
+          alert(
+            `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`
+          );
+        });
+    document.fullscreenElement &&
+      document.exitFullscreen().catch((error) => console.error(error));
   }, [fullscreen]);
 
   return (
