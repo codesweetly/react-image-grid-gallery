@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
-import { ImageGalleryStyles } from "./ImageGalleryStyles";
+import { imageGalleryStyles } from "./imageGalleryStyles";
 
 export function ImageGallery({
   imagesInfoArray,
@@ -12,43 +12,30 @@ export function ImageGallery({
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
 
-  const galleryContainerStyle = new ImageGalleryStyles(gapSize, columnWidth)
-    .galleryContainerStyle;
-  const imageContainerStyle = new ImageGalleryStyles(gapSize)
-    .imageContainerStyle;
-  const imageStyle = new ImageGalleryStyles().imageStyle;
-  const imageCaptionStyle = new ImageGalleryStyles().imageCaptionStyle;
-  const modalContainerStyle = new ImageGalleryStyles(
+  const galleryContainerStyle = imageGalleryStyles(
+    gapSize,
+    columnWidth
+  ).galleryContainerStyle;
+  const imageContainerStyle = imageGalleryStyles(gapSize).imageContainerStyle;
+  const imageStyle = imageGalleryStyles().imageStyle;
+  const imageCaptionStyle = imageGalleryStyles().imageCaptionStyle;
+  const modalContainerStyle = imageGalleryStyles(
     undefined,
     undefined,
     showModal
   ).modalContainerStyle;
-  const modalNavSectionStyle = new ImageGalleryStyles().modalNavSectionStyle;
-  const modalNavSlideNumberStyle = new ImageGalleryStyles()
-    .modalNavSlideNumberStyle;
-  const modalNavToolbarStyle = new ImageGalleryStyles().modalNavToolbarStyle;
-  const modalNavBtnStyle = new ImageGalleryStyles().modalNavBtnStyle;
-  const modalSlideShowSectionStyle = new ImageGalleryStyles(
+  const modalNavSectionStyle = imageGalleryStyles().modalNavSectionStyle;
+  const modalNavSlideNumberStyle =
+    imageGalleryStyles().modalNavSlideNumberStyle;
+  const modalNavToolbarStyle = imageGalleryStyles().modalNavToolbarStyle;
+  const modalNavBtnStyle = imageGalleryStyles().modalNavBtnStyle;
+  const modalSlideShowSectionStyle = imageGalleryStyles(
     undefined,
     undefined,
     undefined,
     imageSrc
   ).modalSlideShowSectionStyle;
-  const modalSlideArrowsStyle = new ImageGalleryStyles().modalSlideArrowsStyle;
-
-  function handleImageContainerMouseEnter(
-    e: React.MouseEvent<HTMLElement, MouseEvent>
-  ) {
-    const figcaption = e.currentTarget.querySelector("figcaption");
-    if (figcaption) figcaption.style.opacity = "1";
-  }
-
-  function handleImageContainerMouseLeave(
-    e: React.MouseEvent<HTMLElement, MouseEvent>
-  ) {
-    const figcaption = e.currentTarget.querySelector("figcaption");
-    if (figcaption) figcaption.style.opacity = "0";
-  }
+  const modalSlideArrowsStyle = imageGalleryStyles().modalSlideArrowsStyle;
 
   const imageElementsArray = imagesInfoArray.map((item, index) => (
     <figure
@@ -70,20 +57,6 @@ export function ImageGallery({
       )}
     </figure>
   ));
-
-  function SvgElement(pathElement: ReactElement) {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-      >
-        {pathElement}
-      </svg>
-    );
-  }
 
   const lightBoxElement = (
     <article id="codesweetly-lightbox" style={modalContainerStyle}>
@@ -156,6 +129,20 @@ export function ImageGallery({
     </article>
   );
 
+  function handleImageContainerMouseEnter(
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    const figcaption = e.currentTarget.querySelector("figcaption");
+    if (figcaption) figcaption.style.opacity = "1";
+  }
+
+  function handleImageContainerMouseLeave(
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    const figcaption = e.currentTarget.querySelector("figcaption");
+    if (figcaption) figcaption.style.opacity = "0";
+  }
+
   function openLightboxOnSlide(imgSrc: string, number: number) {
     setShowModal(true);
     setImageSrc(imgSrc);
@@ -164,6 +151,20 @@ export function ImageGallery({
 
   function enterFullscreen(mode: boolean) {
     setFullscreen(mode);
+  }
+
+  function SvgElement(pathElement: ReactElement) {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        {pathElement}
+      </svg>
+    );
   }
 
   function closeLightbox() {
