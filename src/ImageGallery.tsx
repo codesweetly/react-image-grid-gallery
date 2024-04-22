@@ -217,6 +217,20 @@ export function ImageGallery({
       document.exitFullscreen().catch((error) => console.error(error));
   }, [fullscreen]);
 
+  useEffect(() => {
+    function handleFullscreenchange() {
+      if (!document.fullscreenElement && fullscreen) {
+        setFullscreen(false);
+      }
+    }
+    document
+      .getElementById("codesweetly-lightbox")
+      ?.addEventListener("fullscreenchange", () => handleFullscreenchange());
+    return document
+      .getElementById("codesweetly-lightbox")
+      ?.removeEventListener("fullscreenchange", () => handleFullscreenchange());
+  }, [fullscreen]);
+
   return (
     <div style={galleryContainerStyle}>
       {imageElementsArray}
