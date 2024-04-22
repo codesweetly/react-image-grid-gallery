@@ -46,7 +46,6 @@ export function imageGalleryStyles(
   };
   const modalNavSectionStyle: React.CSSProperties = {
     position: "absolute",
-    display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     width: "inherit",
