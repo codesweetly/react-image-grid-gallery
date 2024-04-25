@@ -32,6 +32,7 @@ export function imageGalleryStyles(
     color: "#fff",
   };
   const modalContainerStyle: React.CSSProperties = {
+    outline: "none",
     position: "fixed",
     display: `${showModal ? "block" : "none"}`,
     zIndex: 7000000000,

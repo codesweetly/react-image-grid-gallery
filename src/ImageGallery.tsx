@@ -184,7 +184,6 @@ export function ImageGallery({
   }
 
   function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
-    e.currentTarget.style.outline = "none";
     e.key === "ArrowLeft" && changeSlide(-1);
     e.key === "ArrowRight" && changeSlide(1);
     e.key === "Escape" && setShowModal(false);
@@ -218,9 +217,13 @@ export function ImageGallery({
   }
 
   useEffect(() => {
-    showModal
-      ? (document.documentElement.style.overflow = "hidden")
-      : (document.documentElement.style.overflow = "");
+    if (showModal) {
+      const modal = document.getElementById("codesweetly-lightbox");
+      document.documentElement.style.overflow = "hidden";
+      modal?.focus();
+    } else {
+      document.documentElement.style.overflow = "";
+    }
   }, [showModal]);
 
   useEffect(() => {
