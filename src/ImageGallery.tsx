@@ -4,6 +4,7 @@ import { imageGalleryStyles } from "./imageGalleryStyles";
 
 export function ImageGallery({
   imagesInfoArray,
+  columnCount = "auto",
   columnWidth = 230,
   gapSize = 24,
 }: ImageGalleryPropsType) {
@@ -14,13 +15,15 @@ export function ImageGallery({
   const [slideNumber, setSlideNumber] = useState(1);
 
   const galleryContainerStyle = imageGalleryStyles(
-    gapSize,
-    columnWidth
+    columnCount,
+    columnWidth,
+    gapSize
   ).galleryContainerStyle;
   const imageContainerStyle = imageGalleryStyles(gapSize).imageContainerStyle;
   const imageStyle = imageGalleryStyles().imageStyle;
   const imageCaptionStyle = imageGalleryStyles().imageCaptionStyle;
   const modalContainerStyle = imageGalleryStyles(
+    undefined,
     undefined,
     undefined,
     showModal

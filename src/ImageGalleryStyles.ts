@@ -1,9 +1,11 @@
 export function imageGalleryStyles(
-  gapSize?: number,
+  columnCount?: string | number,
   columnWidth?: number,
+  gapSize?: number,
   showModal?: boolean
 ) {
   const galleryContainerStyle: React.CSSProperties = {
+    columnCount,
     columnWidth: `${columnWidth}px`,
     columnGap: `${gapSize}px`,
   };
