@@ -25,11 +25,9 @@ export function ImageGallery({
     undefined,
     showModal
   ).modalContainerStyle;
-  const modalNavSectionStyle = imageGalleryStyles().modalNavSectionStyle;
-  const modalNavSlideNumberStyle =
-    imageGalleryStyles().modalNavSlideNumberStyle;
-  const modalNavToolbarStyle = imageGalleryStyles().modalNavToolbarStyle;
-  const modalNavBtnStyle = imageGalleryStyles().modalNavBtnStyle;
+  const modalSlideNumberStyle = imageGalleryStyles().modalSlideNumberStyle;
+  const modalToolbarStyle = imageGalleryStyles().modalToolbarStyle;
+  const modalToolbarBtnStyle = imageGalleryStyles().modalToolbarBtnStyle;
   const modalSlideShowSectionStyle =
     imageGalleryStyles().modalSlideShowSectionStyle;
   const modalSlideBtnStyle = imageGalleryStyles().modalSlideBtnStyle;
@@ -67,57 +65,58 @@ export function ImageGallery({
         (e.target as HTMLElement).tagName === "SECTION" && setShowModal(false)
       }
     >
-      <section
+      <span
         style={{
           display: showModalControls ? "flex" : "none",
-          ...modalNavSectionStyle,
+          ...modalSlideNumberStyle,
+        }}
+      >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
+      <span
+        style={{
+          display: showModalControls ? "flex" : "none",
+          ...modalToolbarStyle,
         }}
       >
-        <span
-          style={modalNavSlideNumberStyle}
-        >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
-        <span style={modalNavToolbarStyle}>
-          <button
-            type="button"
-            aria-label="Full screen"
-            style={{
-              display: fullscreen ? "none" : "block",
-              ...modalNavBtnStyle,
-            }}
-            title="Full screen"
-            onClick={() => setFullscreen(true)}
-          >
-            {SvgElement(
-              <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
-            )}
-          </button>
-          <button
-            type="button"
-            aria-label="Exit full screen"
-            style={{
-              display: fullscreen ? "block" : "none",
-              ...modalNavBtnStyle,
-            }}
-            title="Exit full screen"
-            onClick={() => setFullscreen(false)}
-          >
-            {SvgElement(
-              <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />
-            )}
-          </button>
-          <button
-            type="button"
-            aria-label="Close lightbox"
-            style={modalNavBtnStyle}
-            title="Close lightbox"
-            onClick={() => setShowModal(false)}
-          >
-            {SvgElement(
-              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-            )}
-          </button>
-        </span>
-      </section>
+        <button
+          type="button"
+          aria-label="Full screen"
+          style={{
+            display: fullscreen ? "none" : "block",
+            ...modalToolbarBtnStyle,
+          }}
+          title="Full screen"
+          onClick={() => setFullscreen(true)}
+        >
+          {SvgElement(
+            <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
+          )}
+        </button>
+        <button
+          type="button"
+          aria-label="Exit full screen"
+          style={{
+            display: fullscreen ? "block" : "none",
+            ...modalToolbarBtnStyle,
+          }}
+          title="Exit full screen"
+          onClick={() => setFullscreen(false)}
+        >
+          {SvgElement(
+            <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />
+          )}
+        </button>
+        <button
+          type="button"
+          aria-label="Close lightbox"
+          style={modalToolbarBtnStyle}
+          title="Close lightbox"
+          onClick={() => setShowModal(false)}
+        >
+          {SvgElement(
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+          )}
+        </button>
+      </span>
       <section style={modalSlideShowSectionStyle}>
         <button
           type="button"

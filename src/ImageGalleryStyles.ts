@@ -44,23 +44,24 @@ export function imageGalleryStyles(
     WebkitBackdropFilter: "blur(5px)",
     backdropFilter: "blur(5px)",
   };
-  const modalNavSectionStyle: React.CSSProperties = {
+  const modalSlideNumberStyle: React.CSSProperties = {
     zIndex: 1,
     position: "absolute",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "inherit",
-  };
-  const modalNavSlideNumberStyle: React.CSSProperties = {
+    left: 0,
     padding: "13px",
     fontSize: "0.93rem",
+    userSelect: "none",
+    WebkitUserSelect: "none",
   };
-  const modalNavToolbarStyle: React.CSSProperties = {
-    display: "flex",
+  const modalToolbarStyle: React.CSSProperties = {
+    zIndex: 1,
+    position: "absolute",
+    right: 0,
     alignItems: "center",
     backgroundColor: "rgba(35, 35, 35, 0.65)",
+    cursor: "pointer",
   };
-  const modalNavBtnStyle: React.CSSProperties = {
+  const modalToolbarBtnStyle: React.CSSProperties = {
     border: "none",
     background: "none",
     padding: "13px",
@@ -89,10 +90,9 @@ export function imageGalleryStyles(
     imageStyle,
     imageCaptionStyle,
     modalContainerStyle,
-    modalNavSectionStyle,
-    modalNavSlideNumberStyle,
-    modalNavToolbarStyle,
-    modalNavBtnStyle,
+    modalSlideNumberStyle,
+    modalToolbarStyle,
+    modalToolbarBtnStyle,
     modalSlideShowSectionStyle,
     modalSlideBtnStyle,
   };
