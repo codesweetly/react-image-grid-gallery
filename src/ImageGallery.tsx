@@ -70,7 +70,7 @@ export function ImageGallery({
     >
       <span
         style={{
-          display: showModalControls ? "flex" : "none",
+          opacity: showModalControls ? 1 : 0,
           ...modalSlideNumberStyle,
         }}
       >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
