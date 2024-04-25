@@ -60,6 +60,8 @@ export function imageGalleryStyles(
     backgroundColor: "rgba(35, 35, 35, 0.65)",
   };
   const modalNavBtnStyle: React.CSSProperties = {
+    border: "none",
+    background: "none",
     padding: "13px",
     cursor: "pointer",
   };
@@ -70,7 +72,8 @@ export function imageGalleryStyles(
     width: "inherit",
     height: "inherit",
   };
-  const modalSlideArrowsStyle: React.CSSProperties = {
+  const modalSlideBtnStyle: React.CSSProperties = {
+    border: "none",
     marginInline: "7px",
     padding: "10px 15px",
     backgroundColor: "rgba(35, 35, 35, 0.65)",
@@ -90,6 +93,6 @@ export function imageGalleryStyles(
     modalNavToolbarStyle,
     modalNavBtnStyle,
     modalSlideShowSectionStyle,
-    modalSlideArrowsStyle,
+    modalSlideBtnStyle,
   };
 }

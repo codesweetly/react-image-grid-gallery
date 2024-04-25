@@ -32,7 +32,7 @@ export function ImageGallery({
   const modalNavBtnStyle = imageGalleryStyles().modalNavBtnStyle;
   const modalSlideShowSectionStyle =
     imageGalleryStyles().modalSlideShowSectionStyle;
-  const modalSlideArrowsStyle = imageGalleryStyles().modalSlideArrowsStyle;
+  const modalSlideBtnStyle = imageGalleryStyles().modalSlideBtnStyle;
 
   const imageElementsArray = imagesInfoArray.map((item, index) => (
     <figure
@@ -74,50 +74,58 @@ export function ImageGallery({
           style={modalNavSlideNumberStyle}
         >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
         <span style={modalNavToolbarStyle}>
-          <span
+          <button
+            type="button"
+            aria-label="Full screen"
             style={{
               display: fullscreen ? "none" : "block",
               ...modalNavBtnStyle,
             }}
-            title="Enter fullscreen"
+            title="Full screen"
             onClick={() => setFullscreen(true)}
           >
             {SvgElement(
               <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
             )}
-          </span>
-          <span
+          </button>
+          <button
+            type="button"
+            aria-label="Exit full screen"
             style={{
               display: fullscreen ? "block" : "none",
               ...modalNavBtnStyle,
             }}
-            title="Exit fullscreen"
+            title="Exit full screen"
             onClick={() => setFullscreen(false)}
           >
             {SvgElement(
               <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />
             )}
-          </span>
-          <span
+          </button>
+          <button
+            type="button"
+            aria-label="Close lightbox"
             style={modalNavBtnStyle}
-            title="Close"
+            title="Close lightbox"
             onClick={() => setShowModal(false)}
           >
             {SvgElement(
               <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
             )}
-          </span>
+          </button>
         </span>
       </section>
       <section style={modalSlideShowSectionStyle}>
-        <span
+        <button
+          type="button"
+          aria-label="Previous image"
           style={{
             display: showModalControls ? "block" : "none",
             position: "absolute",
             left: 0,
-            ...modalSlideArrowsStyle,
+            ...modalSlideBtnStyle,
           }}
-          title="Previous"
+          title="Previous image"
           onClick={() => changeSlide(-1)}
         >
           {SvgElement(
@@ -126,20 +134,22 @@ export function ImageGallery({
               d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
             />
           )}
-        </span>
+        </button>
         <img
           src={imageSrc}
           alt={imagesInfoArray[slideNumber - 1].alt}
           style={{ margin: "auto", maxHeight: "100vh" }}
         />
-        <span
+        <button
+          type="button"
+          aria-label="Next image"
           style={{
             display: showModalControls ? "block" : "none",
             position: "absolute",
             right: 0,
-            ...modalSlideArrowsStyle,
+            ...modalSlideBtnStyle,
           }}
-          title="Next"
+          title="Next image"
           onClick={() => changeSlide(1)}
         >
           {SvgElement(
@@ -148,7 +158,7 @@ export function ImageGallery({
               d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
             />
           )}
-        </span>
+        </button>
       </section>
     </article>
   );
