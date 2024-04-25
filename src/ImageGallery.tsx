@@ -63,6 +63,8 @@ export function ImageGallery({
     <article
       id="codesweetly-lightbox"
       style={modalContainerStyle}
+      tabIndex={-1}
+      onKeyDown={(e) => handleKeyDownOnModal(e)}
       onMouseEnter={() => setShowModalControls(true)}
       onMouseLeave={() => setShowModalControls(false)}
     >
@@ -82,7 +84,7 @@ export function ImageGallery({
               ...modalNavBtnStyle,
             }}
             title="Enter fullscreen"
-            onClick={() => enterFullscreen(true)}
+            onClick={() => setFullscreen(true)}
           >
             {SvgElement(
               <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
@@ -94,7 +96,7 @@ export function ImageGallery({
               ...modalNavBtnStyle,
             }}
             title="Exit fullscreen"
-            onClick={() => enterFullscreen(false)}
+            onClick={() => setFullscreen(false)}
           >
             {SvgElement(
               <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />
@@ -162,8 +164,23 @@ export function ImageGallery({
     setSlideNumber(number);
   }
 
-  function enterFullscreen(mode: boolean) {
-    setFullscreen(mode);
+  function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
+    e.currentTarget.style.outline = "none";
+    e.key === "ArrowLeft" && changeSlide(-1);
+    e.key === "ArrowRight" && changeSlide(1);
+  }
+
+  function changeSlide(directionNumber: number) {
+    const totalImages = imagesInfoArray.length;
+    let newSlideNumber = slideNumber + directionNumber;
+
+    newSlideNumber < 1 && (newSlideNumber = imagesInfoArray.length);
+    newSlideNumber > imagesInfoArray.length && (newSlideNumber = 1);
+
+    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
+      setSlideNumber(newSlideNumber);
+      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
+    }
   }
 
   function SvgElement(pathElement: ReactElement) {
@@ -182,19 +199,6 @@ export function ImageGallery({
 
   function closeLightbox() {
     setShowModal(false);
-  }
-
-  function changeSlide(directionNumber: number) {
-    const totalImages = imagesInfoArray.length;
-    let newSlideNumber = slideNumber + directionNumber;
-
-    newSlideNumber < 1 && (newSlideNumber = imagesInfoArray.length);
-    newSlideNumber > imagesInfoArray.length && (newSlideNumber = 1);
-
-    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
-      setSlideNumber(newSlideNumber);
-      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
-    }
   }
 
   useEffect(() => {
