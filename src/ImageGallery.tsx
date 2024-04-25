@@ -30,12 +30,8 @@ export function ImageGallery({
     imageGalleryStyles().modalNavSlideNumberStyle;
   const modalNavToolbarStyle = imageGalleryStyles().modalNavToolbarStyle;
   const modalNavBtnStyle = imageGalleryStyles().modalNavBtnStyle;
-  const modalSlideShowSectionStyle = imageGalleryStyles(
-    undefined,
-    undefined,
-    undefined,
-    imageSrc
-  ).modalSlideShowSectionStyle;
+  const modalSlideShowSectionStyle =
+    imageGalleryStyles().modalSlideShowSectionStyle;
   const modalSlideArrowsStyle = imageGalleryStyles().modalSlideArrowsStyle;
 
   const imageElementsArray = imagesInfoArray.map((item, index) => (
@@ -117,6 +113,8 @@ export function ImageGallery({
         <span
           style={{
             display: showModalControls ? "block" : "none",
+            position: "absolute",
+            left: 0,
             ...modalSlideArrowsStyle,
           }}
           title="Previous"
@@ -129,9 +127,16 @@ export function ImageGallery({
             />
           )}
         </span>
+        <img
+          src={imageSrc}
+          alt={imagesInfoArray[slideNumber - 1].alt}
+          style={{ margin: "auto", maxHeight: "100vh" }}
+        />
         <span
           style={{
             display: showModalControls ? "block" : "none",
+            position: "absolute",
+            right: 0,
             ...modalSlideArrowsStyle,
           }}
           title="Next"

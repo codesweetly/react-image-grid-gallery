@@ -1,8 +1,7 @@
 export function imageGalleryStyles(
   gapSize?: number,
   columnWidth?: number,
-  showModal?: boolean,
-  imageSrc?: string
+  showModal?: boolean
 ) {
   const galleryContainerStyle: React.CSSProperties = {
     columnWidth: `${columnWidth}px`,
@@ -45,6 +44,7 @@ export function imageGalleryStyles(
     backdropFilter: "blur(5px)",
   };
   const modalNavSectionStyle: React.CSSProperties = {
+    zIndex: 1,
     position: "absolute",
     justifyContent: "space-between",
     alignItems: "center",
@@ -64,15 +64,11 @@ export function imageGalleryStyles(
     cursor: "pointer",
   };
   const modalSlideShowSectionStyle: React.CSSProperties = {
+    position: "relative",
     display: "flex",
-    justifyContent: "space-between",
     alignItems: "center",
     width: "inherit",
     height: "inherit",
-    backgroundImage: `url(${imageSrc})`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    backgroundSize: "contain",
   };
   const modalSlideArrowsStyle: React.CSSProperties = {
     marginInline: "7px",
