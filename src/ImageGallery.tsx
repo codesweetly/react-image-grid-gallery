@@ -63,6 +63,9 @@ export function ImageGallery({
       onKeyDown={(e) => handleKeyDownOnModal(e)}
       onMouseEnter={() => setShowModalControls(true)}
       onMouseLeave={() => setShowModalControls(false)}
+      onClick={(e) =>
+        (e.target as HTMLElement).tagName === "SECTION" && setShowModal(false)
+      }
     >
       <section
         style={{
