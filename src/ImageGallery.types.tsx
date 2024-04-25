@@ -5,6 +5,6 @@ export interface ImageGalleryPropsType {
     src: string;
   }>;
   columnCount?: string | number;
-  columnWidth?: number;
+  columnWidth?: string | number;
   gapSize?: number;
 }

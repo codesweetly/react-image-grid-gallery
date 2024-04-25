@@ -1,6 +1,6 @@
 export function imageGalleryStyles(
   columnCount?: string | number,
-  columnWidth?: number,
+  columnWidth?: string | number,
   gapSize?: number,
   showModal?: boolean
 ) {
