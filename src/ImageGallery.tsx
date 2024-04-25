@@ -70,13 +70,13 @@ export function ImageGallery({
     >
       <span
         style={{
-          display: showModalControls ? "flex" : "none",
+          opacity: showModalControls ? 1 : 0,
           ...modalSlideNumberStyle,
         }}
       >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
       <span
         style={{
-          display: showModalControls ? "flex" : "none",
+          opacity: showModalControls ? 1 : 0,
           ...modalToolbarStyle,
         }}
       >
@@ -125,8 +125,7 @@ export function ImageGallery({
           type="button"
           aria-label="Previous image"
           style={{
-            display: showModalControls ? "block" : "none",
-            position: "absolute",
+            opacity: showModalControls ? 1 : 0,
             left: 0,
             ...modalSlideBtnStyle,
           }}
@@ -149,8 +148,7 @@ export function ImageGallery({
           type="button"
           aria-label="Next image"
           style={{
-            display: showModalControls ? "block" : "none",
-            position: "absolute",
+            opacity: showModalControls ? 1 : 0,
             right: 0,
             ...modalSlideBtnStyle,
           }}

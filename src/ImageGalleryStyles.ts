@@ -52,15 +52,18 @@ export function imageGalleryStyles(
     left: 0,
     padding: "13px",
     fontSize: "0.93rem",
+    transition: "opacity 1s ease-in-out",
     userSelect: "none",
     WebkitUserSelect: "none",
   };
   const modalToolbarStyle: React.CSSProperties = {
     zIndex: 1,
+    display: "flex",
     position: "absolute",
     right: 0,
     alignItems: "center",
     backgroundColor: "rgba(35, 35, 35, 0.65)",
+    transition: "opacity 1s ease-in-out",
     cursor: "pointer",
   };
   const modalToolbarBtnStyle: React.CSSProperties = {
@@ -77,10 +80,12 @@ export function imageGalleryStyles(
     height: "inherit",
   };
   const modalSlideBtnStyle: React.CSSProperties = {
+    position: "absolute",
     border: "none",
     marginInline: "7px",
     padding: "10px 15px",
     backgroundColor: "rgba(35, 35, 35, 0.65)",
+    transition: "opacity 1s ease-in-out",
     cursor: "pointer",
     userSelect: "none",
     WebkitUserSelect: "none",
