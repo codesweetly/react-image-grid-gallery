@@ -21,6 +21,7 @@ export function imageGalleryStyles(
   };
   const imageCaptionStyle: React.CSSProperties = {
     opacity: 0,
+    transition: "opacity 1s ease-in-out",
     position: "absolute",
     bottom: 0,
     zIndex: "1000",
