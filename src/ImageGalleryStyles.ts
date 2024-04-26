@@ -51,7 +51,7 @@ export function imageGalleryStyles(
     position: "absolute",
     left: 0,
     padding: "13px",
-    backgroundColor: "rgba(35, 35, 35, 0.77)",
+    backgroundColor: "rgba(35, 35, 35, 0.73)",
     fontSize: "0.93rem",
     transition: "opacity 1s ease-in-out",
     userSelect: "none",
@@ -63,7 +63,7 @@ export function imageGalleryStyles(
     position: "absolute",
     right: 0,
     alignItems: "center",
-    backgroundColor: "rgba(35, 35, 35, 0.77)",
+    backgroundColor: "rgba(35, 35, 35, 0.73)",
     transition: "opacity 1s ease-in-out",
     cursor: "pointer",
   };
@@ -80,18 +80,22 @@ export function imageGalleryStyles(
     width: "inherit",
     height: "inherit",
   };
+  const modalImageStyle: React.CSSProperties = {
+    margin: "auto",
+    maxWidth: "100vw",
+    maxHeight: "100vh",
+  };
   const modalSlideBtnStyle: React.CSSProperties = {
     position: "absolute",
     border: "none",
     marginInline: "7px",
     padding: "10px 15px",
-    backgroundColor: "rgba(35, 35, 35, 0.77)",
+    backgroundColor: "rgba(35, 35, 35, 0.73)",
     transition: "opacity 1s ease-in-out",
     cursor: "pointer",
     userSelect: "none",
     WebkitUserSelect: "none",
   };
-
   return {
     galleryContainerStyle,
     imageContainerStyle,
@@ -102,6 +106,7 @@ export function imageGalleryStyles(
     modalToolbarStyle,
     modalToolbarBtnStyle,
     modalSlideShowSectionStyle,
+    modalImageStyle,
     modalSlideBtnStyle,
   };
 }

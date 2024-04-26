@@ -33,6 +33,7 @@ export function ImageGallery({
   const modalToolbarBtnStyle = imageGalleryStyles().modalToolbarBtnStyle;
   const modalSlideShowSectionStyle =
     imageGalleryStyles().modalSlideShowSectionStyle;
+  const modalImageStyle = imageGalleryStyles().modalImageStyle;
   const modalSlideBtnStyle = imageGalleryStyles().modalSlideBtnStyle;
 
   const imageElementsArray = imagesInfoArray.map((item, index) => (
@@ -142,7 +143,7 @@ export function ImageGallery({
         <img
           src={imageSrc}
           alt={imagesInfoArray[slideNumber - 1].alt}
-          style={{ margin: "auto", maxHeight: "100vh" }}
+          style={modalImageStyle}
         />
         <button
           type="button"
