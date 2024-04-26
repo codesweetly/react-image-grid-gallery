@@ -171,14 +171,14 @@ export function ImageGallery({
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
     const figcaption = e.currentTarget.querySelector("figcaption");
-    if (figcaption) figcaption.style.opacity = "1";
+    figcaption && (figcaption.style.opacity = "1");
   }
 
   function handleImageContainerMouseLeave(
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
     const figcaption = e.currentTarget.querySelector("figcaption");
-    if (figcaption) figcaption.style.opacity = "0";
+    figcaption && (figcaption.style.opacity = "0");
   }
 
   function openLightboxOnSlide(imgSrc: string, number: number) {
