@@ -1,6 +1,6 @@
 # React Image Grid Gallery
 
-A simple, easy-to-use, and responsive image gallery component for displaying a grid of images in React apps.
+A simple, easy-to-use, and responsive image gallery component with a lightbox for displaying a grid of images in React apps.
 
 ![npm](https://img.shields.io/npm/v/react-image-grid-gallery) ![NPM](https://img.shields.io/npm/l/react-image-grid-gallery)
 
@@ -57,6 +57,7 @@ function App() {
   return (
     <ImageGallery
       imagesInfoArray={imagesArray}
+      columnCount={"auto"}
       columnWidth={230}
       gapSize={24}
     />
@@ -64,7 +65,7 @@ function App() {
 }
 ```
 
-## Required Props
+## Props
 
 <table>
 <thead>
@@ -91,8 +92,26 @@ function App() {
 </td>
 </tr>
 <tr>
-<td><code>columnWidth</code></td>
-<td>number</td>
+<td>
+
+[`columnCount`](https://codesweetly.com/css-multi-column-layout-explained#what-is-a-css-column-count-property)
+
+</td>
+<td>number or keyword (string)</td>
+<td><code>"auto"</code></td>
+<td>
+
+(**Optional**) The number of columns.
+
+</td>
+</tr>
+<tr>
+<td>
+
+[`columnWidth`](https://codesweetly.com/css-multi-column-layout-explained#what-is-a-css-column-width-property)
+
+</td>
+<td>number or keyword (string)</td>
 <td><code>230</code></td>
 <td>
 
@@ -101,12 +120,16 @@ function App() {
 </td>
 </tr>
 <tr>
-<td><code>gapSize</code></td>
+<td>
+
+[`gapSize`](https://codesweetly.com/css-gap-property)
+
+</td>
 <td>number</td>
 <td><code>24</code></td>
 <td>
 
-(**Optional**) The gallery's [gap size](https://codesweetly.com/css-gap-property).
+(**Optional**) The gallery's gap size.
 
 </td>
 </tr>
@@ -148,12 +171,10 @@ The `ImageGallery` package works _only_ as a Client Component because it uses Re
 npm run build
 ```
 
-## Dependencies
-
-- [fslightbox-react](https://github.com/banthagroup/fslightbox-react)
-- [prop-types](https://github.com/facebook/prop-types)
-- [react](https://github.com/facebook/react)
-
 ## YouTube Demo
 
 [React Image Grid Gallery Demo](https://youtu.be/WoqO2AFxEMY)
+
+## Support
+
+🍵 [Buy me a coffee](https://www.buymeacoffee.com/codesweetly)
