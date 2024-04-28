@@ -242,8 +242,11 @@ export function ImageGallery({
       });
       modal?.focus();
     }
-    document.fullscreenElement &&
+    if (document.fullscreenElement) {
       document.exitFullscreen().catch((error) => console.error(error));
+      const modal = document.getElementById("codesweetly-lightbox");
+      modal?.focus();
+    }
   }, [fullscreen]);
 
   useEffect(() => {
