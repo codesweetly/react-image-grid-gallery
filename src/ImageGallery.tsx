@@ -227,6 +227,8 @@ export function ImageGallery({
       modal?.focus();
     } else {
       document.documentElement.style.overflow = "";
+      document.fullscreenElement &&
+        document.exitFullscreen().catch((error) => console.error(error));
     }
   }, [showModal]);
 
