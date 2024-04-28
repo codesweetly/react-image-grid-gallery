@@ -247,17 +247,16 @@ export function ImageGallery({
   }, [fullscreen]);
 
   useEffect(() => {
+    const modal = document.getElementById("codesweetly-lightbox");
     function handleFullscreenchange() {
       if (!document.fullscreenElement && fullscreen) {
         setFullscreen(false);
       }
     }
-    document
-      .getElementById("codesweetly-lightbox")
-      ?.addEventListener("fullscreenchange", () => handleFullscreenchange());
-    return document
-      .getElementById("codesweetly-lightbox")
-      ?.removeEventListener("fullscreenchange", () => handleFullscreenchange());
+    modal?.addEventListener("fullscreenchange", () => handleFullscreenchange());
+    return modal?.removeEventListener("fullscreenchange", () =>
+      handleFullscreenchange()
+    );
   }, [fullscreen]);
 
   return (
