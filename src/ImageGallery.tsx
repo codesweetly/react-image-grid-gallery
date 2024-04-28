@@ -222,8 +222,8 @@ export function ImageGallery({
 
   useEffect(() => {
     if (showModal) {
-      const modal = document.getElementById("codesweetly-lightbox");
       document.documentElement.style.overflow = "hidden";
+      const modal = document.getElementById("codesweetly-lightbox");
       modal?.focus();
     } else {
       document.documentElement.style.overflow = "";
@@ -231,15 +231,15 @@ export function ImageGallery({
   }, [showModal]);
 
   useEffect(() => {
-    fullscreen &&
-      document
-        .getElementById("codesweetly-lightbox")
-        ?.requestFullscreen()
-        .catch((error) => {
-          alert(
-            `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`
-          );
-        });
+    if (fullscreen) {
+      const modal = document.getElementById("codesweetly-lightbox");
+      modal?.requestFullscreen().catch((error) => {
+        alert(
+          `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`
+        );
+      });
+      modal?.focus();
+    }
     document.fullscreenElement &&
       document.exitFullscreen().catch((error) => console.error(error));
   }, [fullscreen]);
