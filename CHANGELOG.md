@@ -1,5 +1,80 @@
 # Changelog
 
+## [2.1.0](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.0.1...v2.1.0) (2024-04-29)
+
+
+### 🧱 Dependency
+
+* Bump dependencies ([aa64794](https://github.com/codesweetly/react-image-grid-gallery/commit/aa6479460dac151754434fc8e8074c3f988d934b))
+* Bump packages ([a9f0d6d](https://github.com/codesweetly/react-image-grid-gallery/commit/a9f0d6dfc0bce4f3c154dd04f4df6074b8eec813))
+* Drop fslightbox-react dependency ([ab275e5](https://github.com/codesweetly/react-image-grid-gallery/commit/ab275e565469f2aed100f8ff9c305f5b2bb273c0))
+
+
+### 🏠 Chores
+
+* Update fullscreen state when users exit fullscreen mode without using the modal's button ([390dca9](https://github.com/codesweetly/react-image-grid-gallery/commit/390dca92859546c65507593d3e7b7f5b1e102385))
+* Update repo url ([709f562](https://github.com/codesweetly/react-image-grid-gallery/commit/709f562854bd855a56be1304ded01d910d885e84))
+
+
+### 📝 Documentation
+
+* Add references to the documentation on this keyword's types ([108e913](https://github.com/codesweetly/react-image-grid-gallery/commit/108e9130f05cb984347223103b67493dec1bd4cd))
+* Inform users about the new columnCount prop ([fe4541a](https://github.com/codesweetly/react-image-grid-gallery/commit/fe4541a4856744367feea26abb111e4bf3a738b9))
+* Notify docusaurus users how to resolve 'crypto not defined' error ([1356dca](https://github.com/codesweetly/react-image-grid-gallery/commit/1356dcac4d25b1be70b519a54f8555f477ba5963))
+
+
+### 🚀 New Feature
+
+* Allow changing of slides with the keyboard ([9d8bed2](https://github.com/codesweetly/react-image-grid-gallery/commit/9d8bed25464103a58e3f68121861c0a90c0d64f7))
+* Allow showing lightbox at fullscreen ([df96394](https://github.com/codesweetly/react-image-grid-gallery/commit/df963949262a97b7dcf42804a6f712f6ace7a11e))
+* Allow the lightbox to be closed with the escape key ([95f3e31](https://github.com/codesweetly/react-image-grid-gallery/commit/95f3e3114ee5a5192ef5f45dc9296158e90d7a7f))
+* Auto focus on lightbox when activated ([0e0ea4c](https://github.com/codesweetly/react-image-grid-gallery/commit/0e0ea4c8284979b7d926c1b1ee5790ec32f7fb7e))
+* Auto-focus on modal when at fullscreen ([3b38a1e](https://github.com/codesweetly/react-image-grid-gallery/commit/3b38a1e70f47a0fb650ea5c05a93b3f14cc05572))
+* Auto-focus on modal when exiting fullscreen ([1b76d75](https://github.com/codesweetly/react-image-grid-gallery/commit/1b76d755160238064dacdd79ec6e2aad0e4be712))
+* Close lightbox onclick of its background ([6c1fb78](https://github.com/codesweetly/react-image-grid-gallery/commit/6c1fb78ed95eb9900d308a9ff5e0dbaa0555d0bf))
+* Close modal on click of the close button ([36c45c7](https://github.com/codesweetly/react-image-grid-gallery/commit/36c45c71a0f6d1c68a11960e07b94f81f1af50b9))
+* Create pagination ([7e9114c](https://github.com/codesweetly/react-image-grid-gallery/commit/7e9114c2a452bed4ccadd702bfdbc3196ad140f2))
+* Exit fullscreen when modal is off ([8daebd9](https://github.com/codesweetly/react-image-grid-gallery/commit/8daebd9836c29509b898a781dc711de943455c89))
+* Make entering and exiting full screen mode keyboard accessible ([6a1c0f8](https://github.com/codesweetly/react-image-grid-gallery/commit/6a1c0f8c605f186bc020fca5f6b7fcb88d7b2f95))
+* Make images in the gallery keyboard accessible ([4fa12b8](https://github.com/codesweetly/react-image-grid-gallery/commit/4fa12b8aeeaf3162025031469abd31c26639b42e))
+* Prevent scrolling on page's body when modal is opened ([9808372](https://github.com/codesweetly/react-image-grid-gallery/commit/9808372b1f34161e685b774bb7ccec6e72987297))
+* Provide the option to specify the exact number of columns in the gallery ([fb6bce7](https://github.com/codesweetly/react-image-grid-gallery/commit/fb6bce7966c518ca78934616cd672cf913cb3326))
+* Show clicked image in modal's slideshow section ([64b0d1e](https://github.com/codesweetly/react-image-grid-gallery/commit/64b0d1ed84b00d2beeb85f50b7719259a9d2a3e7))
+* Show lightbox's controls on mouse hover only ([9b36b3b](https://github.com/codesweetly/react-image-grid-gallery/commit/9b36b3b4b1b8b993f00e9d6280635d13b98be61b))
+* Show lightbox's main container onclick of a page-thumbnail ([475d1bb](https://github.com/codesweetly/react-image-grid-gallery/commit/475d1bba54527f7916f2d5c083804cfcdb5b37f2))
+* Transition the change in opacity ([a4246c5](https://github.com/codesweetly/react-image-grid-gallery/commit/a4246c54b9485cadf6e7fbe8004a541a6795d096))
+* Transition the change in opacity ([c09bd6e](https://github.com/codesweetly/react-image-grid-gallery/commit/c09bd6edbc6cda880082c15827e1022ae0489dd4))
+* Use arrows to change slides ([d15c345](https://github.com/codesweetly/react-image-grid-gallery/commit/d15c3454cd5831b8c3bae77e495973ebff94bd0c))
+
+
+### 🔄️ Code Refactoring
+
+* Allow keyword values ([03f17aa](https://github.com/codesweetly/react-image-grid-gallery/commit/03f17aa05237c4d98cf56d912996b35983e49068))
+* Allow keyword values ([55b2ff3](https://github.com/codesweetly/react-image-grid-gallery/commit/55b2ff36d792e9402b00bdd99c6ebf82552ec788))
+* Catch fullscreen api's errors ([c466edb](https://github.com/codesweetly/react-image-grid-gallery/commit/c466edb0fbb61a11d624f3676da9724dd1c3c173))
+* Change class constructor to factory function for readability ([fb7c6b6](https://github.com/codesweetly/react-image-grid-gallery/commit/fb7c6b67efe7321d983c9ba539c49daa62088309))
+* Create modal variable ([5e5db0a](https://github.com/codesweetly/react-image-grid-gallery/commit/5e5db0a5c321e4071009385f8d603ceb6791e58f))
+* Hide html tag's scroll when modal is opened ([29da3fb](https://github.com/codesweetly/react-image-grid-gallery/commit/29da3fb4b7c1d09f8c407b19e746a0e07a4b8773))
+* Isolate the toolbar and slide number from their container ([eb9edbb](https://github.com/codesweetly/react-image-grid-gallery/commit/eb9edbbc4f288bd66243249d05f1e49b660ab6a3))
+* Make buttons accessible ([5c88555](https://github.com/codesweetly/react-image-grid-gallery/commit/5c885552da9b33c03f4f936fa4b9cbcab53ae0b9))
+* Merge exitFullscreen function with enterFullscreen ([d167fd5](https://github.com/codesweetly/react-image-grid-gallery/commit/d167fd51f421ab6c71d3d3bb63bf2a0e80a13d37))
+* Move the modal's main container's rulesets to the styles file ([2fd9f01](https://github.com/codesweetly/react-image-grid-gallery/commit/2fd9f01ce18c5fce982aa1db007ecd2177c7cd32))
+* Rename modalMainContainerStyle to modalContainerStyle ([9a09bfd](https://github.com/codesweetly/react-image-grid-gallery/commit/9a09bfd41a98f16db5bc5675e631a7122f19e598))
+* Replace html arrow entities with svg arrows ([31afd5d](https://github.com/codesweetly/react-image-grid-gallery/commit/31afd5d681ac8fe53b10bbd907e4db4b1fe4acf5))
+* Replace if statement with the 'and' operator ([f2c73fd](https://github.com/codesweetly/react-image-grid-gallery/commit/f2c73fd9c1449189539a0c1e3d062378c83d36a3))
+* Use img element to show the lightbox's images ([0fbaa2f](https://github.com/codesweetly/react-image-grid-gallery/commit/0fbaa2f284dc74c78c4ea7107a9c3decf0e65814))
+
+
+### 💅 Styling and Formatting
+
+* Absolutely position modal's nav ([b2365d7](https://github.com/codesweetly/react-image-grid-gallery/commit/b2365d73ac6ee76a422c799704eb8dfb2898f0ea))
+* Add background color to slide number ([ed157d6](https://github.com/codesweetly/react-image-grid-gallery/commit/ed157d6dddaaa8f0d29a04c82d4b7fb40bf70dfc))
+* Blur lightbox's background ([2c42673](https://github.com/codesweetly/react-image-grid-gallery/commit/2c4267326fd2f9660d49766cbbbf1416be8592dc))
+* Center slideshow navigation arrows vertically ([d6ba9a5](https://github.com/codesweetly/react-image-grid-gallery/commit/d6ba9a5e87cca8e851500c3159e87aa185225120))
+* Increase arrows' hit area ([703c660](https://github.com/codesweetly/react-image-grid-gallery/commit/703c6606551c87abc3d5e59a30c7a32eccf8682a))
+* Make images mobile responsive ([bc9d0c3](https://github.com/codesweetly/react-image-grid-gallery/commit/bc9d0c380dcd93f5a528441274848b5379bd5d7d))
+* Prevent selection of arrows ([b53bf66](https://github.com/codesweetly/react-image-grid-gallery/commit/b53bf669723e7d259e3e0a7bfc4445fe0b789907))
+
 ## [2.0.1](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.0.0...v2.0.1) (2024-01-03)
 
 
