@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.2](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.1.1...v2.1.2) (2024-04-29)
+
+
+### 🐛 Bug Fix
+
+* Resolve images' undefined marigin-bottom ([3132ce4](https://github.com/codesweetly/react-image-grid-gallery/commit/3132ce46465d97e8f207eab4b887f06baccda919))
+
+
+### 💅 Styling and Formatting
+
+* Define modal's font color ([b3e61a5](https://github.com/codesweetly/react-image-grid-gallery/commit/b3e61a53109b336d0f5deacba6dbebddf9d7b3cb))
+
 ## [2.1.1](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.1.0...v2.1.1) (2024-04-29)
 
 
