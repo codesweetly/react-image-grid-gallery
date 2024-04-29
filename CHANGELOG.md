@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.1.0...v2.1.1) (2024-04-29)
+
+
+### 🔄️ Code Refactoring
+
+* Delete redundant field ([3b48aaf](https://github.com/codesweetly/react-image-grid-gallery/commit/3b48aafb85726b6890adc090481f3a5865647dd2))
+
 ## [2.1.0](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.0.1...v2.1.0) (2024-04-29)
 
 
