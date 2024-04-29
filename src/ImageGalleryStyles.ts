@@ -10,8 +10,7 @@ export function imageGalleryStyles(
     columnGap: `${gapSize}px`,
   };
   const imageContainerStyle: React.CSSProperties = {
-    margin: 0,
-    marginBottom: `${gapSize}px`,
+    margin: `0 0 ${gapSize}px`,
     position: "relative",
   };
   const imageStyle: React.CSSProperties = {
