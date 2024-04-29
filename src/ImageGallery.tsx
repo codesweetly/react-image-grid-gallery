@@ -19,7 +19,11 @@ export function ImageGallery({
     columnWidth,
     gapSize
   ).galleryContainerStyle;
-  const imageContainerStyle = imageGalleryStyles(gapSize).imageContainerStyle;
+  const imageContainerStyle = imageGalleryStyles(
+    undefined,
+    undefined,
+    gapSize
+  ).imageContainerStyle;
   const imageStyle = imageGalleryStyles().imageStyle;
   const imageCaptionStyle = imageGalleryStyles().imageCaptionStyle;
   const modalContainerStyle = imageGalleryStyles(
