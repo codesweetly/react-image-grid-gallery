@@ -52,6 +52,7 @@ export function imageGalleryStyles(
     left: 0,
     padding: "13px",
     backgroundColor: "rgba(35, 35, 35, 0.73)",
+    color: "#fff",
     fontSize: "0.93rem",
     transition: "opacity 1s ease-in-out",
     userSelect: "none",
@@ -71,6 +72,7 @@ export function imageGalleryStyles(
     border: "none",
     background: "none",
     padding: "13px",
+    color: "#fff",
     cursor: "pointer",
   };
   const modalSlideShowSectionStyle: React.CSSProperties = {
@@ -91,6 +93,7 @@ export function imageGalleryStyles(
     marginInline: "7px",
     padding: "10px 15px",
     backgroundColor: "rgba(35, 35, 35, 0.73)",
+    color: "#fff",
     transition: "opacity 1s ease-in-out",
     cursor: "pointer",
     userSelect: "none",
