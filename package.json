@@ -53,9 +53,5 @@
   },
   "peerDependencies": {
     "react": "^18.2.0"
-  },
-  "dependencies": {
-    "install": "^0.13.0",
-    "npm": "^10.6.0"
   }
 }
