@@ -68,6 +68,11 @@ const imagesArray = [
 
 test("image gallery renders correctly", () => {
   render(
-    <ImageGallery imagesInfoArray={imagesArray} columnWidth={300} gapSize={2} />
+    <ImageGallery
+      imagesInfoArray={imagesArray}
+      columnCount={1}
+      columnWidth={300}
+      gapSize={2}
+    />
   );
 });
