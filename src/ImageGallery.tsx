@@ -83,12 +83,12 @@ export function ImageGallery({
       >
         <button
           type="button"
-          aria-label="Full screen"
+          aria-label="Go full screen"
           style={{
             display: fullscreen ? "none" : "block",
             ...modalToolbarBtnStyle,
           }}
-          title="Full screen"
+          title="Go full screen"
           onClick={() => setFullscreen(true)}
         >
           {SvgElement(

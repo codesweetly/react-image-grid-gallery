@@ -165,6 +165,38 @@ The `"use client"` directive tells NextJS to consider all modules imported into 
 
 The `ImageGallery` package works _only_ as a Client Component because it uses React's State and Lifecycle effects, such as `useState()` and `useEffect()`.
 
+## Note for Docusaurus users
+
+Did you get a `ReferenceError: crypto is not defined` error during the build step? If so, this note is for you.
+
+Wrap the `ImageGallery` component in [`<BrowserOnly>`](https://docusaurus.io/docs/next/advanced/ssg#browseronly) if you get a `ReferenceError: crypto is not defined` error during your build step.
+
+```jsx
+import BrowserOnly from "@docusaurus/BrowserOnly";
+
+function YourComponent() {
+  return (
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => {
+        const ImageGallery = require("react-image-grid-gallery").ImageGallery;
+        return (
+          <ImageGallery
+            imagesInfoArray={imagesArray}
+            columnCount={"auto"}
+            columnWidth={230}
+            gapSize={24}
+          />
+        );
+      }}
+    </BrowserOnly>
+  );
+}
+```
+
+The `<BrowserOnly>` component tells Docusaurus to render the `ImageGallery` library only in the browser.
+
+> **Note:** This process is essential because the `ImageGallery` package uses the Web Crypto API. Therefore, `BrowserOnly` ensures that the Crypto API runs only in CSR (Client-Side Rendering) rather than during build or SSR (Server-Side Rendering).
+
 ## Build
 
 ```bash
