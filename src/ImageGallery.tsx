@@ -40,6 +40,10 @@ export function ImageGallery({
     <figure
       style={imageContainerStyle}
       key={crypto.randomUUID()}
+      tabIndex={0}
+      onKeyDown={(e) =>
+        e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
+      }
       onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
       onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
     >
