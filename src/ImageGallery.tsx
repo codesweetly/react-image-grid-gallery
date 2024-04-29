@@ -87,12 +87,12 @@ export function ImageGallery({
       >
         <button
           type="button"
-          aria-label="Go full screen"
+          aria-label="Go full screen (Keyboard shortcut f)"
           style={{
             display: fullscreen ? "none" : "block",
             ...modalToolbarBtnStyle,
           }}
-          title="Go full screen"
+          title="Go full screen (f)"
           onClick={() => setFullscreen(true)}
         >
           {SvgElement(
@@ -195,6 +195,8 @@ export function ImageGallery({
     e.key === "ArrowLeft" && changeSlide(-1);
     e.key === "ArrowRight" && changeSlide(1);
     e.key === "Escape" && setShowModal(false);
+    e.key === "f" && fullscreen && setFullscreen(false);
+    e.key === "f" && !fullscreen && setFullscreen(true);
   }
 
   function changeSlide(directionNumber: number) {
