@@ -2,7 +2,7 @@ export function imageGalleryStyles(
   columnCount?: string | number,
   columnWidth?: string | number,
   gapSize?: number,
-  showModal?: boolean
+  showLightBox?: boolean
 ) {
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
@@ -36,7 +36,7 @@ export function imageGalleryStyles(
   const modalContainerStyle: React.CSSProperties = {
     outline: "none",
     position: "fixed",
-    display: `${showModal ? "block" : "none"}`,
+    display: `${showLightBox ? "block" : "none"}`,
     zIndex: 7000000000,
     top: 0,
     left: 0,
