@@ -8,12 +8,12 @@ export function ImageGallery({
   columnWidth = 230,
   gapSize = 24,
 }: ImageGalleryPropsType) {
-  const [showModal, setShowModal] = useState(false);
   const [showModalControls, setShowModalControls] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
   const lightboxRef = useRef<HTMLElement>(null);
+  const showModal = useRef(false);
 
   const galleryContainerStyle = imageGalleryStyles(
     columnCount,
@@ -31,7 +31,7 @@ export function ImageGallery({
     undefined,
     undefined,
     undefined,
-    showModal
+    showModal.current
   ).modalContainerStyle;
   const modalSlideNumberStyle = imageGalleryStyles().modalSlideNumberStyle;
   const modalToolbarStyle = imageGalleryStyles().modalToolbarStyle;
@@ -75,7 +75,7 @@ export function ImageGallery({
       onMouseEnter={() => setShowModalControls(true)}
       onMouseLeave={() => setShowModalControls(false)}
       onClick={(e) =>
-        (e.target as HTMLElement).tagName === "SECTION" && setShowModal(false)
+        (e.target as HTMLElement).tagName === "SECTION" && showLightbox(false)
       }
     >
       <span
@@ -123,7 +123,7 @@ export function ImageGallery({
           aria-label="Close lightbox"
           style={modalToolbarBtnStyle}
           title="Close lightbox"
-          onClick={() => setShowModal(false)}
+          onClick={() => showLightbox(false)}
         >
           {SvgElement(
             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
@@ -191,7 +191,7 @@ export function ImageGallery({
   }
 
   function openLightboxOnSlide(imgSrc: string, number: number) {
-    setShowModal(true);
+    showLightbox(true);
     setImageSrc(imgSrc);
     setSlideNumber(number);
   }
@@ -199,7 +199,7 @@ export function ImageGallery({
   function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
     e.key === "ArrowLeft" && changeSlide(-1);
     e.key === "ArrowRight" && changeSlide(1);
-    e.key === "Escape" && setShowModal(false);
+    e.key === "Escape" && showLightbox(false);
     e.key === "f" && fullscreen && setFullscreen(false);
     e.key === "f" && !fullscreen && setFullscreen(true);
   }
@@ -231,16 +231,18 @@ export function ImageGallery({
     );
   }
 
-  useEffect(() => {
-    if (showModal) {
+  function showLightbox(open: boolean) {
+    if (open) {
       document.documentElement.style.overflow = "hidden";
       lightboxRef.current?.focus();
+      showModal.current = true;
     } else {
       document.documentElement.style.overflow = "";
       document.fullscreenElement &&
         document.exitFullscreen().catch((error) => console.error(error));
+      showModal.current = false;
     }
-  }, [showModal]);
+  }
 
   useEffect(() => {
     if (fullscreen) {
