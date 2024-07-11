@@ -1,8 +1,8 @@
 export function imageGalleryStyles(
   columnCount?: string | number,
   columnWidth?: string | number,
-  gapSize?: number,
-  showLightBox?: boolean
+  gapSize?: number
+  // showLightBox?: boolean
 ) {
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
@@ -33,11 +33,22 @@ export function imageGalleryStyles(
     textAlign: "center",
     color: "#fff",
   };
+  // const modalContainerStyle: React.CSSProperties = {
+  //   outline: "none",
+  //   position: "fixed",
+  //   display: `${showLightBox ? "block" : "none"}`,
+  //   zIndex: 7000000000,
+  //   top: 0,
+  //   left: 0,
+  //   width: "100vw",
+  //   height: "100vh",
+  //   backgroundColor: "rgba(0, 0, 0, 0.73)",
+  //   WebkitBackdropFilter: "blur(5px)",
+  //   backdropFilter: "blur(5px)",
+  // };
   const modalContainerStyle: React.CSSProperties = {
     outline: "none",
     position: "fixed",
-    display: `${showLightBox ? "block" : "none"}`,
-    zIndex: 7000000000,
     top: 0,
     left: 0,
     width: "100vw",
