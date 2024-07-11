@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
 import { imageGalleryStyles } from "./imageGalleryStyles";
 
@@ -13,6 +13,7 @@ export function ImageGallery({
   const [fullscreen, setFullscreen] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
+  const lightboxRef = useRef<HTMLElement>(null);
 
   const galleryContainerStyle = imageGalleryStyles(
     columnCount,
@@ -67,7 +68,7 @@ export function ImageGallery({
 
   const lightBoxElement = (
     <article
-      id="codesweetly-lightbox"
+      ref={lightboxRef}
       style={modalContainerStyle}
       tabIndex={-1}
       onKeyDown={(e) => handleKeyDownOnModal(e)}
@@ -233,8 +234,7 @@ export function ImageGallery({
   useEffect(() => {
     if (showModal) {
       document.documentElement.style.overflow = "hidden";
-      const modal = document.getElementById("codesweetly-lightbox");
-      modal?.focus();
+      lightboxRef.current?.focus();
     } else {
       document.documentElement.style.overflow = "";
       document.fullscreenElement &&
@@ -244,30 +244,29 @@ export function ImageGallery({
 
   useEffect(() => {
     if (fullscreen) {
-      const modal = document.getElementById("codesweetly-lightbox");
-      modal?.requestFullscreen().catch((error) => {
+      lightboxRef.current?.requestFullscreen().catch((error) => {
         alert(
           `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`
         );
       });
-      modal?.focus();
+      lightboxRef.current?.focus();
     }
     if (document.fullscreenElement) {
       document.exitFullscreen().catch((error) => console.error(error));
-      const modal = document.getElementById("codesweetly-lightbox");
-      modal?.focus();
+      lightboxRef.current?.focus();
     }
   }, [fullscreen]);
 
   useEffect(() => {
-    const modal = document.getElementById("codesweetly-lightbox");
     function handleFullscreenchange() {
       if (!document.fullscreenElement && fullscreen) {
         setFullscreen(false);
       }
     }
-    modal?.addEventListener("fullscreenchange", () => handleFullscreenchange());
-    return modal?.removeEventListener("fullscreenchange", () =>
+    lightboxRef.current?.addEventListener("fullscreenchange", () =>
+      handleFullscreenchange()
+    );
+    return lightboxRef.current?.removeEventListener("fullscreenchange", () =>
       handleFullscreenchange()
     );
   }, [fullscreen]);
