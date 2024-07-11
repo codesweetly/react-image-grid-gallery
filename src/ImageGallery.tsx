@@ -13,7 +13,7 @@ export function ImageGallery({
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
   const lightboxRef = useRef<HTMLElement>(null);
-  const showModal = useRef(false);
+  const showLightBox = useRef(false);
 
   const galleryContainerStyle = imageGalleryStyles(
     columnCount,
@@ -31,7 +31,7 @@ export function ImageGallery({
     undefined,
     undefined,
     undefined,
-    showModal.current
+    showLightBox.current
   ).modalContainerStyle;
   const modalSlideNumberStyle = imageGalleryStyles().modalSlideNumberStyle;
   const modalToolbarStyle = imageGalleryStyles().modalToolbarStyle;
@@ -235,12 +235,12 @@ export function ImageGallery({
     if (open) {
       document.documentElement.style.overflow = "hidden";
       lightboxRef.current?.focus();
-      showModal.current = true;
+      showLightBox.current = true;
     } else {
       document.documentElement.style.overflow = "";
       document.fullscreenElement &&
         document.exitFullscreen().catch((error) => console.error(error));
-      showModal.current = false;
+      showLightBox.current = false;
     }
   }
 
