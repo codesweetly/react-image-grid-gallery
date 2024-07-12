@@ -118,6 +118,12 @@ export function ImageGallery({
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
+  useEffect(() => {
+    dialogRef.current?.open &&
+      (document.documentElement.style.overflow = "hidden");
+    !dialogRef.current?.open && (document.documentElement.style.overflow = "");
+  });
+
   const imageElementsArray = imagesInfoArray.map((item, index) => (
     <figure
       style={imageContainerStyle}
