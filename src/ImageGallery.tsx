@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState } from "react";
+import React, { ReactElement, useRef, useState, useEffect } from "react";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
 import { imageGalleryStyles } from "./imageGalleryStyles";
 
@@ -8,10 +8,10 @@ export function ImageGallery({
   columnWidth = 230,
   gapSize = 24,
 }: ImageGalleryPropsType) {
-  const [showModalControls, setShowModalControls] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
+  const [showModalControls, setShowModalControls] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const lightboxRef = useRef<HTMLElement | null>(null);
 
@@ -63,16 +63,21 @@ export function ImageGallery({
     e.key === "f" && !fullscreen && switchFullScreen(true);
   }
 
-  function changeSlide(directionNumber: number) {
-    const totalImages = imagesInfoArray.length;
-    let newSlideNumber = slideNumber + directionNumber;
+  function exitFullScreenAndDialog() {
+    fullscreen && switchFullScreen(false);
+    dialogRef.current?.close();
+  }
 
-    newSlideNumber < 1 && (newSlideNumber = imagesInfoArray.length);
-    newSlideNumber > imagesInfoArray.length && (newSlideNumber = 1);
-
-    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
-      setSlideNumber(newSlideNumber);
-      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
+  function switchFullScreen(on: boolean) {
+    if (on) {
+      lightboxRef.current?.requestFullscreen().catch((error) => {
+        alert(
+          `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`
+        );
+      });
+    }
+    if (!on) {
+      document.exitFullscreen().catch((error) => console.error(error));
     }
   }
 
@@ -90,35 +95,38 @@ export function ImageGallery({
     );
   }
 
-  function exitFullScreenAndDialog() {
-    fullscreen && switchFullScreen(false);
-    dialogRef.current?.close();
+  function changeSlide(directionNumber: number) {
+    const totalImages = imagesInfoArray.length;
+    let newSlideNumber = slideNumber + directionNumber;
+
+    newSlideNumber < 1 && (newSlideNumber = imagesInfoArray.length);
+    newSlideNumber > imagesInfoArray.length && (newSlideNumber = 1);
+
+    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
+      setSlideNumber(newSlideNumber);
+      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
+    }
   }
 
-  function switchFullScreen(on: boolean) {
-    setFullscreen(on);
-    if (on) {
-      lightboxRef.current?.requestFullscreen().catch((error) => {
-        alert(
-          `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`
-        );
-      });
+  useEffect(() => {
+    function handleFullscreenChange() {
+      setFullscreen(Boolean(document.fullscreenElement));
     }
-    if (!on) {
-      document.exitFullscreen().catch((error) => console.error(error));
-    }
-  }
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
 
   const imageElementsArray = imagesInfoArray.map((item, index) => (
     <figure
       style={imageContainerStyle}
       key={crypto.randomUUID()}
       tabIndex={0}
+      onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
+      onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
       onKeyDown={(e) =>
         e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
       }
-      onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
-      onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
     >
       <img
         alt={item.alt}
@@ -135,18 +143,15 @@ export function ImageGallery({
   ));
 
   const lightBoxElement = (
-    <dialog
-      ref={dialogRef}
-      style={{ margin: "auto" }}
-      onKeyDown={(e) => handleKeyDownOnModal(e)}
-      onMouseEnter={() => setShowModalControls(true)}
-      onMouseLeave={() => setShowModalControls(false)}
-    >
+    <dialog ref={dialogRef} style={{ margin: "auto" }}>
       <article
         autoFocus
         tabIndex={-1}
         ref={lightboxRef}
         style={modalContainerStyle}
+        onKeyDown={(e) => handleKeyDownOnModal(e)}
+        onMouseEnter={() => setShowModalControls(true)}
+        onMouseLeave={() => setShowModalControls(false)}
         onClick={(e) =>
           (e.target as HTMLElement).tagName === "SECTION" &&
           exitFullScreenAndDialog()
