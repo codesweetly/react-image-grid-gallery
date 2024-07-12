@@ -111,6 +111,7 @@ export function ImageGallery({
   useEffect(() => {
     function handleFullscreenChange() {
       setFullscreen(Boolean(document.fullscreenElement));
+      lightboxRef.current?.focus();
     }
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () =>
