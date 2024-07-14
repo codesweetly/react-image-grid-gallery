@@ -1,5 +1,33 @@
 # Changelog
 
+## [2.1.3](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.1.2...v2.1.3) (2024-07-14)
+
+
+### 🧱 Dependency
+
+* Update dev dependencies ([2e202bb](https://github.com/codesweetly/react-image-grid-gallery/commit/2e202bbd270aea3ecf7e17d1fa60f1c3a69bf959))
+
+
+### 🐛 Bug Fix
+
+* Prevent page scrolling when lightbox is active ([e0ee446](https://github.com/codesweetly/react-image-grid-gallery/commit/e0ee44630b451ba894a024a3ce306feb5a67d069))
+* Resolve fullscreen button error while exiting with esc key ([6dae9d8](https://github.com/codesweetly/react-image-grid-gallery/commit/6dae9d80ef2b8eebe58b37212227910ddd2a77e7))
+* Set focus on the lightbox on fullscreen change ([01aeaac](https://github.com/codesweetly/react-image-grid-gallery/commit/01aeaacd67e094525eb10da18893591ca5c04d9e))
+
+
+### 🔄️ Code Refactoring
+
+* Don't use useEffect and useState hooks to manage lightbox ([2446023](https://github.com/codesweetly/react-image-grid-gallery/commit/2446023c8dfa63e0981f620a8094ca8f2b7b6017))
+* Remove figure's tabindex to improve accessibility ([5086c3a](https://github.com/codesweetly/react-image-grid-gallery/commit/5086c3aaf92b023c3c4864bad91b2eda849de024))
+* Rename showModal to showLightBox ([8f99e8d](https://github.com/codesweetly/react-image-grid-gallery/commit/8f99e8d4df172a436137e57678121db13c75ed16))
+* Use html dialog element to manage lightbox ([6c8f69f](https://github.com/codesweetly/react-image-grid-gallery/commit/6c8f69f5ba0b2cf66364b3bb6069995a3d8260bf))
+* Use ref to access lightbox element ([99544ad](https://github.com/codesweetly/react-image-grid-gallery/commit/99544ad31e84451ef457bb225ac70ae987e17c9d))
+
+
+### 💅 Styling and Formatting
+
+* Remove modal toobar button's margins ([d1fd15d](https://github.com/codesweetly/react-image-grid-gallery/commit/d1fd15d18cc185620dc172cd48a07530e9c24f81))
+
 ## [2.1.2](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.1.1...v2.1.2) (2024-04-29)
 
 
