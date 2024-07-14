@@ -66,6 +66,7 @@ export function imageGalleryStyles(
     cursor: "pointer",
   };
   const modalToolbarBtnStyle: React.CSSProperties = {
+    margin: 0,
     border: "none",
     background: "none",
     padding: "13px",
