@@ -8,6 +8,12 @@ export function imageGalleryStyles(
     columnWidth: `${columnWidth}px`,
     columnGap: `${gapSize}px`,
   };
+  const imageBtnStyle: React.CSSProperties = {
+    border: "none",
+    background: "none",
+    margin: 0,
+    padding: 0,
+  };
   const imageContainerStyle: React.CSSProperties = {
     margin: `0 0 ${gapSize}px`,
     position: "relative",
@@ -99,6 +105,7 @@ export function imageGalleryStyles(
   };
   return {
     galleryContainerStyle,
+    imageBtnStyle,
     imageContainerStyle,
     imageStyle,
     imageCaptionStyle,

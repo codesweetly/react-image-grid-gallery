@@ -20,6 +20,7 @@ export function ImageGallery({
     columnWidth,
     gapSize
   ).galleryContainerStyle;
+  const imageBtnStyle = imageGalleryStyles().imageBtnStyle;
   const imageContainerStyle = imageGalleryStyles(
     undefined,
     undefined,
@@ -125,28 +126,28 @@ export function ImageGallery({
   });
 
   const imageElementsArray = imagesInfoArray.map((item, index) => (
-    <figure
-      style={imageContainerStyle}
-      key={crypto.randomUUID()}
-      tabIndex={0}
-      onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
-      onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
-      onKeyDown={(e) =>
-        e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
-      }
-    >
-      <img
-        alt={item.alt}
-        src={item.src}
-        onClick={() => openLightboxOnSlide(item.src, index + 1)}
-        style={imageStyle}
-      />
-      {item.caption ? (
-        <figcaption style={imageCaptionStyle}>{item.caption}</figcaption>
-      ) : (
-        ""
-      )}
-    </figure>
+    <button type="button" style={imageBtnStyle} key={crypto.randomUUID()}>
+      <figure
+        style={imageContainerStyle}
+        onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
+        onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
+        onKeyDown={(e) =>
+          e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
+        }
+      >
+        <img
+          alt={item.alt}
+          src={item.src}
+          onClick={() => openLightboxOnSlide(item.src, index + 1)}
+          style={imageStyle}
+        />
+        {item.caption ? (
+          <figcaption style={imageCaptionStyle}>{item.caption}</figcaption>
+        ) : (
+          ""
+        )}
+      </figure>
+    </button>
   ));
 
   const lightBoxElement = (
