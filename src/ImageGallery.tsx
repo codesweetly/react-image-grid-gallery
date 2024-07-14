@@ -100,8 +100,8 @@ export function ImageGallery({
     const totalImages = imagesInfoArray.length;
     let newSlideNumber = slideNumber + directionNumber;
 
-    newSlideNumber < 1 && (newSlideNumber = imagesInfoArray.length);
-    newSlideNumber > imagesInfoArray.length && (newSlideNumber = 1);
+    newSlideNumber < 1 && (newSlideNumber = totalImages);
+    newSlideNumber > totalImages && (newSlideNumber = 1);
 
     if (newSlideNumber <= totalImages && newSlideNumber > 0) {
       setSlideNumber(newSlideNumber);
