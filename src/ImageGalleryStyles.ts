@@ -1,13 +1,18 @@
 export function imageGalleryStyles(
   columnCount?: string | number,
   columnWidth?: string | number,
-  gapSize?: number,
-  showLightBox?: boolean
+  gapSize?: number
 ) {
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
     columnWidth: `${columnWidth}px`,
     columnGap: `${gapSize}px`,
+  };
+  const imageBtnStyle: React.CSSProperties = {
+    border: "none",
+    background: "none",
+    margin: 0,
+    padding: 0,
   };
   const imageContainerStyle: React.CSSProperties = {
     margin: `0 0 ${gapSize}px`,
@@ -36,8 +41,6 @@ export function imageGalleryStyles(
   const modalContainerStyle: React.CSSProperties = {
     outline: "none",
     position: "fixed",
-    display: `${showLightBox ? "block" : "none"}`,
-    zIndex: 7000000000,
     top: 0,
     left: 0,
     width: "100vw",
@@ -69,6 +72,7 @@ export function imageGalleryStyles(
     cursor: "pointer",
   };
   const modalToolbarBtnStyle: React.CSSProperties = {
+    margin: 0,
     border: "none",
     background: "none",
     padding: "13px",
@@ -101,6 +105,7 @@ export function imageGalleryStyles(
   };
   return {
     galleryContainerStyle,
+    imageBtnStyle,
     imageContainerStyle,
     imageStyle,
     imageCaptionStyle,
