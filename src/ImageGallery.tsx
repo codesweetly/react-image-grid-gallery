@@ -57,16 +57,17 @@ export function ImageGallery({
     dialogRef.current?.showModal();
   }
 
-  function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
-    e.key === "ArrowLeft" && changeSlide(-1);
-    e.key === "ArrowRight" && changeSlide(1);
-    e.key === "f" && fullscreen && switchFullScreen(false);
-    e.key === "f" && !fullscreen && switchFullScreen(true);
-  }
+  function changeSlide(directionNumber: number) {
+    const totalImages = imagesInfoArray.length;
+    let newSlideNumber = slideNumber + directionNumber;
 
-  function exitFullScreenAndDialog() {
-    fullscreen && switchFullScreen(false);
-    dialogRef.current?.close();
+    newSlideNumber < 1 && (newSlideNumber = totalImages);
+    newSlideNumber > totalImages && (newSlideNumber = 1);
+
+    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
+      setSlideNumber(newSlideNumber);
+      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
+    }
   }
 
   function switchFullScreen(on: boolean) {
@@ -82,6 +83,18 @@ export function ImageGallery({
     }
   }
 
+  function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
+    e.key === "ArrowLeft" && changeSlide(-1);
+    e.key === "ArrowRight" && changeSlide(1);
+    e.key === "f" && fullscreen && switchFullScreen(false);
+    e.key === "f" && !fullscreen && switchFullScreen(true);
+  }
+
+  function exitFullScreenAndDialog() {
+    fullscreen && switchFullScreen(false);
+    dialogRef.current?.close();
+  }
+
   function SvgElement(pathElement: ReactElement) {
     return (
       <svg
@@ -94,19 +107,6 @@ export function ImageGallery({
         {pathElement}
       </svg>
     );
-  }
-
-  function changeSlide(directionNumber: number) {
-    const totalImages = imagesInfoArray.length;
-    let newSlideNumber = slideNumber + directionNumber;
-
-    newSlideNumber < 1 && (newSlideNumber = totalImages);
-    newSlideNumber > totalImages && (newSlideNumber = 1);
-
-    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
-      setSlideNumber(newSlideNumber);
-      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
-    }
   }
 
   useEffect(() => {
@@ -126,14 +126,18 @@ export function ImageGallery({
   });
 
   const imageElementsArray = imagesInfoArray.map((item, index) => (
-    <button type="button" style={imageBtnStyle} key={crypto.randomUUID()}>
+    <button
+      type="button"
+      style={imageBtnStyle}
+      key={crypto.randomUUID()}
+      onKeyDown={(e) =>
+        e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
+      }
+    >
       <figure
         style={imageContainerStyle}
         onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
         onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
-        onKeyDown={(e) =>
-          e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
-        }
       >
         <img
           alt={item.alt}
