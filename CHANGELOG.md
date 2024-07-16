@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.1.4](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.1.3...v2.1.4) (2024-07-16)
+
+
+### 🧱 Dependency
+
+* Update peerDependencies ([bf04ca3](https://github.com/codesweetly/react-image-grid-gallery/commit/bf04ca341b6fad5a576b072e54f746cf021af84f))
+
+
+### 🐛 Bug Fix
+
+* Open lightbox when keyboard enter key is pressed on image card ([8345b9e](https://github.com/codesweetly/react-image-grid-gallery/commit/8345b9e8a92bd102cbbf1abb85e669e222626aed))
+
+
+### 🔄️ Code Refactoring
+
+* Remove redundant code ([cdc5839](https://github.com/codesweetly/react-image-grid-gallery/commit/cdc58399500f2d99ed084a47472b38b2befd300a))
+
 ## [2.1.3](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.1.2...v2.1.3) (2024-07-14)
 
 
