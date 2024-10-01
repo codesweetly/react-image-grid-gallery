@@ -88,6 +88,7 @@ function App() {
 - `alt`: (**Required**) The image's [alternative text](https://webaim.org/techniques/alttext).
 - `caption`: (**Optional**) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
 - `src`: (**Required**) The image's [URL](https://codesweetly.com/web-address-url).
+- `key`: (**Optional**) The [key](https://react.dev/learn/rendering-lists) for the button wrapping the image.
 
 </td>
 </tr>
@@ -133,6 +134,41 @@ function App() {
 
 </td>
 </tr>
+<tr>
+<td>
+
+`captionVisible`
+
+</td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>
+
+(**Optional**) Wether to permanently show image captions, or have them
+ease in.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`styles`
+
+</td>
+<td>ImageGalleryStylesType</td>
+<td><code>undefined</code></td>
+<td>
+
+(**Optional**) Styles to override default styles with (can optionally include
+any of: `galleryContainerStyle`, `imageBtnStyle`, `imageContainerStyle`, 
+`imageStyle`, `imageCaptionStyle`, `modalContainerStyle`, 
+`modalSlideNumberStyle`, `modalToolbarStyle`, `modalToolbarBtnStyle`, 
+`modalSlideShowSectionStyle`, `modalImageStyle`, `modalSlideBtnStyle`.)
+
+
+</td>
+</tr>
+
 </tbody>
 </table>
 

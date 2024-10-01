@@ -1,12 +1,16 @@
 import React, { ReactElement, useRef, useState, useEffect } from "react";
-import { ImageGalleryPropsType } from "./ImageGallery.types";
-import { imageGalleryStyles } from "./imageGalleryStyles";
+import { ImageGalleryImageType, ImageGalleryPropsType } from "./ImageGallery.types";
+import { imageGalleryStyles } from "./ImageGalleryStyles";
+
+export type { ImageGalleryImageType };
 
 export function ImageGallery({
   imagesInfoArray,
   columnCount = "auto",
   columnWidth = 230,
   gapSize = 24,
+  captionVisible = false,
+  styles = undefined
 }: ImageGalleryPropsType) {
   const [imageSrc, setImageSrc] = useState("");
   const [slideNumber, setSlideNumber] = useState(1);
@@ -14,28 +18,20 @@ export function ImageGallery({
   const [fullscreen, setFullscreen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const lightboxRef = useRef<HTMLElement | null>(null);
-
-  const galleryContainerStyle = imageGalleryStyles(
-    columnCount,
-    columnWidth,
-    gapSize
-  ).galleryContainerStyle;
-  const imageBtnStyle = imageGalleryStyles().imageBtnStyle;
-  const imageContainerStyle = imageGalleryStyles(
-    undefined,
-    undefined,
-    gapSize
-  ).imageContainerStyle;
-  const imageStyle = imageGalleryStyles().imageStyle;
-  const imageCaptionStyle = imageGalleryStyles().imageCaptionStyle;
-  const modalContainerStyle = imageGalleryStyles().modalContainerStyle;
-  const modalSlideNumberStyle = imageGalleryStyles().modalSlideNumberStyle;
-  const modalToolbarStyle = imageGalleryStyles().modalToolbarStyle;
-  const modalToolbarBtnStyle = imageGalleryStyles().modalToolbarBtnStyle;
-  const modalSlideShowSectionStyle =
-    imageGalleryStyles().modalSlideShowSectionStyle;
-  const modalImageStyle = imageGalleryStyles().modalImageStyle;
-  const modalSlideBtnStyle = imageGalleryStyles().modalSlideBtnStyle;
+  const defaultStyles = imageGalleryStyles(columnCount, columnWidth, gapSize, captionVisible);
+  const galleryStyles = { ...defaultStyles, ...styles };
+  const galleryContainerStyle = galleryStyles.galleryContainerStyle;
+  const imageContainerStyle = galleryStyles.imageContainerStyle;
+  const imageBtnStyle = galleryStyles.imageBtnStyle;
+  const imageStyle = galleryStyles.imageStyle;
+  const imageCaptionStyle = galleryStyles.imageCaptionStyle;
+  const modalContainerStyle = galleryStyles.modalContainerStyle;
+  const modalSlideNumberStyle = galleryStyles.modalSlideNumberStyle;
+  const modalToolbarStyle = galleryStyles.modalToolbarStyle;
+  const modalToolbarBtnStyle = galleryStyles.modalToolbarBtnStyle;
+  const modalSlideShowSectionStyle = galleryStyles.modalSlideShowSectionStyle;
+  const modalImageStyle = galleryStyles.modalImageStyle;
+  const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
   function handleImageContainerMouseEnter(
     e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -129,15 +125,15 @@ export function ImageGallery({
     <button
       type="button"
       style={imageBtnStyle}
-      key={crypto.randomUUID()}
+      key={item.key ?? crypto.randomUUID()}
       onKeyDown={(e) =>
         e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
       }
     >
       <figure
         style={imageContainerStyle}
-        onMouseEnter={(e) => handleImageContainerMouseEnter(e)}
-        onMouseLeave={(e) => handleImageContainerMouseLeave(e)}
+        onMouseEnter={(e) => !captionVisible ? handleImageContainerMouseEnter(e) : undefined}
+        onMouseLeave={(e) => !captionVisible ? handleImageContainerMouseLeave(e) : undefined}
       >
         <img
           alt={item.alt}
