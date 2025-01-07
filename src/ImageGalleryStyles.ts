@@ -4,7 +4,7 @@ export function imageGalleryStyles(
   columnCount?: string | number,
   columnWidth?: string | number,
   gapSize?: number,
-  captionVisible?: boolean
+  fixedCaption?: boolean
 ) : ImageGalleryStylesType {
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
@@ -27,8 +27,8 @@ export function imageGalleryStyles(
     cursor: "pointer",
   };
   const imageCaptionStyle: React.CSSProperties = {
-    opacity: captionVisible ? 1 : 0,
-    transition: captionVisible ? undefined : "opacity 1s ease-in-out",
+    opacity: fixedCaption ? 1 : 0,
+    transition: fixedCaption ? undefined : "opacity 1s ease-in-out",
     position: "absolute",
     bottom: 0,
     zIndex: "1000",

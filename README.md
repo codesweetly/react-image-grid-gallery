@@ -137,14 +137,14 @@ function App() {
 <tr>
 <td>
 
-`captionVisible`
+`fixedCaption`
 
 </td>
 <td>boolean</td>
 <td><code>false</code></td>
 <td>
 
-(**Optional**) Wether to permanently show image captions, or have them
+(**Optional**) Specify whether to display the image captions permanently (`true`) or to hide them by default and ease them in on mouse hover (`false`).
 ease in.
 
 </td>
@@ -152,18 +152,27 @@ ease in.
 <tr>
 <td>
 
-`styles`
+`customStyles`
 
 </td>
 <td>ImageGalleryStylesType</td>
 <td><code>undefined</code></td>
 <td>
 
-(**Optional**) Styles to override default styles with (can optionally include
-any of: `galleryContainerStyle`, `imageBtnStyle`, `imageContainerStyle`, 
-`imageStyle`, `imageCaptionStyle`, `modalContainerStyle`, 
-`modalSlideNumberStyle`, `modalToolbarStyle`, `modalToolbarBtnStyle`, 
-`modalSlideShowSectionStyle`, `modalImageStyle`, `modalSlideBtnStyle`.)
+(**Optional**) Custom styles to override the following element's default styles:
+
+- Gallery container: `galleryContainerStyle`
+- Gallery image button: `imageBtnStyle`
+- Gallery image container: `imageContainerStyle`
+- Gallery image element: `imageStyle`
+- Gallery image caption: `imageCaptionStyle`
+- Modal container: `modalContainerStyle`
+- Modal slide number: `modalSlideNumberStyle`
+- Modal toolbar: `modalToolbarStyle`
+- Modal toolbar button: `modalToolbarBtnStyle`
+- Modal slideshow section: `modalSlideShowSectionStyle`
+- Modal image element: `modalImageStyle`
+- Modal slide button: `modalSlideBtnStyle`
 
 
 </td>

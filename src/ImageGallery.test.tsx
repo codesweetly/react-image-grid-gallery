@@ -99,7 +99,7 @@ test("image gallery renders correctly", () => {
   );
 });
 
-test("image gallery renders correctly with styles and visible captions", () => {
+test("image gallery renders correctly with custom styles and fixed caption", () => {
   const imageContainerStyle: React.CSSProperties = {
     margin: `0 0 0`,
     position: "relative",
@@ -107,12 +107,12 @@ test("image gallery renders correctly with styles and visible captions", () => {
 
   render(
     <ImageGallery
-      imagesInfoArray={imagesWithKeyArray}
+      imagesInfoArray={imagesArray}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
-      styles={ { imageContainerStyle } }
-      captionVisible={true}
+      fixedCaption={true}
+      customStyles={{ imageContainerStyle }}
     />
   );
 });

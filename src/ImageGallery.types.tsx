@@ -13,7 +13,6 @@ export interface ImageGalleryStylesType {
     modalSlideBtnStyle?: React.CSSProperties;
 }
 
-export interface ImageGalleryImageType {
     alt: string;
     caption?: string;
     src: string;
@@ -21,10 +20,15 @@ export interface ImageGalleryImageType {
 }
 
 export interface ImageGalleryPropsType {
-  imagesInfoArray: ImageGalleryImageType[];
+  imagesInfoArray: Array<{
+    id: string | number;
+    alt: string;
+    caption?: string;
+    src: string;
+  }>;
   columnCount?: string | number;
   columnWidth?: string | number;
   gapSize?: number;
-  styles?: ImageGalleryStylesType;
-  captionVisible?: boolean;
+  fixedCaption?: boolean;
+  customStyles?: ImageGalleryStylesType;
 }
