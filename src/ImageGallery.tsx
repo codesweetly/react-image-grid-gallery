@@ -8,7 +8,7 @@ export function ImageGallery({
   columnWidth = 230,
   gapSize = 24,
   fixedCaption = false,
-  customStyles = undefined,
+  customStyles = {},
 }: ImageGalleryPropsType) {
   const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
   const [slideNumber, setSlideNumber] = useState(1);

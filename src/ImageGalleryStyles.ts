@@ -5,7 +5,7 @@ export function imageGalleryStyles(
   columnWidth?: string | number,
   gapSize?: number,
   fixedCaption?: boolean
-) : ImageGalleryStylesType {
+): ImageGalleryStylesType {
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
     columnWidth: `${columnWidth}px`,
