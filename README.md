@@ -37,16 +37,19 @@ import { ImageGallery } from "react-image-grid-gallery";
 
 const imagesArray = [
   {
+    id: "uniqueid111",
     alt: "Image1's alt text",
     caption: "Image1's description",
     src: "http://example.com/image1.jpg",
   },
   {
+    id: "uniqueid222",
     alt: "Image2's alt text",
     caption: "Image2's description",
     src: "http://example.com/image2.png",
   },
   {
+    id: "uniqueid333",
     alt: "Image3's alt text",
     caption: "Image3's description",
     src: "http://example.com/image3.webp",
@@ -145,7 +148,6 @@ function App() {
 <td>
 
 (**Optional**) Specify whether to display the image captions permanently (`true`) or to hide them by default and ease them in on mouse hover (`false`).
-ease in.
 
 </td>
 </tr>
