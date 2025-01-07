@@ -2,22 +2,26 @@ import React, { ReactElement, useRef, useState, useEffect } from "react";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
 import { imageGalleryStyles } from "./ImageGalleryStyles";
 
-
 export function ImageGallery({
   imagesInfoArray,
   columnCount = "auto",
   columnWidth = 230,
   gapSize = 24,
   fixedCaption = false,
-  customStyles = undefined
+  customStyles = undefined,
 }: ImageGalleryPropsType) {
-  const [imageSrc, setImageSrc] = useState("");
+  const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
   const [slideNumber, setSlideNumber] = useState(1);
   const [showModalControls, setShowModalControls] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const lightboxRef = useRef<HTMLElement | null>(null);
-  const defaultStyles = imageGalleryStyles(columnCount, columnWidth, gapSize, fixedCaption);
+  const defaultStyles = imageGalleryStyles(
+    columnCount,
+    columnWidth,
+    gapSize,
+    fixedCaption
+  );
   const galleryStyles = { ...defaultStyles, ...customStyles };
   const galleryContainerStyle = galleryStyles.galleryContainerStyle;
   const imageContainerStyle = galleryStyles.imageContainerStyle;
@@ -46,7 +50,7 @@ export function ImageGallery({
     figcaption && (figcaption.style.opacity = "0");
   }
 
-  function openLightboxOnSlide(imgSrc: string, number: number) {
+  function openLightboxOnSlide(imgSrc: string | undefined, number: number) {
     setImageSrc(imgSrc);
     setSlideNumber(number);
     dialogRef.current?.showModal();
@@ -131,8 +135,12 @@ export function ImageGallery({
     >
       <figure
         style={imageContainerStyle}
-        onMouseEnter={(e) => fixedCaption ? undefined : handleImageContainerMouseEnter(e) }
-        onMouseLeave={(e) => fixedCaption ? undefined : handleImageContainerMouseLeave(e) }
+        onMouseEnter={(e) =>
+          fixedCaption ? undefined : handleImageContainerMouseEnter(e)
+        }
+        onMouseLeave={(e) =>
+          fixedCaption ? undefined : handleImageContainerMouseLeave(e)
+        }
       >
         <img
           alt={item.alt}
