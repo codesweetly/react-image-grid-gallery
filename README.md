@@ -85,10 +85,10 @@ function App() {
 
 (**Required**) An array of objects containing the following properties:
 
+- `id`: (**Required**) An [identification string or number](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key) that uniquely identifies each image among other images in the array.
 - `alt`: (**Required**) The image's [alternative text](https://webaim.org/techniques/alttext).
 - `caption`: (**Optional**) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
 - `src`: (**Required**) The image's [URL](https://codesweetly.com/web-address-url).
-- `key`: (**Optional**) The [key](https://react.dev/learn/rendering-lists) for the button wrapping the image.
 
 </td>
 </tr>
@@ -173,7 +173,6 @@ ease in.
 - Modal slideshow section: `modalSlideShowSectionStyle`
 - Modal image element: `modalImageStyle`
 - Modal slide button: `modalSlideBtnStyle`
-
 
 </td>
 </tr>
