@@ -4,6 +4,16 @@ A simple, easy-to-use, and responsive image gallery component with a lightbox fo
 
 ![npm](https://img.shields.io/npm/v/react-image-grid-gallery) ![NPM](https://img.shields.io/npm/l/react-image-grid-gallery)
 
+## Features
+
+- SEO friendly
+- Fullscreen support
+- Keyboard accessible
+- Mobile responsive
+- Lightbox with translucent background
+- Set column numbers dynamically or manually
+- Customizable styles
+
 ## Live Demo and Tutorial
 
 Available at: https://codesweetly.com/react-image-grid-gallery
