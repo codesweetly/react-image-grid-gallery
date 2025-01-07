@@ -1,8 +1,11 @@
+import { ImageGalleryStylesType } from "./ImageGallery.types";
+
 export function imageGalleryStyles(
   columnCount?: string | number,
   columnWidth?: string | number,
-  gapSize?: number
-) {
+  gapSize?: number,
+  fixedCaption?: boolean
+) : ImageGalleryStylesType {
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
     columnWidth: `${columnWidth}px`,
@@ -24,8 +27,8 @@ export function imageGalleryStyles(
     cursor: "pointer",
   };
   const imageCaptionStyle: React.CSSProperties = {
-    opacity: 0,
-    transition: "opacity 1s ease-in-out",
+    opacity: fixedCaption ? 1 : 0,
+    transition: fixedCaption ? undefined : "opacity 1s ease-in-out",
     position: "absolute",
     bottom: 0,
     zIndex: "1000",

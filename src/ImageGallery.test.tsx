@@ -66,6 +66,28 @@ const imagesArray = [
   },
 ];
 
+const imagesWithKeyArray = [
+  {
+    alt: "Image1's alt text",
+    caption: "Image1's description",
+    src: "https://cdn.pixabay.com/photo/2023/05/25/22/07/river-8018379_1280.jpg",
+    key: "image_1"
+  },
+  {
+    alt: "Image2's alt text",
+    caption: "Image2's description",
+    src: "https://cdn.pixabay.com/photo/2023/05/21/11/45/flowers-8008392_1280.jpg",
+    key: "image_2"
+  },
+  {
+    alt: "Image3's alt text",
+    caption: "Image3's description",
+    src: "https://cdn.pixabay.com/photo/2020/09/14/15/10/birch-tree-5571242_1280.png",
+    key: "image_3"
+  }
+];
+
+
 test("image gallery renders correctly", () => {
   render(
     <ImageGallery
@@ -73,6 +95,24 @@ test("image gallery renders correctly", () => {
       columnCount={1}
       columnWidth={300}
       gapSize={2}
+    />
+  );
+});
+
+test("image gallery renders correctly with custom styles and fixed caption", () => {
+  const imageContainerStyle: React.CSSProperties = {
+    margin: `0 0 0`,
+    position: "relative",
+  };
+
+  render(
+    <ImageGallery
+      imagesInfoArray={imagesArray}
+      columnCount={1}
+      columnWidth={300}
+      gapSize={2}
+      fixedCaption={true}
+      customStyles={{ imageContainerStyle }}
     />
   );
 });

@@ -88,6 +88,7 @@ function App() {
 - `alt`: (**Required**) The image's [alternative text](https://webaim.org/techniques/alttext).
 - `caption`: (**Optional**) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
 - `src`: (**Required**) The image's [URL](https://codesweetly.com/web-address-url).
+- `key`: (**Optional**) The [key](https://react.dev/learn/rendering-lists) for the button wrapping the image.
 
 </td>
 </tr>
@@ -133,6 +134,50 @@ function App() {
 
 </td>
 </tr>
+<tr>
+<td>
+
+`fixedCaption`
+
+</td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>
+
+(**Optional**) Specify whether to display the image captions permanently (`true`) or to hide them by default and ease them in on mouse hover (`false`).
+ease in.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`customStyles`
+
+</td>
+<td>ImageGalleryStylesType</td>
+<td><code>undefined</code></td>
+<td>
+
+(**Optional**) Custom styles to override the following element's default styles:
+
+- Gallery container: `galleryContainerStyle`
+- Gallery image button: `imageBtnStyle`
+- Gallery image container: `imageContainerStyle`
+- Gallery image element: `imageStyle`
+- Gallery image caption: `imageCaptionStyle`
+- Modal container: `modalContainerStyle`
+- Modal slide number: `modalSlideNumberStyle`
+- Modal toolbar: `modalToolbarStyle`
+- Modal toolbar button: `modalToolbarBtnStyle`
+- Modal slideshow section: `modalSlideShowSectionStyle`
+- Modal image element: `modalImageStyle`
+- Modal slide button: `modalSlideBtnStyle`
+
+
+</td>
+</tr>
+
 </tbody>
 </table>
 
