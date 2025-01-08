@@ -95,6 +95,10 @@ test("image gallery renders correctly with custom styles and fixed caption", () 
     position: "relative",
   };
 
+  const imageBtnStyle: React.CSSProperties = {
+    border: "4px solid purple",
+  };
+
   render(
     <ImageGallery
       imagesInfoArray={imagesArray}
@@ -102,7 +106,7 @@ test("image gallery renders correctly with custom styles and fixed caption", () 
       columnWidth={300}
       gapSize={2}
       fixedCaption={true}
-      customStyles={{ imageContainerStyle }}
+      customStyles={{ imageContainerStyle, imageBtnStyle }}
     />
   );
 });
