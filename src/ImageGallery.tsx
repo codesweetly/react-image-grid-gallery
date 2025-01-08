@@ -108,59 +108,53 @@ export function ImageGallery({
     );
   }
 
-  useEffect(() => {
-    function handleFullscreenChange() {
-      setFullscreen(Boolean(document.fullscreenElement));
-      lightboxRef.current?.focus();
-    }
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () =>
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-  }, []);
-
-  useEffect(() => {
-    dialogRef.current?.open &&
-      (document.documentElement.style.overflow = "hidden");
-    !dialogRef.current?.open && (document.documentElement.style.overflow = "");
-  });
-
-  const imageElementsArray = imagesInfoArray.map((item, index) => {
-    if (item.id) {
-      return (
-        <button
-          type="button"
-          style={imageBtnStyle}
-          key={item.id}
-          onKeyDown={(e) =>
-            e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
-          }
-        >
-          <figure
-            style={imageContainerStyle}
-            onMouseEnter={(e) =>
-              fixedCaption ? undefined : handleImageContainerMouseEnter(e)
-            }
-            onMouseLeave={(e) =>
-              fixedCaption ? undefined : handleImageContainerMouseLeave(e)
+  function showImageCards() {
+    const imageElementsArray = imagesInfoArray.map((item, index) => {
+      if (item.id) {
+        return (
+          <button
+            type="button"
+            style={imageBtnStyle}
+            key={item.id}
+            onKeyDown={(e) =>
+              e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
             }
           >
-            <img
-              alt={item.alt}
-              src={item.src}
-              onClick={() => openLightboxOnSlide(item.src, index + 1)}
-              style={imageStyle}
-            />
-            {item.caption ? (
-              <figcaption style={imageCaptionStyle}>{item.caption}</figcaption>
-            ) : (
-              ""
-            )}
-          </figure>
-        </button>
+            <figure
+              style={imageContainerStyle}
+              onMouseEnter={(e) =>
+                fixedCaption ? undefined : handleImageContainerMouseEnter(e)
+              }
+              onMouseLeave={(e) =>
+                fixedCaption ? undefined : handleImageContainerMouseLeave(e)
+              }
+            >
+              <img
+                alt={item.alt}
+                src={item.src}
+                onClick={() => openLightboxOnSlide(item.src, index + 1)}
+                style={imageStyle}
+              />
+              {item.caption ? (
+                <figcaption style={imageCaptionStyle}>
+                  {item.caption}
+                </figcaption>
+              ) : (
+                ""
+              )}
+            </figure>
+          </button>
+        );
+      }
+      return (
+        <div>
+          <strong>Error:</strong> Each item in the `imagesArray` needs a unique
+          `id`
+        </div>
       );
-    }
-    return <div><strong>Error:</strong> Each item in the `imagesArray` needs a unique `id`</div>;
-  });
+    });
+    return imageElementsArray;
+  }
 
   const lightBoxElement = (
     <dialog ref={dialogRef} style={{ margin: "auto" }}>
@@ -276,9 +270,25 @@ export function ImageGallery({
     </dialog>
   );
 
+  useEffect(() => {
+    function handleFullscreenChange() {
+      setFullscreen(Boolean(document.fullscreenElement));
+      lightboxRef.current?.focus();
+    }
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
+  useEffect(() => {
+    dialogRef.current?.open &&
+      (document.documentElement.style.overflow = "hidden");
+    !dialogRef.current?.open && (document.documentElement.style.overflow = "");
+  });
+
   return (
     <div style={galleryContainerStyle}>
-      {imageElementsArray}
+      {showImageCards()}
       {lightBoxElement}
     </div>
   );

@@ -10,6 +10,7 @@ export function imageGalleryStyles(
     columnCount,
     columnWidth: `${columnWidth}px`,
     columnGap: `${gapSize}px`,
+    textAlign: "center",
   };
   const imageBtnStyle: React.CSSProperties = {
     border: "none",
