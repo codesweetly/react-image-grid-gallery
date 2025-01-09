@@ -23,8 +23,9 @@ export function imageGalleryStyles(
     position: "relative",
   };
   const imageStyle: React.CSSProperties = {
-    display: "block",
     width: "100%",
+    aspectRatio: "1/1 auto",
+    backgroundColor: "#D3D3D3",
     cursor: "pointer",
   };
   const imageCaptionStyle: React.CSSProperties = {
