@@ -249,9 +249,7 @@ function YourComponent() {
 }
 ```
 
-The `<BrowserOnly>` component tells Docusaurus to render the `ImageGallery` library only in the browser.
-
-> **Note:** This process is essential if your `imagesArray` uses the Web Crypto API. Therefore, `BrowserOnly` ensures that the Crypto API runs only in CSR (Client-Side Rendering) rather than during build or SSR (Server-Side Rendering).
+This process is essential if your `imagesArray` uses the Web Crypto API. The `<BrowserOnly>` component tells Docusaurus to render the `ImageGallery` library only in the browser. It ensures that the Crypto API runs only in CSR (Client-Side Rendering) rather than during build or SSR (Server-Side Rendering).
 
 ## Build
 
