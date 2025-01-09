@@ -168,7 +168,7 @@ function App() {
 
 </td>
 <td>ImageGalleryStylesType</td>
-<td><code>undefined</code></td>
+<td><code>{}</code></td>
 <td>
 
 (**Optional**) Custom styles to override the following element's default styles:
@@ -251,7 +251,7 @@ function YourComponent() {
 
 The `<BrowserOnly>` component tells Docusaurus to render the `ImageGallery` library only in the browser.
 
-> **Note:** This process is essential because the `ImageGallery` package uses the Web Crypto API. Therefore, `BrowserOnly` ensures that the Crypto API runs only in CSR (Client-Side Rendering) rather than during build or SSR (Server-Side Rendering).
+> **Note:** This process is essential if your `imagesArray` uses the Web Crypto API. Therefore, `BrowserOnly` ensures that the Crypto API runs only in CSR (Client-Side Rendering) rather than during build or SSR (Server-Side Rendering).
 
 ## Build
 
