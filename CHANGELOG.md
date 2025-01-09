@@ -1,5 +1,24 @@
 # Changelog
 
+## 3.0.0 (2025-01-09)
+
+* build: Bump dependencies ([2e1692e](https://github.com/codesweetly/react-image-grid-gallery/commit/2e1692e))
+* build: Bump typescript from v5.7.2 to v5.7.3 ([8811f95](https://github.com/codesweetly/react-image-grid-gallery/commit/8811f95))
+* docs: Add features section ([e4dcb2a](https://github.com/codesweetly/react-image-grid-gallery/commit/e4dcb2a))
+* docs: Add id property to imagesArray ([53816a5](https://github.com/codesweetly/react-image-grid-gallery/commit/53816a5))
+* docs: Update customStyles' default value to an empty object ([d5a311a](https://github.com/codesweetly/react-image-grid-gallery/commit/d5a311a))
+* docs: Update docusaurus note to reflect that crypto is no longer used by default ([d11c168](https://github.com/codesweetly/react-image-grid-gallery/commit/d11c168))
+* style: Specify the gallery images' initial aspect ratio ([5b55263](https://github.com/codesweetly/react-image-grid-gallery/commit/5b55263))
+* refactor: Apply suggestions from code review ([bc176a5](https://github.com/codesweetly/react-image-grid-gallery/commit/bc176a5))
+* refactor: Create imageElementsArray from a function ([ac645e9](https://github.com/codesweetly/react-image-grid-gallery/commit/ac645e9))
+* refactor: Use empty object as customStyles' default value to reflect the accepted data type ([83c6e09](https://github.com/codesweetly/react-image-grid-gallery/commit/83c6e09))
+* Adding configurable styles, key for images, and visibility of captions ([effbbc4](https://github.com/codesweetly/react-image-grid-gallery/commit/effbbc4))
+* feat!: Make an id field part of the required properties of the imagesInfoArray prop ([0614ed9](https://github.com/codesweetly/react-image-grid-gallery/commit/0614ed9))
+* refactor!: Show error message if id property is missing in the imagesArray ([0c05380](https://github.com/codesweetly/react-image-grid-gallery/commit/0c05380))
+* test: Customize image button's style ([5db32f6](https://github.com/codesweetly/react-image-grid-gallery/commit/5db32f6))
+* fix: Change imagesrc's initial value from an empty string to undefined ([906d533](https://github.com/codesweetly/react-image-grid-gallery/commit/906d533))
+* chore: Reconfigure husky ([7c34c74](https://github.com/codesweetly/react-image-grid-gallery/commit/7c34c74))
+
 ## [2.1.4](https://github.com/codesweetly/react-image-grid-gallery/compare/v2.1.3...v2.1.4) (2024-07-16)
 
 
