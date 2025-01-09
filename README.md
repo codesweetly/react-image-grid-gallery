@@ -4,6 +4,16 @@ A simple, easy-to-use, and responsive image gallery component with a lightbox fo
 
 ![npm](https://img.shields.io/npm/v/react-image-grid-gallery) ![NPM](https://img.shields.io/npm/l/react-image-grid-gallery)
 
+## Features
+
+- SEO friendly
+- Fullscreen support
+- Keyboard accessible
+- Mobile responsive
+- Lightbox with translucent background
+- Set column numbers dynamically or manually
+- Customizable styles
+
 ## Live Demo and Tutorial
 
 Available at: https://codesweetly.com/react-image-grid-gallery
@@ -37,16 +47,19 @@ import { ImageGallery } from "react-image-grid-gallery";
 
 const imagesArray = [
   {
+    id: "uniqueid111",
     alt: "Image1's alt text",
     caption: "Image1's description",
     src: "http://example.com/image1.jpg",
   },
   {
+    id: "uniqueid222",
     alt: "Image2's alt text",
     caption: "Image2's description",
     src: "http://example.com/image2.png",
   },
   {
+    id: "uniqueid333",
     alt: "Image3's alt text",
     caption: "Image3's description",
     src: "http://example.com/image3.webp",
@@ -145,7 +158,6 @@ function App() {
 <td>
 
 (**Optional**) Specify whether to display the image captions permanently (`true`) or to hide them by default and ease them in on mouse hover (`false`).
-ease in.
 
 </td>
 </tr>
@@ -156,7 +168,7 @@ ease in.
 
 </td>
 <td>ImageGalleryStylesType</td>
-<td><code>undefined</code></td>
+<td><code>{}</code></td>
 <td>
 
 (**Optional**) Custom styles to override the following element's default styles:
@@ -237,9 +249,7 @@ function YourComponent() {
 }
 ```
 
-The `<BrowserOnly>` component tells Docusaurus to render the `ImageGallery` library only in the browser.
-
-> **Note:** This process is essential because the `ImageGallery` package uses the Web Crypto API. Therefore, `BrowserOnly` ensures that the Crypto API runs only in CSR (Client-Side Rendering) rather than during build or SSR (Server-Side Rendering).
+This process is essential if your `imagesArray` uses the Web Crypto API. The `<BrowserOnly>` component tells Docusaurus to render the `ImageGallery` library only in the browser. It ensures that the Crypto API runs only in CSR (Client-Side Rendering) rather than during build or SSR (Server-Side Rendering).
 
 ## Build
 

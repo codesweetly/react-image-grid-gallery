@@ -5,11 +5,12 @@ export function imageGalleryStyles(
   columnWidth?: string | number,
   gapSize?: number,
   fixedCaption?: boolean
-) : ImageGalleryStylesType {
+): ImageGalleryStylesType {
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
     columnWidth: `${columnWidth}px`,
     columnGap: `${gapSize}px`,
+    textAlign: "center",
   };
   const imageBtnStyle: React.CSSProperties = {
     border: "none",
@@ -22,8 +23,9 @@ export function imageGalleryStyles(
     position: "relative",
   };
   const imageStyle: React.CSSProperties = {
-    display: "block",
     width: "100%",
+    aspectRatio: "1/1 auto",
+    backgroundColor: "#D3D3D3",
     cursor: "pointer",
   };
   const imageCaptionStyle: React.CSSProperties = {
