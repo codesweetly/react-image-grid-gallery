@@ -20,6 +20,10 @@
   "files": [
     "./dist"
   ],
+  "funding": {
+    "type": "buymeacoffee",
+    "url": "https://www.buymeacoffee.com/codesweetly"
+  },
   "keywords": [
     "react",
     "image",
