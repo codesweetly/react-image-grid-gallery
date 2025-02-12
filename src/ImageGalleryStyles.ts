@@ -6,6 +6,8 @@ export function imageGalleryStyles(
   gapSize?: number,
   fixedCaption?: boolean
 ): ImageGalleryStylesType {
+  const modalSlideShowSectionHeight = "82vh";
+  const modalThumbnailSectionHeight = "18vh";
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
     columnWidth: `${columnWidth}px`,
@@ -89,12 +91,16 @@ export function imageGalleryStyles(
     display: "flex",
     alignItems: "center",
     width: "inherit",
-    height: "inherit",
+    height: `${modalSlideShowSectionHeight}`,
+  };
+  const modalThumbnailSectionStyle: React.CSSProperties = {
+    backgroundColor: "blue",
+    height: `${modalThumbnailSectionHeight}`,
   };
   const modalImageStyle: React.CSSProperties = {
     margin: "auto",
     maxWidth: "100vw",
-    maxHeight: "100vh",
+    maxHeight: `${modalSlideShowSectionHeight}`,
   };
   const modalSlideBtnStyle: React.CSSProperties = {
     position: "absolute",
@@ -119,6 +125,7 @@ export function imageGalleryStyles(
     modalToolbarStyle,
     modalToolbarBtnStyle,
     modalSlideShowSectionStyle,
+    modalThumbnailSectionStyle,
     modalImageStyle,
     modalSlideBtnStyle,
   };

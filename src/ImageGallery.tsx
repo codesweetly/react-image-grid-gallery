@@ -33,6 +33,7 @@ export function ImageGallery({
   const modalToolbarStyle = galleryStyles.modalToolbarStyle;
   const modalToolbarBtnStyle = galleryStyles.modalToolbarBtnStyle;
   const modalSlideShowSectionStyle = galleryStyles.modalSlideShowSectionStyle;
+  const modalThumbnailSectionStyle = galleryStyles.modalThumbnailSectionStyle;
   const modalImageStyle = galleryStyles.modalImageStyle;
   const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
@@ -266,6 +267,7 @@ export function ImageGallery({
             )}
           </button>
         </section>
+        <section style={modalThumbnailSectionStyle}>I love you!</section>
       </article>
     </dialog>
   );
