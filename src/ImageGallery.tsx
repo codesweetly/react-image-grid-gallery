@@ -60,9 +60,9 @@ export function ImageGallery({
     dialogRef.current?.showModal();
   }
 
-  function changeSlide(directionNumber: number) {
+  function changeSlide(direction: number) {
     const totalImages = imagesInfoArray.length;
-    let newSlideNumber = slideNumber + directionNumber;
+    let newSlideNumber = slideNumber + direction;
 
     newSlideNumber < 1 && (newSlideNumber = totalImages);
     newSlideNumber > totalImages && (newSlideNumber = 1);
@@ -71,14 +71,6 @@ export function ImageGallery({
       setSlideNumber(newSlideNumber);
       setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
     }
-  }
-
-  function scrollActiveThumbImgIntoView() {
-    activeThumbImgRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
   }
 
   function switchFullScreen(on: boolean) {
@@ -94,9 +86,18 @@ export function ImageGallery({
     }
   }
 
+  function scrollImage(direction: number) {
+    flushSync(() => changeSlide(direction));
+    activeThumbImgRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }
+
   function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
-    e.key === "ArrowLeft" && changeSlide(-1);
-    e.key === "ArrowRight" && changeSlide(1);
+    e.key === "ArrowLeft" && scrollImage(-1);
+    e.key === "ArrowRight" && scrollImage(1);
     e.key === "f" && fullscreen && switchFullScreen(false);
     e.key === "f" && !fullscreen && switchFullScreen(true);
   }
@@ -245,10 +246,7 @@ export function ImageGallery({
               ...modalSlideBtnStyle,
             }}
             title="Previous image"
-            onClick={() => {
-              flushSync(() => changeSlide(-1));
-              scrollActiveThumbImgIntoView();
-            }}
+            onClick={() => scrollImage(-1)}
           >
             {SvgElement(
               <path
@@ -271,10 +269,7 @@ export function ImageGallery({
               ...modalSlideBtnStyle,
             }}
             title="Next image"
-            onClick={() => {
-              flushSync(() => changeSlide(1));
-              scrollActiveThumbImgIntoView();
-            }}
+            onClick={() => scrollImage(1)}
           >
             {SvgElement(
               <path
