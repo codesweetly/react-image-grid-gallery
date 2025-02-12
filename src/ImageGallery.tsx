@@ -60,9 +60,9 @@ export function ImageGallery({
     dialogRef.current?.showModal();
   }
 
-  function changeSlide(direction: number) {
+  function changeSlide(thumbClick: boolean, step: number) {
     const totalImages = imagesInfoArray.length;
-    let newSlideNumber = slideNumber + direction;
+    let newSlideNumber = thumbClick ? step + 1 : slideNumber + step;
 
     newSlideNumber < 1 && (newSlideNumber = totalImages);
     newSlideNumber > totalImages && (newSlideNumber = 1);
@@ -86,8 +86,13 @@ export function ImageGallery({
     }
   }
 
-  function scrollImage(direction: number) {
-    flushSync(() => changeSlide(direction));
+  function scrollImage(
+    thumbClick: boolean,
+    direction: number,
+    imgIndex: number
+  ) {
+    const step = thumbClick ? imgIndex : direction;
+    flushSync(() => changeSlide(thumbClick, step));
     activeThumbImgRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
@@ -96,8 +101,8 @@ export function ImageGallery({
   }
 
   function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
-    e.key === "ArrowLeft" && scrollImage(-1);
-    e.key === "ArrowRight" && scrollImage(1);
+    e.key === "ArrowLeft" && scrollImage(false, -1, 0);
+    e.key === "ArrowRight" && scrollImage(false, 1, 0);
     e.key === "f" && fullscreen && switchFullScreen(false);
     e.key === "f" && !fullscreen && switchFullScreen(true);
   }
@@ -246,7 +251,7 @@ export function ImageGallery({
               ...modalSlideBtnStyle,
             }}
             title="Previous image"
-            onClick={() => scrollImage(-1)}
+            onClick={() => scrollImage(false, -1, 0)}
           >
             {SvgElement(
               <path
@@ -269,7 +274,7 @@ export function ImageGallery({
               ...modalSlideBtnStyle,
             }}
             title="Next image"
-            onClick={() => scrollImage(1)}
+            onClick={() => scrollImage(false, 1, 0)}
           >
             {SvgElement(
               <path
@@ -285,10 +290,12 @@ export function ImageGallery({
               ref={slideNumber - 1 === index ? activeThumbImgRef : null}
               style={{
                 border: slideNumber - 1 === index ? thumbnailBorder : "",
+                cursor: "pointer",
               }}
               key={imageInfo.id}
               src={imageInfo.src}
               alt={imageInfo.alt}
+              onClick={() => scrollImage(true, 0, index)}
             />
           ))}
         </section>
