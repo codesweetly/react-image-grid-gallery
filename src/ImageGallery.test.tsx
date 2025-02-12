@@ -110,3 +110,12 @@ test("image gallery renders correctly with custom styles and fixed caption", () 
     />
   );
 });
+
+test("image gallery works with custom thumbnail border", () => {
+  render(
+    <ImageGallery
+      imagesInfoArray={imagesArray}
+      thumbnailBorder="medium dashed pink"
+    />
+  );
+});

@@ -1,4 +1,5 @@
 import React, { ReactElement, useRef, useState, useEffect } from "react";
+import { flushSync } from "react-dom";
 import { ImageGalleryPropsType } from "./ImageGallery.types";
 import { imageGalleryStyles } from "./ImageGalleryStyles";
 
@@ -8,6 +9,7 @@ export function ImageGallery({
   columnWidth = 230,
   gapSize = 24,
   fixedCaption = false,
+  thumbnailBorder = "3px solid #fff",
   customStyles = {},
 }: ImageGalleryPropsType) {
   const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
@@ -16,6 +18,7 @@ export function ImageGallery({
   const [fullscreen, setFullscreen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const lightboxRef = useRef<HTMLElement | null>(null);
+  const activeThumbImgRef = useRef<HTMLImageElement | null>(null);
   const defaultStyles = imageGalleryStyles(
     columnCount,
     columnWidth,
@@ -68,6 +71,14 @@ export function ImageGallery({
       setSlideNumber(newSlideNumber);
       setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
     }
+  }
+
+  function scrollActiveThumbImgIntoView() {
+    activeThumbImgRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
   }
 
   function switchFullScreen(on: boolean) {
@@ -234,7 +245,10 @@ export function ImageGallery({
               ...modalSlideBtnStyle,
             }}
             title="Previous image"
-            onClick={() => changeSlide(-1)}
+            onClick={() => {
+              flushSync(() => changeSlide(-1));
+              scrollActiveThumbImgIntoView();
+            }}
           >
             {SvgElement(
               <path
@@ -257,7 +271,10 @@ export function ImageGallery({
               ...modalSlideBtnStyle,
             }}
             title="Next image"
-            onClick={() => changeSlide(1)}
+            onClick={() => {
+              flushSync(() => changeSlide(1));
+              scrollActiveThumbImgIntoView();
+            }}
           >
             {SvgElement(
               <path
@@ -267,7 +284,19 @@ export function ImageGallery({
             )}
           </button>
         </section>
-        <section style={modalThumbnailSectionStyle}>I love you!</section>
+        <section style={modalThumbnailSectionStyle}>
+          {imagesInfoArray.map((imageInfo, index) => (
+            <img
+              ref={slideNumber - 1 === index ? activeThumbImgRef : null}
+              style={{
+                border: slideNumber - 1 === index ? thumbnailBorder : "",
+              }}
+              key={imageInfo.id}
+              src={imageInfo.src}
+              alt={imageInfo.alt}
+            />
+          ))}
+        </section>
       </article>
     </dialog>
   );
