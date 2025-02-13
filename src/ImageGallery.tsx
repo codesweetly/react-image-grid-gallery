@@ -38,6 +38,7 @@ export function ImageGallery({
   const modalToolbarBtnStyle = galleryStyles.modalToolbarBtnStyle;
   const modalSlideShowSectionStyle = galleryStyles.modalSlideShowSectionStyle;
   const modalThumbnailSectionStyle = galleryStyles.modalThumbnailSectionStyle;
+  const modalImageContainerStyle = galleryStyles.modalImageContainerStyle;
   const modalImageStyle = galleryStyles.modalImageStyle;
   const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
@@ -277,14 +278,31 @@ export function ImageGallery({
               />
             )}
           </button>
-          <img
-            src={imageSrc}
-            alt={imagesInfoArray[slideNumber - 1].alt}
-            style={{
-              height: showThumbnails ? "80vh" : "100vh",
-              ...modalImageStyle,
-            }}
-          />
+          <figure
+            style={modalImageContainerStyle}
+            onMouseEnter={(e) =>
+              fixedCaption ? undefined : handleImageContainerMouseEnter(e)
+            }
+            onMouseLeave={(e) =>
+              fixedCaption ? undefined : handleImageContainerMouseLeave(e)
+            }
+          >
+            <img
+              src={imageSrc}
+              alt={imagesInfoArray[slideNumber - 1].alt}
+              style={{
+                height: showThumbnails ? "80vh" : "100vh",
+                ...modalImageStyle,
+              }}
+            />
+            {imagesInfoArray[slideNumber - 1].caption ? (
+              <figcaption style={imageCaptionStyle}>
+                {imagesInfoArray[slideNumber - 1].caption}
+              </figcaption>
+            ) : (
+              ""
+            )}
+          </figure>
           <button
             type="button"
             aria-label="Next image"

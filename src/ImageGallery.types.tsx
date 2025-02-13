@@ -10,6 +10,7 @@ export interface ImageGalleryStylesType {
   modalToolbarBtnStyle?: React.CSSProperties;
   modalSlideShowSectionStyle?: React.CSSProperties;
   modalThumbnailSectionStyle?: React.CSSProperties;
+  modalImageContainerStyle?: React.CSSProperties;
   modalImageStyle?: React.CSSProperties;
   modalSlideBtnStyle?: React.CSSProperties;
 }

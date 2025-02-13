@@ -92,6 +92,9 @@ export function imageGalleryStyles(
     width: "inherit",
     transition: "height .7s linear",
   };
+  const modalImageContainerStyle: React.CSSProperties = {
+    width: "inherit",
+  };
   const modalImageStyle: React.CSSProperties = {
     margin: "auto",
     maxWidth: "100vw",
@@ -128,6 +131,7 @@ export function imageGalleryStyles(
     modalToolbarBtnStyle,
     modalSlideShowSectionStyle,
     modalThumbnailSectionStyle,
+    modalImageContainerStyle,
     modalImageStyle,
     modalSlideBtnStyle,
   };

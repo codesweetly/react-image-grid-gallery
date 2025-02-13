@@ -43,7 +43,6 @@ const imagesArray = [
   {
     id: crypto.randomUUID(),
     alt: "Image7's alt text",
-    caption: "Image7's description",
     src: "https://cdn.pixabay.com/photo/2023/05/25/22/07/river-8018379_1280.jpg",
     smallSrc:
       "https://cdn.pixabay.com/photo/2023/05/25/22/07/river-8018379_640.jpg",
@@ -51,7 +50,6 @@ const imagesArray = [
   {
     id: crypto.randomUUID(),
     alt: "Image8's alt text",
-    caption: "Image8's description",
     src: "https://cdn.pixabay.com/photo/2023/05/21/11/45/flowers-8008392_1280.jpg",
     smallSrc:
       "https://cdn.pixabay.com/photo/2023/05/21/11/45/flowers-8008392_640.jpg",
