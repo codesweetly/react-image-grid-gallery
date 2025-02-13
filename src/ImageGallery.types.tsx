@@ -19,7 +19,7 @@ export interface ImageGalleryPropsType {
     id: string | number;
     alt: string;
     caption?: string;
-    src: string | undefined;
+    src: string;
   }>;
   columnCount?: string | number;
   columnWidth?: string | number;
