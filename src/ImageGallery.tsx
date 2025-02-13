@@ -128,15 +128,15 @@ export function ImageGallery({
   }
 
   function showImageCards() {
-    const imageElementsArray = imagesInfoArray.map((item, index) => {
-      if (item.id) {
+    const imageElementsArray = imagesInfoArray.map((imageInfo, index) => {
+      if (imageInfo.id) {
         return (
           <button
             type="button"
             style={imageBtnStyle}
-            key={item.id}
+            key={imageInfo.id}
             onKeyDown={(e) =>
-              e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
+              e.key === "Enter" && openLightboxOnSlide(imageInfo.src, index + 1)
             }
           >
             <figure
@@ -149,14 +149,14 @@ export function ImageGallery({
               }
             >
               <img
-                alt={item.alt}
-                src={item.src}
-                onClick={() => openLightboxOnSlide(item.src, index + 1)}
+                alt={imageInfo.alt}
+                src={imageInfo.smallSrc || imageInfo.src}
+                onClick={() => openLightboxOnSlide(imageInfo.src, index + 1)}
                 style={imageStyle}
               />
-              {item.caption ? (
+              {imageInfo.caption ? (
                 <figcaption style={imageCaptionStyle}>
-                  {item.caption}
+                  {imageInfo.caption}
                 </figcaption>
               ) : (
                 ""
@@ -318,7 +318,7 @@ export function ImageGallery({
                 cursor: "pointer",
               }}
               key={imageInfo.id}
-              src={imageInfo.src}
+              src={imageInfo.smallSrc || imageInfo.src}
               alt={imageInfo.alt}
               onClick={() => scrollImage(true, 0, index)}
             />
