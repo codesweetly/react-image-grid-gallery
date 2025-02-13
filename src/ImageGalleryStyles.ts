@@ -6,7 +6,6 @@ export function imageGalleryStyles(
   gapSize?: number,
   fixedCaption?: boolean
 ): ImageGalleryStylesType {
-  const modalSlideShowSectionHeight = "80vh";
   const modalThumbnailSectionHeight = "20vh";
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
@@ -91,12 +90,12 @@ export function imageGalleryStyles(
     display: "flex",
     alignItems: "center",
     width: "inherit",
-    height: `${modalSlideShowSectionHeight}`,
+    transition: "height .7s linear",
   };
   const modalImageStyle: React.CSSProperties = {
     margin: "auto",
     maxWidth: "100vw",
-    maxHeight: `${modalSlideShowSectionHeight}`,
+    transition: "height .7s linear",
   };
   const modalSlideBtnStyle: React.CSSProperties = {
     position: "absolute",
