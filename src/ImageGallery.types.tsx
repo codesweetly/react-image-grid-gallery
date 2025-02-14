@@ -21,7 +21,8 @@ export interface ImageGalleryPropsType {
     alt: string;
     caption?: string;
     src: string;
-    smallSrc?: string;
+    gridSrc?: string;
+    thumbSrc?: string;
   }>;
   columnCount?: string | number;
   columnWidth?: string | number;

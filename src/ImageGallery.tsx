@@ -151,7 +151,7 @@ export function ImageGallery({
             >
               <img
                 alt={imageInfo.alt}
-                src={imageInfo.smallSrc || imageInfo.src}
+                src={imageInfo.gridSrc || imageInfo.src}
                 onClick={() => openLightboxOnSlide(imageInfo.src, index + 1)}
                 style={imageStyle}
               />
@@ -336,7 +336,7 @@ export function ImageGallery({
                 cursor: "pointer",
               }}
               key={imageInfo.id}
-              src={imageInfo.smallSrc || imageInfo.src}
+              src={imageInfo.thumbSrc || imageInfo.src}
               alt={imageInfo.alt}
               onClick={() => scrollImage(true, 0, index)}
             />
