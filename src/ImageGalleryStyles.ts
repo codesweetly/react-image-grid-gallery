@@ -33,6 +33,7 @@ export function imageGalleryStyles(
     opacity: fixedCaption ? 1 : 0,
     transition: fixedCaption ? undefined : "opacity 1s ease-in-out",
     position: "absolute",
+    left: 0,
     bottom: 0,
     zIndex: "1000",
     width: "100%",
@@ -89,11 +90,9 @@ export function imageGalleryStyles(
     position: "relative",
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     width: "inherit",
     transition: "height .7s linear",
-  };
-  const modalImageContainerStyle: React.CSSProperties = {
-    width: "inherit",
   };
   const modalImageStyle: React.CSSProperties = {
     margin: "auto",
@@ -131,7 +130,6 @@ export function imageGalleryStyles(
     modalToolbarBtnStyle,
     modalSlideShowSectionStyle,
     modalThumbnailSectionStyle,
-    modalImageContainerStyle,
     modalImageStyle,
     modalSlideBtnStyle,
   };

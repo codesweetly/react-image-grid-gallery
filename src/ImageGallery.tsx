@@ -38,7 +38,6 @@ export function ImageGallery({
   const modalToolbarBtnStyle = galleryStyles.modalToolbarBtnStyle;
   const modalSlideShowSectionStyle = galleryStyles.modalSlideShowSectionStyle;
   const modalThumbnailSectionStyle = galleryStyles.modalThumbnailSectionStyle;
-  const modalImageContainerStyle = galleryStyles.modalImageContainerStyle;
   const modalImageStyle = galleryStyles.modalImageStyle;
   const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
@@ -279,7 +278,6 @@ export function ImageGallery({
             )}
           </button>
           <figure
-            style={modalImageContainerStyle}
             onMouseEnter={(e) =>
               fixedCaption ? undefined : handleImageContainerMouseEnter(e)
             }
