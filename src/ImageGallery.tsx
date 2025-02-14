@@ -309,6 +309,7 @@ export function ImageGallery({
             }
           >
             <img
+              loading="lazy"
               src={imgSrcInfo?.src}
               srcSet={imgSrcInfo?.srcSet}
               sizes={imgSrcInfo?.mediaSizes}
@@ -353,6 +354,7 @@ export function ImageGallery({
         >
           {imagesInfoArray.map((imageInfo, index) => (
             <img
+              loading="lazy"
               ref={slideNumber - 1 === index ? activeThumbImgRef : null}
               style={{
                 border: slideNumber - 1 === index ? thumbnailBorder : "",
