@@ -165,6 +165,7 @@ export function ImageGallery({
               }
             >
               <img
+                loading={index > 5 ? "lazy" : "eager"}
                 alt={imageInfo.alt}
                 src={imageInfo.gridSrc || imageInfo.src}
                 onClick={() =>
