@@ -291,7 +291,7 @@ export function ImageGallery({
               src={imageSrc}
               alt={imagesInfoArray[slideNumber - 1].alt}
               style={{
-                height: showThumbnails ? "80vh" : "100vh",
+                maxHeight: showThumbnails ? "80vh" : "100vh",
                 ...modalImageStyle,
               }}
             />
