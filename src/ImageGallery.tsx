@@ -10,6 +10,8 @@ export function ImageGallery({
   gapSize = 24,
   fixedCaption = false,
   thumbnailBorder = "3px solid #fff",
+  lazy = true,
+  lazyFromIndex = 6,
   customStyles = {},
 }: ImageGalleryPropsType) {
   const [imgSrcInfo, setImgSrcInfo] = useState<ImgSrcInfoType | null>(null);
@@ -165,7 +167,7 @@ export function ImageGallery({
               }
             >
               <img
-                loading={index > 5 ? "lazy" : "eager"}
+                loading={lazy && index >= lazyFromIndex ? "lazy" : "eager"}
                 alt={imageInfo.alt}
                 src={imageInfo.gridSrc || imageInfo.src}
                 onClick={() =>
@@ -310,7 +312,7 @@ export function ImageGallery({
             }
           >
             <img
-              loading="lazy"
+              loading={lazy ? "lazy" : "eager"}
               src={imgSrcInfo?.src}
               srcSet={imgSrcInfo?.srcSet}
               sizes={imgSrcInfo?.mediaSizes}
@@ -355,7 +357,7 @@ export function ImageGallery({
         >
           {imagesInfoArray.map((imageInfo, index) => (
             <img
-              loading="lazy"
+              loading={lazy ? "lazy" : "eager"}
               ref={slideNumber - 1 === index ? activeThumbImgRef : null}
               style={{
                 border: slideNumber - 1 === index ? thumbnailBorder : "",

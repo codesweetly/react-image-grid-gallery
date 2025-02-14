@@ -31,6 +31,8 @@ export interface ImageGalleryPropsType {
   gapSize?: number;
   fixedCaption?: boolean;
   thumbnailBorder?: string;
+  lazy?: boolean;
+  lazyFromIndex?: number;
   customStyles?: ImageGalleryStylesType;
 }
 

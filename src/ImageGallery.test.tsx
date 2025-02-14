@@ -152,3 +152,9 @@ test("image gallery works with custom thumbnail border", () => {
     />
   );
 });
+
+test("image gallery works with lazy loading", () => {
+  render(
+    <ImageGallery imagesInfoArray={imagesArray} lazy={true} lazyFromIndex={6} />
+  );
+});
