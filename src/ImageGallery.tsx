@@ -1,6 +1,6 @@
 import React, { ReactElement, useRef, useState, useEffect } from "react";
 import { flushSync } from "react-dom";
-import { ImageGalleryPropsType } from "./ImageGallery.types";
+import { ImageGalleryPropsType, ImgSrcInfoType } from "./ImageGallery.types";
 import { imageGalleryStyles } from "./ImageGalleryStyles";
 
 export function ImageGallery({
@@ -12,7 +12,7 @@ export function ImageGallery({
   thumbnailBorder = "3px solid #fff",
   customStyles = {},
 }: ImageGalleryPropsType) {
-  const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
+  const [imgSrcInfo, setImgSrcInfo] = useState<ImgSrcInfoType | null>(null);
   const [slideNumber, setSlideNumber] = useState(1);
   const [showModalControls, setShowModalControls] = useState(false);
   const [showThumbnails, setShowThumbnails] = useState(false);
@@ -55,8 +55,13 @@ export function ImageGallery({
     figcaption && (figcaption.style.opacity = "0");
   }
 
-  function openLightboxOnSlide(imgSrc: string | undefined, number: number) {
-    setImageSrc(imgSrc);
+  function openLightboxOnSlide(
+    number: number,
+    src: string,
+    srcSet?: string,
+    mediaSizes?: string
+  ) {
+    setImgSrcInfo({ src, srcSet, mediaSizes });
     setSlideNumber(number);
     dialogRef.current?.showModal();
   }
@@ -69,8 +74,13 @@ export function ImageGallery({
     newSlideNumber > totalImages && (newSlideNumber = 1);
 
     if (newSlideNumber <= totalImages && newSlideNumber > 0) {
+      const imageInfo = imagesInfoArray[newSlideNumber - 1];
       setSlideNumber(newSlideNumber);
-      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
+      setImgSrcInfo({
+        src: imageInfo.src,
+        srcSet: imageInfo.srcSet,
+        mediaSizes: imageInfo.mediaSizes,
+      });
     }
   }
 
@@ -136,7 +146,13 @@ export function ImageGallery({
             style={imageBtnStyle}
             key={imageInfo.id}
             onKeyDown={(e) =>
-              e.key === "Enter" && openLightboxOnSlide(imageInfo.src, index + 1)
+              e.key === "Enter" &&
+              openLightboxOnSlide(
+                index + 1,
+                imageInfo.src,
+                imageInfo.srcSet,
+                imageInfo.mediaSizes
+              )
             }
           >
             <figure
@@ -151,7 +167,14 @@ export function ImageGallery({
               <img
                 alt={imageInfo.alt}
                 src={imageInfo.gridSrc || imageInfo.src}
-                onClick={() => openLightboxOnSlide(imageInfo.src, index + 1)}
+                onClick={() =>
+                  openLightboxOnSlide(
+                    index + 1,
+                    imageInfo.src,
+                    imageInfo.srcSet,
+                    imageInfo.mediaSizes
+                  )
+                }
                 style={imageStyle}
               />
               {imageInfo.caption ? (
@@ -286,7 +309,9 @@ export function ImageGallery({
             }
           >
             <img
-              src={imageSrc}
+              src={imgSrcInfo?.src}
+              srcSet={imgSrcInfo?.srcSet}
+              sizes={imgSrcInfo?.mediaSizes}
               alt={imagesInfoArray[slideNumber - 1].alt}
               style={{
                 maxHeight: showThumbnails ? "80vh" : "100vh",

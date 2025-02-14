@@ -23,6 +23,8 @@ export interface ImageGalleryPropsType {
     src: string;
     gridSrc?: string;
     thumbSrc?: string;
+    srcSet?: string;
+    mediaSizes?: string;
   }>;
   columnCount?: string | number;
   columnWidth?: string | number;
@@ -30,4 +32,10 @@ export interface ImageGalleryPropsType {
   fixedCaption?: boolean;
   thumbnailBorder?: string;
   customStyles?: ImageGalleryStylesType;
+}
+
+export interface ImgSrcInfoType {
+  src: string;
+  srcSet: string | undefined;
+  mediaSizes: string | undefined;
 }
