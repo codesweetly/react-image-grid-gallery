@@ -20,7 +20,7 @@ const imagesArray = [
     thumbSrc:
       "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=640",
     srcSet:
-      "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=2400 2400w, https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1920 1920w, https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=640 640w",
+      "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=2400 2400w, https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1280 1280w, https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=640 640w",
     mediaSizes: "(max-width: 640px) 640w, (max-width: 1024px) 1280w, 2400px",
   },
   {
