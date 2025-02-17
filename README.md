@@ -170,7 +170,9 @@ function App() {
 <td><code>6</code></td>
 <td>
 
-(**Optional**) The image's [index](https://codesweetly.com/web-tech-terms-i/#index) to begin the grid's lazy loading.
+(**Optional**) The image's [index](https://codesweetly.com/web-tech-terms-i/#index) to begin the grid's lazy loading. 
+
+**tip:** Use a negative number to lazy load all the images.
 
 </td>
 </tr>
