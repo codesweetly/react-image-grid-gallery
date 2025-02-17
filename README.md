@@ -11,7 +11,11 @@ A simple, easy-to-use, and responsive image gallery component with a lightbox fo
 - Keyboard accessible
 - Mobile responsive
 - Lightbox with translucent background
+- Thumbnails
+- Image captions
+- Lazy loading support
 - Set column numbers dynamically or manually
+- Resolution switching compatible
 - Customizable styles
 
 ## Live Demo and Tutorial
@@ -57,24 +61,23 @@ const imagesArray = [
     alt: "Image2's alt text",
     caption: "Image2's description",
     src: "http://example.com/image2.png",
+    thumbSrc: "http://example.com/image2_640.png",
   },
   {
     id: "uniqueid333",
     alt: "Image3's alt text",
     caption: "Image3's description",
-    src: "http://example.com/image3.webp",
+    src: "http://example.com/image3.webp?w=2400",
+    gridSrc: "http://example.com/image3.webp?w=1280",
+    thumbSrc: "http://example.com/image3.webp?w=640",
+    srcSet:
+      "http://example.com/image3.webp?w=2400 2400w, http://example.com/image3.webp?w=1280 1280w, http://example.com/image3.webp?w=640 640w",
+    mediaSizes: "(max-width: 640px) 640w, (max-width: 1024px) 1280w, 2400px",
   },
 ];
 
 function App() {
-  return (
-    <ImageGallery
-      imagesInfoArray={imagesArray}
-      columnCount={"auto"}
-      columnWidth={230}
-      gapSize={24}
-    />
-  );
+  return <ImageGallery imagesInfoArray={imagesArray} gapSize={24} />;
 }
 ```
 
@@ -98,10 +101,14 @@ function App() {
 
 (**Required**) An array of objects containing the following properties:
 
-- `id`: (**Required**) An [identification string or number](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key) that uniquely identifies each image among other images in the array.
-- `alt`: (**Required**) The image's [alternative text](https://webaim.org/techniques/alttext).
-- `caption`: (**Optional**) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
-- `src`: (**Required**) The image's [URL](https://codesweetly.com/web-address-url).
+- `id`: (**Required** - string or number) Each image's [unique identifying key](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key).
+- `alt`: (**Required** - string) The image's [alternative text](https://webaim.org/techniques/alttext).
+- `caption`: (**Optional** - string) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
+- `src`: (**Required** - string) The image's default [URL](https://codesweetly.com/web-address-url).
+- `gridSrc`: (**Optional** - string) The preferred grid image's URL.
+- `thumbSrc`: (**Optional** - string) The preferred thumbnail image's URL.
+- `srcSet`: (**Optional** - string) The set of images' URLs and sizes for [resolution switching](https://developer.mozilla.org/en-US/docs/Web/HTML/Responsive_images#resolution_switching_different_sizes).
+- [`mediaSizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Responsive_images#resolution_switching_different_sizes): (**Optional** - string) The media conditions and image sizes that hint the browser on the specific `srcSet` to display when a media condition is true.
 
 </td>
 </tr>
@@ -113,11 +120,7 @@ function App() {
 </td>
 <td>number or keyword (string)</td>
 <td><code>"auto"</code></td>
-<td>
-
-(**Optional**) The number of columns.
-
-</td>
+<td>(<strong>Optional</strong>) The number of columns.</td>
 </tr>
 <tr>
 <td>
@@ -127,11 +130,7 @@ function App() {
 </td>
 <td>number or keyword (string)</td>
 <td><code>230</code></td>
-<td>
-
-(**Optional**) The minimum width of the gallery's columns.
-
-</td>
+<td>(<strong>Optional</strong>) The minimum width of the gallery's columns.</td>
 </tr>
 <tr>
 <td>
@@ -141,18 +140,10 @@ function App() {
 </td>
 <td>number</td>
 <td><code>24</code></td>
-<td>
-
-(**Optional**) The gallery's gap size.
-
-</td>
+<td>(<strong>Optional</strong>) The gallery's gap size.</td>
 </tr>
 <tr>
-<td>
-
-`fixedCaption`
-
-</td>
+<td><code>fixedCaption</code></td>
 <td>boolean</td>
 <td><code>false</code></td>
 <td>
@@ -162,11 +153,31 @@ function App() {
 </td>
 </tr>
 <tr>
+<td><code>thumbnailBorder</code></td>
+<td>string</td>
+<td><code>"3px solid #fff"</code></td>
+<td>(<strong>Optional</strong>) The thumbnail's border style.</td>
+</tr>
+<tr>
+<td><code>lazy</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>(<strong>Optional</strong>) Specify whether to lazy load images.</td>
+</tr>
+<tr>
+<td><code>lazyFromIndex</code></td>
+<td>number</td>
+<td><code>6</code></td>
 <td>
 
-`customStyles`
+(**Optional**) The image's [index](https://codesweetly.com/web-tech-terms-i/#index) to begin the grid's lazy loading. 
+
+**tip:** Use a negative number to lazy load all the images.
 
 </td>
+</tr>
+<tr>
+<td><code>customStyles</code></td>
 <td>ImageGalleryStylesType</td>
 <td><code>{}</code></td>
 <td>
@@ -183,6 +194,7 @@ function App() {
 - Modal toolbar: `modalToolbarStyle`
 - Modal toolbar button: `modalToolbarBtnStyle`
 - Modal slideshow section: `modalSlideShowSectionStyle`
+- Modal thumbnail section: `modalThumbnailSectionStyle`
 - Modal image element: `modalImageStyle`
 - Modal slide button: `modalSlideBtnStyle`
 

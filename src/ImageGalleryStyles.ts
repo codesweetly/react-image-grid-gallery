@@ -6,6 +6,7 @@ export function imageGalleryStyles(
   gapSize?: number,
   fixedCaption?: boolean
 ): ImageGalleryStylesType {
+  const modalThumbnailSectionHeight = "20vh";
   const galleryContainerStyle: React.CSSProperties = {
     columnCount,
     columnWidth: `${columnWidth}px`,
@@ -32,6 +33,7 @@ export function imageGalleryStyles(
     opacity: fixedCaption ? 1 : 0,
     transition: fixedCaption ? undefined : "opacity 1s ease-in-out",
     position: "absolute",
+    left: 0,
     bottom: 0,
     zIndex: "1000",
     width: "100%",
@@ -88,13 +90,14 @@ export function imageGalleryStyles(
     position: "relative",
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     width: "inherit",
-    height: "inherit",
+    transition: "height .7s linear",
   };
   const modalImageStyle: React.CSSProperties = {
     margin: "auto",
     maxWidth: "100vw",
-    maxHeight: "100vh",
+    transition: "height .7s linear",
   };
   const modalSlideBtnStyle: React.CSSProperties = {
     position: "absolute",
@@ -108,6 +111,13 @@ export function imageGalleryStyles(
     userSelect: "none",
     WebkitUserSelect: "none",
   };
+  const modalThumbnailSectionStyle: React.CSSProperties = {
+    display: "flex",
+    overflow: "hidden",
+    height: `${modalThumbnailSectionHeight}`,
+    paddingBlock: "12px",
+    columnGap: "7px",
+  };
   return {
     galleryContainerStyle,
     imageBtnStyle,
@@ -119,6 +129,7 @@ export function imageGalleryStyles(
     modalToolbarStyle,
     modalToolbarBtnStyle,
     modalSlideShowSectionStyle,
+    modalThumbnailSectionStyle,
     modalImageStyle,
     modalSlideBtnStyle,
   };

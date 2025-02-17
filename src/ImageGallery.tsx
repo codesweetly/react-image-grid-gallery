@@ -1,5 +1,6 @@
 import React, { ReactElement, useRef, useState, useEffect } from "react";
-import { ImageGalleryPropsType } from "./ImageGallery.types";
+import { flushSync } from "react-dom";
+import { ImageGalleryPropsType, ImgSrcInfoType } from "./ImageGallery.types";
 import { imageGalleryStyles } from "./ImageGalleryStyles";
 
 export function ImageGallery({
@@ -8,14 +9,19 @@ export function ImageGallery({
   columnWidth = 230,
   gapSize = 24,
   fixedCaption = false,
+  thumbnailBorder = "3px solid #fff",
+  lazy = true,
+  lazyFromIndex = 6,
   customStyles = {},
 }: ImageGalleryPropsType) {
-  const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
+  const [imgSrcInfo, setImgSrcInfo] = useState<ImgSrcInfoType | null>(null);
   const [slideNumber, setSlideNumber] = useState(1);
   const [showModalControls, setShowModalControls] = useState(false);
+  const [showThumbnails, setShowThumbnails] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const lightboxRef = useRef<HTMLElement | null>(null);
+  const activeThumbImgRef = useRef<HTMLImageElement | null>(null);
   const defaultStyles = imageGalleryStyles(
     columnCount,
     columnWidth,
@@ -33,6 +39,7 @@ export function ImageGallery({
   const modalToolbarStyle = galleryStyles.modalToolbarStyle;
   const modalToolbarBtnStyle = galleryStyles.modalToolbarBtnStyle;
   const modalSlideShowSectionStyle = galleryStyles.modalSlideShowSectionStyle;
+  const modalThumbnailSectionStyle = galleryStyles.modalThumbnailSectionStyle;
   const modalImageStyle = galleryStyles.modalImageStyle;
   const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
@@ -50,22 +57,32 @@ export function ImageGallery({
     figcaption && (figcaption.style.opacity = "0");
   }
 
-  function openLightboxOnSlide(imgSrc: string | undefined, number: number) {
-    setImageSrc(imgSrc);
+  function openLightboxOnSlide(
+    number: number,
+    src: string,
+    srcSet?: string,
+    mediaSizes?: string
+  ) {
+    setImgSrcInfo({ src, srcSet, mediaSizes });
     setSlideNumber(number);
     dialogRef.current?.showModal();
   }
 
-  function changeSlide(directionNumber: number) {
+  function changeSlide(thumbClick: boolean, step: number) {
     const totalImages = imagesInfoArray.length;
-    let newSlideNumber = slideNumber + directionNumber;
+    let newSlideNumber = thumbClick ? step + 1 : slideNumber + step;
 
     newSlideNumber < 1 && (newSlideNumber = totalImages);
     newSlideNumber > totalImages && (newSlideNumber = 1);
 
     if (newSlideNumber <= totalImages && newSlideNumber > 0) {
+      const imageInfo = imagesInfoArray[newSlideNumber - 1];
       setSlideNumber(newSlideNumber);
-      setImageSrc(imagesInfoArray[newSlideNumber - 1].src);
+      setImgSrcInfo({
+        src: imageInfo.src,
+        srcSet: imageInfo.srcSet,
+        mediaSizes: imageInfo.mediaSizes,
+      });
     }
   }
 
@@ -82,9 +99,23 @@ export function ImageGallery({
     }
   }
 
+  function scrollImage(
+    thumbClick: boolean,
+    direction: number,
+    imgIndex: number
+  ) {
+    const step = thumbClick ? imgIndex : direction;
+    flushSync(() => changeSlide(thumbClick, step));
+    activeThumbImgRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }
+
   function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
-    e.key === "ArrowLeft" && changeSlide(-1);
-    e.key === "ArrowRight" && changeSlide(1);
+    e.key === "ArrowLeft" && scrollImage(false, -1, 0);
+    e.key === "ArrowRight" && scrollImage(false, 1, 0);
     e.key === "f" && fullscreen && switchFullScreen(false);
     e.key === "f" && !fullscreen && switchFullScreen(true);
   }
@@ -109,15 +140,21 @@ export function ImageGallery({
   }
 
   function showImageCards() {
-    const imageElementsArray = imagesInfoArray.map((item, index) => {
-      if (item.id) {
+    const imageElementsArray = imagesInfoArray.map((imageInfo, index) => {
+      if (imageInfo.id) {
         return (
           <button
             type="button"
             style={imageBtnStyle}
-            key={item.id}
+            key={imageInfo.id}
             onKeyDown={(e) =>
-              e.key === "Enter" && openLightboxOnSlide(item.src, index + 1)
+              e.key === "Enter" &&
+              openLightboxOnSlide(
+                index + 1,
+                imageInfo.src,
+                imageInfo.srcSet,
+                imageInfo.mediaSizes
+              )
             }
           >
             <figure
@@ -130,14 +167,22 @@ export function ImageGallery({
               }
             >
               <img
-                alt={item.alt}
-                src={item.src}
-                onClick={() => openLightboxOnSlide(item.src, index + 1)}
+                loading={lazy && index >= lazyFromIndex ? "lazy" : "eager"}
+                alt={imageInfo.alt}
+                src={imageInfo.gridSrc || imageInfo.src}
+                onClick={() =>
+                  openLightboxOnSlide(
+                    index + 1,
+                    imageInfo.src,
+                    imageInfo.srcSet,
+                    imageInfo.mediaSizes
+                  )
+                }
                 style={imageStyle}
               />
-              {item.caption ? (
+              {imageInfo.caption ? (
                 <figcaption style={imageCaptionStyle}>
-                  {item.caption}
+                  {imageInfo.caption}
                 </figcaption>
               ) : (
                 ""
@@ -185,6 +230,17 @@ export function ImageGallery({
         >
           <button
             type="button"
+            aria-label="Show thumbnails"
+            style={modalToolbarBtnStyle}
+            title="Show thumbnails"
+            onClick={() => setShowThumbnails(!showThumbnails)}
+          >
+            {SvgElement(
+              <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />
+            )}
+          </button>
+          <button
+            type="button"
             aria-label="Go full screen (Keyboard shortcut f)"
             style={{
               display: fullscreen ? "none" : "block",
@@ -223,7 +279,12 @@ export function ImageGallery({
             )}
           </button>
         </span>
-        <section style={modalSlideShowSectionStyle}>
+        <section
+          style={{
+            height: showThumbnails ? "80vh" : "100vh",
+            ...modalSlideShowSectionStyle,
+          }}
+        >
           <button
             type="button"
             aria-label="Previous image"
@@ -233,7 +294,7 @@ export function ImageGallery({
               ...modalSlideBtnStyle,
             }}
             title="Previous image"
-            onClick={() => changeSlide(-1)}
+            onClick={() => scrollImage(false, -1, 0)}
           >
             {SvgElement(
               <path
@@ -242,11 +303,33 @@ export function ImageGallery({
               />
             )}
           </button>
-          <img
-            src={imageSrc}
-            alt={imagesInfoArray[slideNumber - 1].alt}
-            style={modalImageStyle}
-          />
+          <figure
+            onMouseEnter={(e) =>
+              fixedCaption ? undefined : handleImageContainerMouseEnter(e)
+            }
+            onMouseLeave={(e) =>
+              fixedCaption ? undefined : handleImageContainerMouseLeave(e)
+            }
+          >
+            <img
+              loading={lazy ? "lazy" : "eager"}
+              src={imgSrcInfo?.src}
+              srcSet={imgSrcInfo?.srcSet}
+              sizes={imgSrcInfo?.mediaSizes}
+              alt={imagesInfoArray[slideNumber - 1].alt}
+              style={{
+                maxHeight: showThumbnails ? "80vh" : "100vh",
+                ...modalImageStyle,
+              }}
+            />
+            {imagesInfoArray[slideNumber - 1].caption ? (
+              <figcaption style={imageCaptionStyle}>
+                {imagesInfoArray[slideNumber - 1].caption}
+              </figcaption>
+            ) : (
+              ""
+            )}
+          </figure>
           <button
             type="button"
             aria-label="Next image"
@@ -256,7 +339,7 @@ export function ImageGallery({
               ...modalSlideBtnStyle,
             }}
             title="Next image"
-            onClick={() => changeSlide(1)}
+            onClick={() => scrollImage(false, 1, 0)}
           >
             {SvgElement(
               <path
@@ -265,6 +348,27 @@ export function ImageGallery({
               />
             )}
           </button>
+        </section>
+        <section
+          style={{
+            opacity: showThumbnails ? 1 : 0,
+            ...modalThumbnailSectionStyle,
+          }}
+        >
+          {imagesInfoArray.map((imageInfo, index) => (
+            <img
+              loading={lazy ? "lazy" : "eager"}
+              ref={slideNumber - 1 === index ? activeThumbImgRef : null}
+              style={{
+                border: slideNumber - 1 === index ? thumbnailBorder : "",
+                cursor: "pointer",
+              }}
+              key={imageInfo.id}
+              src={imageInfo.thumbSrc || imageInfo.src}
+              alt={imageInfo.alt}
+              onClick={() => scrollImage(true, 0, index)}
+            />
+          ))}
         </section>
       </article>
     </dialog>
