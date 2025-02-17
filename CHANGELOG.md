@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.1.0 (2025-02-17)
+
+* docs: Add funding info ([0851b54](https://github.com/codesweetly/react-image-grid-gallery/commit/0851b54))
+* docs: Indicate how to lazy load all the grid's images ([a718eff](https://github.com/codesweetly/react-image-grid-gallery/commit/a718eff))
+* docs: Write about the latest features ([24e0da4](https://github.com/codesweetly/react-image-grid-gallery/commit/24e0da4))
+* build: Bump dependencies ([696e205](https://github.com/codesweetly/react-image-grid-gallery/commit/696e205))
+* refactor: Make lazy loading optional ([16abc60](https://github.com/codesweetly/react-image-grid-gallery/commit/16abc60))
+* refactor: Make modal's image height dynamic ([d419e10](https://github.com/codesweetly/react-image-grid-gallery/commit/d419e10))
+* refactor: Stop supporting undefined src ([dab460e](https://github.com/codesweetly/react-image-grid-gallery/commit/dab460e))
+* feat: Activate an image by clicking its thumbnail ([2f0cbca](https://github.com/codesweetly/react-image-grid-gallery/commit/2f0cbca))
+* feat: Allow using small images for gallery and thumbnail ([c20d319](https://github.com/codesweetly/react-image-grid-gallery/commit/c20d319))
+* feat: Create modal thumbnail section ([dafa48d](https://github.com/codesweetly/react-image-grid-gallery/commit/dafa48d))
+* feat: Create thumbnail images where the active image auto-scrolls into view ([75172d9](https://github.com/codesweetly/react-image-grid-gallery/commit/75172d9))
+* feat: Display modal image's caption ([19d98d2](https://github.com/codesweetly/react-image-grid-gallery/commit/19d98d2))
+* feat: Lazy load grid images from index 6 and above ([f4f0326](https://github.com/codesweetly/react-image-grid-gallery/commit/f4f0326))
+* feat: Lazy load lightbox images ([b76a039](https://github.com/codesweetly/react-image-grid-gallery/commit/b76a039))
+* feat: Make scrolling thumbnails to view keyboard-compatible ([f1fd230](https://github.com/codesweetly/react-image-grid-gallery/commit/f1fd230))
+* feat: Make thumbnails optional ([c65cdac](https://github.com/codesweetly/react-image-grid-gallery/commit/c65cdac))
+* feat: Support providing different image sizes for the grid, modal, and thumbnail ([f569ff9](https://github.com/codesweetly/react-image-grid-gallery/commit/f569ff9))
+* feat: Support resolution switching ([44cfa02](https://github.com/codesweetly/react-image-grid-gallery/commit/44cfa02))
+* fix: Re-implement clicking modal background to exit lightbox ([f8b9829](https://github.com/codesweetly/react-image-grid-gallery/commit/f8b9829))
+
 ## 3.0.0 (2025-01-09)
 
 * build: Bump dependencies ([2e1692e](https://github.com/codesweetly/react-image-grid-gallery/commit/2e1692e))
