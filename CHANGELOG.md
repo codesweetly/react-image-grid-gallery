@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>3.1.1 (2025-02-18)</small>
+
+* style: Center thumbnails ([7a88d3f](https://github.com/codesweetly/react-image-grid-gallery/commit/7a88d3f))
+
 ## 3.1.0 (2025-02-17)
 
 * docs: Add funding info ([0851b54](https://github.com/codesweetly/react-image-grid-gallery/commit/0851b54))
