@@ -40,6 +40,7 @@ export function ImageGallery({
   const modalToolbarBtnStyle = galleryStyles.modalToolbarBtnStyle;
   const modalSlideShowSectionStyle = galleryStyles.modalSlideShowSectionStyle;
   const modalThumbnailSectionStyle = galleryStyles.modalThumbnailSectionStyle;
+  const modalThumbImgsPodStyle = galleryStyles.modalThumbImgsPodStyle;
   const modalImageStyle = galleryStyles.modalImageStyle;
   const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
@@ -355,20 +356,22 @@ export function ImageGallery({
             ...modalThumbnailSectionStyle,
           }}
         >
-          {imagesInfoArray.map((imageInfo, index) => (
-            <img
-              loading={lazy ? "lazy" : "eager"}
-              ref={slideNumber - 1 === index ? activeThumbImgRef : null}
-              style={{
-                border: slideNumber - 1 === index ? thumbnailBorder : "",
-                cursor: "pointer",
-              }}
-              key={imageInfo.id}
-              src={imageInfo.thumbSrc || imageInfo.src}
-              alt={imageInfo.alt}
-              onClick={() => scrollImage(true, 0, index)}
-            />
-          ))}
+          <div style={modalThumbImgsPodStyle}>
+            {imagesInfoArray.map((imageInfo, index) => (
+              <img
+                loading={lazy ? "lazy" : "eager"}
+                ref={slideNumber - 1 === index ? activeThumbImgRef : null}
+                style={{
+                  border: slideNumber - 1 === index ? thumbnailBorder : "",
+                  cursor: "pointer",
+                }}
+                key={imageInfo.id}
+                src={imageInfo.thumbSrc || imageInfo.src}
+                alt={imageInfo.alt}
+                onClick={() => scrollImage(true, 0, index)}
+              />
+            ))}
+          </div>
         </section>
       </article>
     </dialog>

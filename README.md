@@ -170,7 +170,7 @@ function App() {
 <td><code>6</code></td>
 <td>
 
-(**Optional**) The image's [index](https://codesweetly.com/web-tech-terms-i/#index) to begin the grid's lazy loading. 
+(**Optional**) The image's [index](https://codesweetly.com/web-tech-terms-i/#index) to begin the grid's lazy loading.
 
 **tip:** Use a negative number to lazy load all the images.
 
@@ -195,6 +195,7 @@ function App() {
 - Modal toolbar button: `modalToolbarBtnStyle`
 - Modal slideshow section: `modalSlideShowSectionStyle`
 - Modal thumbnail section: `modalThumbnailSectionStyle`
+- Modal thumbnail images container: `modalThumbImgsPodStyle`
 - Modal image element: `modalImageStyle`
 - Modal slide button: `modalSlideBtnStyle`
 

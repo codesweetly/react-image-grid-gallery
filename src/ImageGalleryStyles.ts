@@ -11,7 +11,6 @@ export function imageGalleryStyles(
     columnCount,
     columnWidth: `${columnWidth}px`,
     columnGap: `${gapSize}px`,
-    textAlign: "center",
   };
   const imageBtnStyle: React.CSSProperties = {
     border: "none",
@@ -112,10 +111,13 @@ export function imageGalleryStyles(
     WebkitUserSelect: "none",
   };
   const modalThumbnailSectionStyle: React.CSSProperties = {
-    display: "flex",
-    justifyContent: "center",
     overflow: "hidden",
     height: `${modalThumbnailSectionHeight}`,
+    textAlign: "center",
+  };
+  const modalThumbImgsPodStyle: React.CSSProperties = {
+    display: "inline-flex",
+    height: "inherit",
     paddingBlock: "12px",
     columnGap: "7px",
   };
@@ -131,6 +133,7 @@ export function imageGalleryStyles(
     modalToolbarBtnStyle,
     modalSlideShowSectionStyle,
     modalThumbnailSectionStyle,
+    modalThumbImgsPodStyle,
     modalImageStyle,
     modalSlideBtnStyle,
   };
