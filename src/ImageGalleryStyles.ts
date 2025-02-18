@@ -113,6 +113,7 @@ export function imageGalleryStyles(
   };
   const modalThumbnailSectionStyle: React.CSSProperties = {
     display: "flex",
+    justifyContent: "center",
     overflow: "hidden",
     height: `${modalThumbnailSectionHeight}`,
     paddingBlock: "12px",
