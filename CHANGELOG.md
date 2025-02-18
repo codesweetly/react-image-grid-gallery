@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>3.1.2 (2025-02-18)</small>
+
+* fix: Use an inner container to control the thumbnails' horizontal alignment ([bd78749](https://github.com/codesweetly/react-image-grid-gallery/commit/bd78749))
+
 ## <small>3.1.1 (2025-02-18)</small>
 
 * style: Center thumbnails ([7a88d3f](https://github.com/codesweetly/react-image-grid-gallery/commit/7a88d3f))
