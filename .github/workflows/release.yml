@@ -29,23 +29,15 @@ jobs:
           node-version: 18
           registry-url: https://registry.npmjs.org
       # Install semantic-release plugins to determine the next version, update changelog, publish to npm, and create GitHub release
-      # - semantic-release@23: The main semantic-release package
-      # - @semantic-release/commit-analyzer@11: Analyze commits with Conventional Commits
-      # - @semantic-release/release-notes-generator@12: Generate release notes
+      # - semantic-release@25: The main semantic-release package
       # - @semantic-release/changelog@6: Update the changelog file
-      # - @semantic-release/npm@11: Publish the package to npm
       # - @semantic-release/git@10: Commit changelog and version bump
-      # - @semantic-release/github@10: Create GitHub releases
       - name: Install semantic-release (CI-only)
         run: |
           npm install \
-            semantic-release@23 \
-            @semantic-release/commit-analyzer@11 \
-            @semantic-release/release-notes-generator@12 \
+            semantic-release@25 \
             @semantic-release/changelog@6 \
-            @semantic-release/npm@11 \
             @semantic-release/git@10 \
-            @semantic-release/github@10
       # Run semantic-release to automate the release process
       - name: Run semantic-release
         env:
