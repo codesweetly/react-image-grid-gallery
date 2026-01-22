@@ -22,11 +22,11 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags (required to allow semantic-release to analyze commits)
-      # Setup Node.js v18
+      # Setup Node.js v24
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 24
           registry-url: https://registry.npmjs.org
       # Install semantic-release plugins to determine the next version, update changelog, publish to npm, and create GitHub release
       # - semantic-release@25: The main semantic-release package
