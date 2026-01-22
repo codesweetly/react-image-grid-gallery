@@ -9,7 +9,7 @@ permissions:
   contents: write # push tags, changelog commits
   issues: write # comment on issues
   pull-requests: write # comment on PRs
-  id-token: write # REQUIRED for npm Trusted Publishing (OIDC)
+  id-token: write # needed for semantic-release to authenticate with npm registry via GitHub's OIDC token
 
 jobs:
   release:
@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository, , and run it
+      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Fetch all history for all branches and tags (required to allow semantic-release to analyze commits)
       # Setup Node.js v18
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -49,5 +49,5 @@ jobs:
       # Run semantic-release to automate the release process
       - name: Run semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Auto-provided by GitHub Actions, used to create releases
         run: npx semantic-release
