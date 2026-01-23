@@ -5,6 +5,13 @@
   "main": "./dist/cjs/ImageGallery.js",
   "module": "./dist/esm/ImageGallery.js",
   "types": "./dist/esm/ImageGallery.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/ImageGallery.js",
+      "import": "./dist/esm/ImageGallery.js",
+      "types": "./dist/esm/ImageGallery.d.ts"
+    }
+  },
   "homepage": "https://codesweetly.com/react-image-grid-gallery",
   "author": "Oluwatobi Sofela <contact@codesweetly.com> (https://www.codesweetly.com)",
   "license": "MIT",
@@ -14,7 +21,7 @@
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "test": "jest --config jest.config.ts",
     "watch": "tsc --watch",
-    "prepare": "husky"
+    "prepare": "husky && npm run build"
   },
   "files": [
     "./dist"
