@@ -1,3 +1,32 @@
+# 📦 Changelog
+
+All notable changes to **react-image-grid-gallery** are documented here.
+
+
+## <small>3.1.3 (2026-01-23)</small>
+
+* Merge pull request #22 from codesweetly/chore/replace-release-it-with-semantic-release-ci-only-workf ([fb5d014](https://github.com/codesweetly/react-image-grid-gallery/commit/fb5d014)), closes [#22](https://github.com/codesweetly/react-image-grid-gallery/issues/22)
+* Merge pull request #23 from codesweetly/ci/update-packages-in-sematic-release-workflow ([7ec9463](https://github.com/codesweetly/react-image-grid-gallery/commit/7ec9463)), closes [#23](https://github.com/codesweetly/react-image-grid-gallery/issues/23)
+* Merge pull request #24 from codesweetly/ci/add-step-to-generate-github-app-token ([68ed727](https://github.com/codesweetly/react-image-grid-gallery/commit/68ed727)), closes [#24](https://github.com/codesweetly/react-image-grid-gallery/issues/24)
+* Merge pull request #25 from codesweetly/fix/remove-duplicate-steps-definition ([0dcaf9e](https://github.com/codesweetly/react-image-grid-gallery/commit/0dcaf9e)), closes [#25](https://github.com/codesweetly/react-image-grid-gallery/issues/25)
+* Merge pull request #26 from codesweetly/ci/pass-correct-token-to-semantic-release ([3c69709](https://github.com/codesweetly/react-image-grid-gallery/commit/3c69709)), closes [#26](https://github.com/codesweetly/react-image-grid-gallery/issues/26)
+* Merge pull request #27 from codesweetly/ci/reconfigure-remote-origin-to-use-github-app-token ([27a9af0](https://github.com/codesweetly/react-image-grid-gallery/commit/27a9af0)), closes [#27](https://github.com/codesweetly/react-image-grid-gallery/issues/27)
+* ci: Add step to generate GitHub App token ([3b4f7a1](https://github.com/codesweetly/react-image-grid-gallery/commit/3b4f7a1))
+* ci: Avoid installing packages that are already part of semantic-release ([90376a2](https://github.com/codesweetly/react-image-grid-gallery/commit/90376a2))
+* ci: Bump checkout's version ([11d4b6f](https://github.com/codesweetly/react-image-grid-gallery/commit/11d4b6f))
+* ci: Bump node version ([8ec708e](https://github.com/codesweetly/react-image-grid-gallery/commit/8ec708e))
+* ci: Pass app token, rather than the default action token, to semantic-release ([a47fe32](https://github.com/codesweetly/react-image-grid-gallery/commit/a47fe32))
+* ci: Reconfigure git remote to use github app token ([d7ea7d2](https://github.com/codesweetly/react-image-grid-gallery/commit/d7ea7d2))
+* fix: Remove duplicate step definition ([d19ed88](https://github.com/codesweetly/react-image-grid-gallery/commit/d19ed88))
+* docs: Update workflow notes ([c985215](https://github.com/codesweetly/react-image-grid-gallery/commit/c985215))
+* refactor: Customize semantic-release's changelog output ([a0680c9](https://github.com/codesweetly/react-image-grid-gallery/commit/a0680c9))
+* chore: Create GitHub Actions workflow for semantic-release ([62874f5](https://github.com/codesweetly/react-image-grid-gallery/commit/62874f5))
+* chore: Create semantic-release's configuration file ([b5d58e2](https://github.com/codesweetly/react-image-grid-gallery/commit/b5d58e2))
+* chore: Remove release-it and its related packages and configurations ([e54ee81](https://github.com/codesweetly/react-image-grid-gallery/commit/e54ee81))
+* build: Bump dependencies ([1cea5d5](https://github.com/codesweetly/react-image-grid-gallery/commit/1cea5d5))
+* build: Bump dependencies ([07164ef](https://github.com/codesweetly/react-image-grid-gallery/commit/07164ef))
+* build: Bump jest from v29.7.0 to v30.2.0 ([d3fe691](https://github.com/codesweetly/react-image-grid-gallery/commit/d3fe691))
+
 # Changelog
 
 ## <small>3.1.2 (2025-02-18)</small>
