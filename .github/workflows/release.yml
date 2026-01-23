@@ -29,8 +29,13 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags (required to allow semantic-release to analyze commits)
-          token: ${{ steps.app-token.outputs.token }} # Use GitHub App token for checkout
           persist-credentials: false # Explicitly disable the token persistence
+
+      # Authenticate git with the GitHub App token for pushing changelog and version bump commits back to the repository
+      - name: Authenticate git with GitHub App token
+        run: |
+          git remote set-url origin \
+            https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
 
       # Setup Node.js v24
       - name: Setup Node.js
