@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write # create tags, releases, and commit changelogs
-  id-token: write # exchange GitHub App token for OIDC token
+  id-token: write # exchange OIDC token with the npm registry for authentication (publish to npm)
   packages: write # publish to npm registry via GitHub Packages (trusted publishing)
 
 jobs:
@@ -30,6 +30,7 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags (required to allow semantic-release to analyze commits)
           token: ${{ steps.app-token.outputs.token }} # Use GitHub App token for checkout
+          persist-credentials: false # Explicitly disable the token persistence
 
       # Setup Node.js v24
       - name: Setup Node.js
@@ -52,5 +53,5 @@ jobs:
       # Run semantic-release to automate the release process
       - name: Run semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Auto-provided by GitHub Actions, used to create releases
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }} # Use GitHub App token for semantic-release authentication
         run: npx semantic-release
