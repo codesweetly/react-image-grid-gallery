@@ -6,10 +6,9 @@ on:
       - main
 
 permissions:
-  contents: write # push tags, changelog commits
-  issues: write # comment on issues
-  pull-requests: write # comment on PRs
-  id-token: write # needed for semantic-release to authenticate with npm registry via GitHub's OIDC token
+  contents: write # create tags, releases, and commit changelogs
+  id-token: write # exchange GitHub App token for OIDC token
+  packages: write # publish to npm registry via GitHub Packages (trusted publishing)
 
 jobs:
   release:
@@ -17,17 +16,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+    steps:
       # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags (required to allow semantic-release to analyze commits)
+          token: ${{ steps.app-token.outputs.token }} # Use GitHub App token for checkout
+
       # Setup Node.js v24
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
+
       # Install semantic-release plugins to determine the next version, update changelog, publish to npm, and create GitHub release
       # - semantic-release@25: The main semantic-release package
       # - @semantic-release/changelog@6: Update the changelog file
@@ -38,6 +48,7 @@ jobs:
             semantic-release@25 \
             @semantic-release/changelog@6 \
             @semantic-release/git@10 \
+
       # Run semantic-release to automate the release process
       - name: Run semantic-release
         env:
