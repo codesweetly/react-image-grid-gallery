@@ -3,6 +3,19 @@
 All notable changes to **react-image-grid-gallery** are documented here.
 
 
+## <small>3.1.4 (2026-01-23)</small>
+
+* Merge pull request #28 from codesweetly/ci/update-token-reattachment-description ([d12a34d](https://github.com/codesweetly/react-image-grid-gallery/commit/d12a34d)), closes [#28](https://github.com/codesweetly/react-image-grid-gallery/issues/28)
+* Merge pull request #29 from codesweetly/fix/build-package-n-publish-dist-folder ([1ab8760](https://github.com/codesweetly/react-image-grid-gallery/commit/1ab8760)), closes [#29](https://github.com/codesweetly/react-image-grid-gallery/issues/29)
+* build: Specify the correct module system and resolution strategy for each build output ([f9ab1d5](https://github.com/codesweetly/react-image-grid-gallery/commit/f9ab1d5))
+* chore: Explicitly make semantic-release group commits by type ([5247c14](https://github.com/codesweetly/react-image-grid-gallery/commit/5247c14))
+* ci: Update token reattachment description ([342b6bb](https://github.com/codesweetly/react-image-grid-gallery/commit/342b6bb))
+* ci: Update token reattachment description ([9e35fbd](https://github.com/codesweetly/react-image-grid-gallery/commit/9e35fbd))
+* fix: Configure npm to auto-build before publishing ([25335c5](https://github.com/codesweetly/react-image-grid-gallery/commit/25335c5))
+* refactor: Change node to node10 ([e2d7da9](https://github.com/codesweetly/react-image-grid-gallery/commit/e2d7da9))
+* refactor: Emit .js files while changing JSX to _jsx calls ([f5e7b4c](https://github.com/codesweetly/react-image-grid-gallery/commit/f5e7b4c))
+* refactor: Update emitted JavaScript target to es2018 ([4340993](https://github.com/codesweetly/react-image-grid-gallery/commit/4340993))
+
 ## <small>3.1.3 (2026-01-23)</small>
 
 * Merge pull request #22 from codesweetly/chore/replace-release-it-with-semantic-release-ci-only-workf ([fb5d014](https://github.com/codesweetly/react-image-grid-gallery/commit/fb5d014)), closes [#22](https://github.com/codesweetly/react-image-grid-gallery/issues/22)
