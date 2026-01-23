@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState, useEffect } from "react";
+import { ReactElement, useRef, useState, useEffect } from "react";
 import { flushSync } from "react-dom";
 import { ImageGalleryPropsType, ImgSrcInfoType } from "./ImageGallery.types";
 import { imageGalleryStyles } from "./ImageGalleryStyles";

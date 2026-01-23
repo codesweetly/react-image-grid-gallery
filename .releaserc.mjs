@@ -41,8 +41,8 @@ export default {
           ],
         },
         writerOpts: {
-          groupBy: "type", // 🔑 THIS enables grouping
-          commitGroupsSort: "title", // Sort sections
+          groupBy: "type",
+          commitGroupsSort: "title",
           commitsSort: ["scope", "subject"],
         },
       },
@@ -55,7 +55,7 @@ export default {
         changelogTitle:
           "# 📦 Changelog\n\nAll notable changes to **react-image-grid-gallery** are documented here.\n",
         writerOpts: {
-          groupBy: "type", // 🔑 Required here too
+          groupBy: "type",
           commitGroupsSort: "title",
         },
       },
