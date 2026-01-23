@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Generate a GitHub App token for authentication instead of using a personal access token
       - name: Generate GitHub App token
         id: app-token
         uses: actions/create-github-app-token@v2
@@ -23,7 +24,6 @@ jobs:
           app-id: ${{ secrets.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
 
-    steps:
       # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v6
