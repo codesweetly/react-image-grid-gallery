@@ -41,6 +41,8 @@ export default {
           ],
         },
         writerOpts: {
+          groupBy: "type", // 🔑 THIS enables grouping
+          commitGroupsSort: "title", // Sort sections
           commitsSort: ["scope", "subject"],
         },
       },
@@ -52,6 +54,10 @@ export default {
         changelogFile: "CHANGELOG.md",
         changelogTitle:
           "# 📦 Changelog\n\nAll notable changes to **react-image-grid-gallery** are documented here.\n",
+        writerOpts: {
+          groupBy: "type", // 🔑 Required here too
+          commitGroupsSort: "title",
+        },
       },
     ],
     // 4. Update version + publish to npm
