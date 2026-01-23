@@ -5,13 +5,16 @@
     "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "node",
+    "target": "es2018",
+
     "outDir": "dist/esm",
-    "target": "es5",
-    "allowSyntheticDefaultImports": true,
     "declaration": true,
+    "declarationDir": "dist/esm",
+
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
     "noEmitOnError": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
