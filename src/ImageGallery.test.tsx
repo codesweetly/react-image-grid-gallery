@@ -1,4 +1,3 @@
-import React from "react";
 import { render } from "@testing-library/react";
 import { test } from "@jest/globals";
 import { ImageGallery } from "./ImageGallery";
@@ -114,7 +113,7 @@ test("image gallery renders correctly", () => {
       columnCount={1}
       columnWidth={300}
       gapSize={2}
-    />
+    />,
   );
 });
 
@@ -140,7 +139,7 @@ test("image gallery works with custom styles and fixed caption", () => {
       gapSize={2}
       fixedCaption={true}
       customStyles={{ imageContainerStyle, imageBtnStyle }}
-    />
+    />,
   );
 });
 
@@ -149,12 +148,16 @@ test("image gallery works with custom thumbnail border", () => {
     <ImageGallery
       imagesInfoArray={imagesArray}
       thumbnailBorder="medium dashed pink"
-    />
+    />,
   );
 });
 
 test("image gallery works with lazy loading", () => {
   render(
-    <ImageGallery imagesInfoArray={imagesArray} lazy={true} lazyFromIndex={6} />
+    <ImageGallery
+      imagesInfoArray={imagesArray}
+      lazy={true}
+      lazyFromIndex={6}
+    />,
   );
 });
