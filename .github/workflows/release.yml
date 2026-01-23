@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0 # Fetch all history for all branches and tags (required to allow semantic-release to analyze commits)
           persist-credentials: false # Explicitly disable the token persistence
 
-      # Reconfigure git remote URL to use the GitHub App token for authentication instead of the default GITHUB_TOKEN
+      # Reconfigure git remote URL to use the GitHub App token for authentication instead of the default GITHUB_TOKEN for pushing changes back to the repository by semantic-release
       - name: Authenticate git with GitHub App token
         run: |
           git remote set-url origin \
