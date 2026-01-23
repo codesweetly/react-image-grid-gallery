@@ -3,11 +3,8 @@
   "exclude": ["src/**/*.test.tsx"],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "module": "esnext",
-    "moduleResolution": "node",
     "target": "es2018",
 
-    "outDir": "dist/esm",
     "declaration": true,
     "declarationDir": "dist/esm",
 

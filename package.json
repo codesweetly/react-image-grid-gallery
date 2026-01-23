@@ -17,10 +17,10 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -r dist && npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "test": "jest --config jest.config.ts",
-    "watch": "tsc --watch",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "test": "jest --config jest.config.cjs",
+    "watch": "tsc -p tsconfig.esm.json --watch",
     "prepare": "husky && npm run build"
   },
   "files": [
@@ -58,7 +58,6 @@
     "jest-environment-jsdom": "^30.2.0",
     "react": "^19.0.0",
     "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
