@@ -26,7 +26,7 @@ export function ImageGallery({
     columnCount,
     columnWidth,
     gapSize,
-    fixedCaption
+    fixedCaption,
   );
   const galleryStyles = { ...defaultStyles, ...customStyles };
   const galleryContainerStyle = galleryStyles.galleryContainerStyle;
@@ -45,14 +45,14 @@ export function ImageGallery({
   const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
   function handleImageContainerMouseEnter(
-    e: React.MouseEvent<HTMLElement, MouseEvent>
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
   ) {
     const figcaption = e.currentTarget.querySelector("figcaption");
     figcaption && (figcaption.style.opacity = "1");
   }
 
   function handleImageContainerMouseLeave(
-    e: React.MouseEvent<HTMLElement, MouseEvent>
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
   ) {
     const figcaption = e.currentTarget.querySelector("figcaption");
     figcaption && (figcaption.style.opacity = "0");
@@ -62,7 +62,7 @@ export function ImageGallery({
     number: number,
     src: string,
     srcSet?: string,
-    mediaSizes?: string
+    mediaSizes?: string,
   ) {
     setImgSrcInfo({ src, srcSet, mediaSizes });
     setSlideNumber(number);
@@ -91,7 +91,7 @@ export function ImageGallery({
     if (on) {
       lightboxRef.current?.requestFullscreen().catch((error) => {
         alert(
-          `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`
+          `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`,
         );
       });
     }
@@ -103,7 +103,7 @@ export function ImageGallery({
   function scrollImage(
     thumbClick: boolean,
     direction: number,
-    imgIndex: number
+    imgIndex: number,
   ) {
     const step = thumbClick ? imgIndex : direction;
     flushSync(() => changeSlide(thumbClick, step));
@@ -154,7 +154,7 @@ export function ImageGallery({
                 index + 1,
                 imageInfo.src,
                 imageInfo.srcSet,
-                imageInfo.mediaSizes
+                imageInfo.mediaSizes,
               )
             }
           >
@@ -176,7 +176,7 @@ export function ImageGallery({
                     index + 1,
                     imageInfo.src,
                     imageInfo.srcSet,
-                    imageInfo.mediaSizes
+                    imageInfo.mediaSizes,
                   )
                 }
                 style={imageStyle}
@@ -237,7 +237,7 @@ export function ImageGallery({
             onClick={() => setShowThumbnails(!showThumbnails)}
           >
             {SvgElement(
-              <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />
+              <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />,
             )}
           </button>
           <button
@@ -251,7 +251,7 @@ export function ImageGallery({
             onClick={() => switchFullScreen(true)}
           >
             {SvgElement(
-              <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
+              <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />,
             )}
           </button>
           <button
@@ -265,7 +265,7 @@ export function ImageGallery({
             onClick={() => switchFullScreen(false)}
           >
             {SvgElement(
-              <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />
+              <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />,
             )}
           </button>
           <button
@@ -276,7 +276,7 @@ export function ImageGallery({
             onClick={() => exitFullScreenAndDialog()}
           >
             {SvgElement(
-              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />,
             )}
           </button>
         </span>
@@ -301,7 +301,7 @@ export function ImageGallery({
               <path
                 fillRule="evenodd"
                 d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
-              />
+              />,
             )}
           </button>
           <figure
@@ -346,7 +346,7 @@ export function ImageGallery({
               <path
                 fillRule="evenodd"
                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
-              />
+              />,
             )}
           </button>
         </section>

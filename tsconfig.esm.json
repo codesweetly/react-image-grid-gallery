@@ -1,8 +1,8 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "preserve",
-    "moduleResolution": "bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "outDir": "dist/esm"
   }
 }
