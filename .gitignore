@@ -4,6 +4,9 @@
 # Production
 /dist
 
+# Tarballs
+*.tgz
+
 # Generated files
 .cache-loader
 
