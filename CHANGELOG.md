@@ -3,6 +3,11 @@
 All notable changes to **react-image-grid-gallery** are documented here.
 
 
+## <small>3.1.6 (2026-01-24)</small>
+
+* fix: Clean manifest (remove CI-only tooling) ([dd69f7f](https://github.com/codesweetly/react-image-grid-gallery/commit/dd69f7f))
+* fix: Clean manifest (remove CI-only tooling) ([2ebb795](https://github.com/codesweetly/react-image-grid-gallery/commit/2ebb795))
+
 ## <small>3.1.5 (2026-01-24)</small>
 
 * chore: Run script to remove dist folder only in development ([9986dc5](https://github.com/codesweetly/react-image-grid-gallery/commit/9986dc5))
