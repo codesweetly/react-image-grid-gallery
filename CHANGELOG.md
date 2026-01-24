@@ -3,6 +3,13 @@
 All notable changes to **react-image-grid-gallery** are documented here.
 
 
+## <small>3.1.5 (2026-01-24)</small>
+
+* chore: Run script to remove dist folder only in development ([9986dc5](https://github.com/codesweetly/react-image-grid-gallery/commit/9986dc5))
+* chore: Run script to remove dist folder only in development ([645cbab](https://github.com/codesweetly/react-image-grid-gallery/commit/645cbab))
+* fix: Ignore merge commits entirely to avoid breaking the grouping work ([bc4e61b](https://github.com/codesweetly/react-image-grid-gallery/commit/bc4e61b))
+* fix: Ignore merge commits entirely to avoid breaking the grouping work ([163ed39](https://github.com/codesweetly/react-image-grid-gallery/commit/163ed39))
+
 ## <small>3.1.4 (2026-01-23)</small>
 
 * Merge pull request #28 from codesweetly/ci/update-token-reattachment-description ([d12a34d](https://github.com/codesweetly/react-image-grid-gallery/commit/d12a34d)), closes [#28](https://github.com/codesweetly/react-image-grid-gallery/issues/28)
