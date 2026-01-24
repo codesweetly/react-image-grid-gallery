@@ -40,6 +40,10 @@ export default {
             { type: "style", section: "🎨 Code Style" },
           ],
         },
+        parserOpts: {
+          mergePattern: "^Merge pull request",
+          mergeCorrespondence: null,
+        },
         writerOpts: {
           groupBy: "type",
           commitGroupsSort: "title",
