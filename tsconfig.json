@@ -1,23 +1,7 @@
 {
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.tsx"],
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "target": "es2018",
-
-    "declaration": true,
-    "declarationDir": "dist/esm",
-
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-
-    "forceConsistentCasingInFileNames": true,
-    "noEmitOnError": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": true,
-    "skipLibCheck": true,
-    "strict": true
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
   }
 }
