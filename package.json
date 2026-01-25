@@ -21,6 +21,7 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "test": "jest --config jest.config.cjs",
+    "test-publish": "npm publish --dry-run",
     "watch": "tsc -p tsconfig.esm.json --watch",
     "prepare": "husky && npm run build"
   },
