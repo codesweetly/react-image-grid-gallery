@@ -3,6 +3,11 @@
 All notable changes to **react-image-grid-gallery** are documented here.
 
 
+## <small>3.1.8 (2026-01-25)</small>
+
+* fix: Make esm build emit imports with extensions ([5caa2fc](https://github.com/codesweetly/react-image-grid-gallery/commit/5caa2fc))
+* fix: Make ESM build emit imports with extensions ([be91d10](https://github.com/codesweetly/react-image-grid-gallery/commit/be91d10))
+
 ## <small>3.1.7 (2026-01-25)</small>
 
 * chore: Create script for doing a dry run of the packaging and publishing process ([0800646](https://github.com/codesweetly/react-image-grid-gallery/commit/0800646))
