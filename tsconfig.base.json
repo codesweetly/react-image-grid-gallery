@@ -5,9 +5,6 @@
     "jsx": "react-jsx",
     "target": "es2018",
 
-    "declaration": true,
-    "declarationDir": "dist/esm",
-
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
 
