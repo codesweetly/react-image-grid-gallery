@@ -3,6 +3,13 @@
 All notable changes to **react-image-grid-gallery** are documented here.
 
 
+## <small>3.1.7 (2026-01-25)</small>
+
+* chore: Create script for doing a dry run of the packaging and publishing process ([0800646](https://github.com/codesweetly/react-image-grid-gallery/commit/0800646))
+* fix: Prevent typescript from emitting commonjs syntax to esm build ([268b1cb](https://github.com/codesweetly/react-image-grid-gallery/commit/268b1cb))
+* fix: Prevent TypeScript from emitting CommonJS syntax to ESM build ([0b28ae5](https://github.com/codesweetly/react-image-grid-gallery/commit/0b28ae5))
+* fix: Use tsconfig.json as Dev/IDE only ts config file ([a75596e](https://github.com/codesweetly/react-image-grid-gallery/commit/a75596e))
+
 ## <small>3.1.6 (2026-01-24)</small>
 
 * fix: Clean manifest (remove CI-only tooling) ([dd69f7f](https://github.com/codesweetly/react-image-grid-gallery/commit/dd69f7f))
