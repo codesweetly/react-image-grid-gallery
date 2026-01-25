@@ -1,10 +1,10 @@
-import { ImageGalleryStylesType } from "./ImageGallery.types";
+import { ImageGalleryStylesType } from "./ImageGallery.types.jsx"; // .jsx extension is required for ESM build import resolution
 
 export function imageGalleryStyles(
   columnCount?: string | number,
   columnWidth?: string | number,
   gapSize?: number,
-  fixedCaption?: boolean
+  fixedCaption?: boolean,
 ): ImageGalleryStylesType {
   const modalThumbnailSectionHeight = "20vh";
   const galleryContainerStyle: React.CSSProperties = {

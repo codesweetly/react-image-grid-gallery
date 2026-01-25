@@ -1,7 +1,10 @@
 import { ReactElement, useRef, useState, useEffect } from "react";
 import { flushSync } from "react-dom";
-import { ImageGalleryPropsType, ImgSrcInfoType } from "./ImageGallery.types";
-import { imageGalleryStyles } from "./ImageGalleryStyles";
+import {
+  ImageGalleryPropsType,
+  ImgSrcInfoType,
+} from "./ImageGallery.types.jsx";
+import { imageGalleryStyles } from "./ImageGalleryStyles.js"; // .js extension is required for ESM build import resolution
 
 export function ImageGallery({
   imagesInfoArray,
