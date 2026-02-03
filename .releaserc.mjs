@@ -11,14 +11,13 @@ export default {
       {
         preset: "conventionalcommits",
         releaseRules: [
+          { breaking: true, release: "major" },
           { type: "feat", release: "minor" },
           { type: "fix", release: "patch" },
           { type: "perf", release: "patch" },
           { type: "refactor", release: "patch" },
-          // Docs & DX improvements still get patch releases
-          { type: "docs", release: "patch" },
           { type: "style", release: "patch" },
-          // Ignore noise
+          { type: "docs", release: false },
           { type: "test", release: false },
           { type: "chore", release: false },
           { type: "ci", release: false },
@@ -65,12 +64,7 @@ export default {
       },
     ],
     // 4. Update version + publish to npm
-    [
-      "@semantic-release/npm",
-      {
-        npmPublish: true,
-      },
-    ],
+    ["@semantic-release/npm", { npmPublish: true }],
     // 5. Commit changelog + version bump back to repo
     [
       "@semantic-release/git",
