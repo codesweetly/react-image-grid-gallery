@@ -14,28 +14,13 @@ jobs:
   release:
     name: semantic-release
     runs-on: ubuntu-latest
-
     steps:
-      # Generate a GitHub App token for authentication instead of using a personal access token
-      - name: Generate GitHub App token
-        id: app-token
-        uses: actions/create-github-app-token@v2
-        with:
-          app-id: ${{ secrets.RELEASE_APP_ID }}
-          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
-
       # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags (required to allow semantic-release to analyze commits)
           persist-credentials: false # Explicitly disable the token persistence
-
-      # Reconfigure git remote URL to use the GitHub App token for authentication instead of the default GITHUB_TOKEN for pushing changes back to the repository by semantic-release
-      - name: Authenticate git with GitHub App token
-        run: |
-          git remote set-url origin \
-            https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
 
       # Setup Node.js v24
       - name: Setup Node.js
@@ -53,9 +38,23 @@ jobs:
         run: |
           npm install --no-save \
             semantic-release@25 \
-            @semantic-release/changelog@6 \
             @semantic-release/git@10 \
+            @semantic-release/changelog@6 \
             conventional-changelog-conventionalcommits@9 \
+
+      # Generate a GitHub App token for authentication instead of using a personal access token
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      # Reconfigure git remote URL to use the GitHub App token for authentication instead of the default GITHUB_TOKEN for pushing changes back to the repository by semantic-release
+      - name: Authenticate git with GitHub App token
+        run: |
+          git remote set-url origin \
+            https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
 
       # Run semantic-release to automate the release process
       - name: Run semantic-release
