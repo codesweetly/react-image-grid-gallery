@@ -8,7 +8,6 @@ on:
 permissions:
   contents: write # create tags, releases, and commit changelogs
   id-token: write # exchange OIDC token with the npm registry for authentication (publish to npm)
-  packages: write # publish to npm registry via GitHub Packages (trusted publishing)
 
 jobs:
   release:
