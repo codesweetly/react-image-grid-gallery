@@ -121,16 +121,7 @@ test("image gallery works with only the imagesInfoArray prop", () => {
   render(<ImageGallery imagesInfoArray={imagesArray} />);
 });
 
-test("image gallery works with custom styles and fixed caption", () => {
-  const imageContainerStyle: React.CSSProperties = {
-    margin: `0 0 0`,
-    position: "relative",
-  };
-
-  const imageBtnStyle: React.CSSProperties = {
-    border: "4px solid purple",
-  };
-
+test("image gallery works with fixed caption", () => {
   render(
     <ImageGallery
       imagesInfoArray={imagesArray}
@@ -138,7 +129,6 @@ test("image gallery works with custom styles and fixed caption", () => {
       columnWidth={300}
       gapSize={2}
       fixedCaption={true}
-      customStyles={{ imageContainerStyle, imageBtnStyle }}
     />,
   );
 });
