@@ -10,8 +10,7 @@ module.exports = {
       },
     ],
   },
-  // Resolve .js imports to .ts/.tsx files for testing (for example, ImageGalleryStyles.js -> ImageGalleryStyles.ts)
   moduleNameMapper: {
-    "^(\\.{1,2}/.*)\\.js$": "$1",
+    "^(\\.{1,2}/.*)\\.(ts|js)$": "$1",
   },
 };
