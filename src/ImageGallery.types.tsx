@@ -33,7 +33,6 @@ export interface ImageGalleryPropsType {
   thumbnailBorder?: string;
   lazy?: boolean;
   lazyFromIndex?: number;
-  customStyles?: ImageGalleryStylesType;
 }
 
 export interface ImgSrcInfoType {
