@@ -1,22 +1,22 @@
-.image-btn {
+.cs-rigg-image-btn {
   border: none;
   background: none;
   margin: 0;
   padding: 0;
 }
 
-.image-container {
+.cs-rigg-image-container {
   position: relative;
 }
 
-.image {
+.cs-rigg-image {
   width: 100%;
   aspect-ratio: 1/1 auto;
   background-color: #d3d3d3;
   cursor: pointer;
 }
 
-.image-caption {
+.cs-rigg-image-caption {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -30,11 +30,11 @@
   color: #fff;
 }
 
-.dialog {
+.cs-rigg-dialog {
   margin: auto;
 }
 
-.modal-container {
+.cs-rigg-modal-container {
   outline: none;
   position: fixed;
   top: 0;
@@ -46,7 +46,7 @@
   backdrop-filter: blur(5px);
 }
 
-.modal-slide-number {
+.cs-rigg-modal-slide-number {
   z-index: 1;
   position: absolute;
   left: 0;
@@ -59,7 +59,7 @@
   -webkit-user-select: none;
 }
 
-.modal-toolbar {
+.cs-rigg-modal-toolbar {
   z-index: 1;
   display: flex;
   position: absolute;
@@ -70,7 +70,7 @@
   cursor: pointer;
 }
 
-.modal-toolbar-btn {
+.cs-rigg-modal-toolbar-btn {
   margin: 0;
   border: none;
   background: none;
@@ -79,7 +79,7 @@
   cursor: pointer;
 }
 
-.modal-slide-show-section {
+.cs-rigg-modal-slide-show-section {
   position: relative;
   display: flex;
   align-items: center;
@@ -88,7 +88,7 @@
   transition: height 0.7s linear;
 }
 
-.modal-slide-btn {
+.cs-rigg-modal-slide-btn {
   position: absolute;
   border: none;
   margin-inline: 7px;
@@ -101,19 +101,19 @@
   -webkit-user-select: none;
 }
 
-.modal-image {
+.cs-rigg-modal-image {
   margin: auto;
   max-width: 100vw;
   transition: height 0.7s linear;
 }
 
-.modal-thumbnail-section {
+.cs-rigg-modal-thumbnail-section {
   overflow: hidden;
   height: 20vh;
   text-align: center;
 }
 
-.modal-thumb-imgs-pod {
+.cs-rigg-modal-thumb-imgs-pod {
   display: inline-flex;
   height: inherit;
   padding-block: 12px;

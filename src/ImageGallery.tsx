@@ -126,7 +126,7 @@ export function ImageGallery({
         return (
           <button
             type="button"
-            className="image-btn"
+            className="cs-rigg-image-btn"
             key={imageInfo.id}
             onKeyDown={(e) =>
               e.key === "Enter" &&
@@ -139,7 +139,7 @@ export function ImageGallery({
             }
           >
             <figure
-              className="image-container"
+              className="cs-rigg-image-container"
               style={{ margin: `0 0 ${gapSize}px` }}
               onMouseEnter={(e) =>
                 fixedCaption ? undefined : handleImageContainerMouseEnter(e)
@@ -160,11 +160,11 @@ export function ImageGallery({
                     imageInfo.mediaSizes,
                   )
                 }
-                className="image"
+                className="cs-rigg-image"
               />
               {imageInfo.caption ? (
                 <figcaption
-                  className="image-caption"
+                  className="cs-rigg-image-caption"
                   style={{
                     opacity: fixedCaption ? 1 : 0,
                     transition: fixedCaption
@@ -192,12 +192,12 @@ export function ImageGallery({
   }
 
   const lightBoxElement = (
-    <dialog ref={dialogRef} className="dialog">
+    <dialog ref={dialogRef} className="cs-rigg-dialog">
       <article
         autoFocus
         tabIndex={-1}
         ref={lightboxRef}
-        className="modal-container"
+        className="cs-rigg-modal-container"
         onKeyDown={(e) => handleKeyDownOnModal(e)}
         onMouseEnter={() => setShowModalControls(true)}
         onMouseLeave={() => setShowModalControls(false)}
@@ -207,17 +207,17 @@ export function ImageGallery({
         }
       >
         <span
-          className="modal-slide-number"
+          className="cs-rigg-modal-slide-number"
           style={{ opacity: showModalControls ? 1 : 0 }}
         >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
         <span
-          className="modal-toolbar"
+          className="cs-rigg-modal-toolbar"
           style={{ opacity: showModalControls ? 1 : 0 }}
         >
           <button
             type="button"
             aria-label="Show thumbnails"
-            className="modal-toolbar-btn"
+            className="cs-rigg-modal-toolbar-btn"
             title="Show thumbnails"
             onClick={() => setShowThumbnails(!showThumbnails)}
           >
@@ -228,7 +228,7 @@ export function ImageGallery({
           <button
             type="button"
             aria-label="Go full screen (Keyboard shortcut f)"
-            className="modal-toolbar-btn"
+            className="cs-rigg-modal-toolbar-btn"
             style={{ display: fullscreen ? "none" : "block" }}
             title="Go full screen (f)"
             onClick={() => switchFullScreen(true)}
@@ -240,7 +240,7 @@ export function ImageGallery({
           <button
             type="button"
             aria-label="Exit full screen"
-            className="modal-toolbar-btn"
+            className="cs-rigg-modal-toolbar-btn"
             style={{ display: fullscreen ? "block" : "none" }}
             title="Exit full screen"
             onClick={() => switchFullScreen(false)}
@@ -252,7 +252,7 @@ export function ImageGallery({
           <button
             type="button"
             aria-label="Close lightbox"
-            className="modal-toolbar-btn"
+            className="cs-rigg-modal-toolbar-btn"
             title="Close lightbox"
             onClick={() => exitFullScreenAndDialog()}
           >
@@ -262,13 +262,13 @@ export function ImageGallery({
           </button>
         </span>
         <section
-          className="modal-slide-show-section"
+          className="cs-rigg-modal-slide-show-section"
           style={{ height: showThumbnails ? "80vh" : "100vh" }}
         >
           <button
             type="button"
             aria-label="Previous image"
-            className="modal-slide-btn"
+            className="cs-rigg-modal-slide-btn"
             style={{ opacity: showModalControls ? 1 : 0, left: 0 }}
             title="Previous image"
             onClick={() => scrollImage(false, -1, 0)}
@@ -294,11 +294,11 @@ export function ImageGallery({
               srcSet={imgSrcInfo?.srcSet}
               sizes={imgSrcInfo?.mediaSizes}
               alt={imagesInfoArray[slideNumber - 1].alt}
-              className="modal-image"
+              className="cs-rigg-modal-image"
               style={{ maxHeight: showThumbnails ? "80vh" : "100vh" }}
             />
             {imagesInfoArray[slideNumber - 1].caption ? (
-              <figcaption className="image-caption">
+              <figcaption className="cs-rigg-image-caption">
                 {imagesInfoArray[slideNumber - 1].caption}
               </figcaption>
             ) : (
@@ -308,7 +308,7 @@ export function ImageGallery({
           <button
             type="button"
             aria-label="Next image"
-            className="modal-slide-btn"
+            className="cs-rigg-modal-slide-btn"
             style={{ opacity: showModalControls ? 1 : 0, right: 0 }}
             title="Next image"
             onClick={() => scrollImage(false, 1, 0)}
@@ -322,10 +322,10 @@ export function ImageGallery({
           </button>
         </section>
         <section
-          className="modal-thumbnail-section"
+          className="cs-rigg-modal-thumbnail-section"
           style={{ opacity: showThumbnails ? 1 : 0 }}
         >
-          <div className="modal-thumb-imgs-pod">
+          <div className="cs-rigg-modal-thumb-imgs-pod">
             {imagesInfoArray.map((imageInfo, index) => (
               <img
                 loading={lazy ? "lazy" : "eager"}
