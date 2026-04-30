@@ -3,7 +3,7 @@ import { flushSync } from "react-dom";
 import {
   ImageGalleryPropsType,
   ImgSrcInfoType,
-} from "./ImageGallery.types.jsx";
+} from "./ImageGallery.types.tsx";
 
 export function ImageGallery({
   imagesInfoArray,
