@@ -30,6 +30,10 @@
   color: #fff;
 }
 
+.dialog {
+  margin: auto;
+}
+
 .modal-container {
   outline: none;
   position: fixed;

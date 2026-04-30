@@ -4,7 +4,6 @@ import {
   ImageGalleryPropsType,
   ImgSrcInfoType,
 } from "./ImageGallery.types.jsx";
-// import { imageGalleryStyles } from "./ImageGalleryStyles.js"; // .js extension is required for ESM build import resolution
 
 export function ImageGallery({
   imagesInfoArray,
@@ -15,7 +14,6 @@ export function ImageGallery({
   thumbnailBorder = "3px solid #fff",
   lazy = true,
   lazyFromIndex = 6,
-  // customStyles = {},
 }: ImageGalleryPropsType) {
   const [imgSrcInfo, setImgSrcInfo] = useState<ImgSrcInfoType | null>(null);
   const [slideNumber, setSlideNumber] = useState(1);
@@ -25,27 +23,6 @@ export function ImageGallery({
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const lightboxRef = useRef<HTMLElement | null>(null);
   const activeThumbImgRef = useRef<HTMLImageElement | null>(null);
-  // const defaultStyles = imageGalleryStyles(
-  //   columnCount,
-  //   columnWidth,
-  //   gapSize,
-  //   fixedCaption,
-  // );
-  // const galleryStyles = { ...defaultStyles, ...customStyles };
-  // const galleryContainerStyle = galleryStyles.galleryContainerStyle;
-  // const imageContainerStyle = galleryStyles.imageContainerStyle;
-  // const imageBtnStyle = galleryStyles.imageBtnStyle;
-  // const imageStyle = galleryStyles.imageStyle;
-  // const imageCaptionStyle = galleryStyles.imageCaptionStyle;
-  // const modalContainerStyle = galleryStyles.modalContainerStyle;
-  // const modalSlideNumberStyle = galleryStyles.modalSlideNumberStyle;
-  // const modalToolbarStyle = galleryStyles.modalToolbarStyle;
-  // const modalToolbarBtnStyle = galleryStyles.modalToolbarBtnStyle;
-  // const modalSlideShowSectionStyle = galleryStyles.modalSlideShowSectionStyle;
-  // const modalThumbnailSectionStyle = galleryStyles.modalThumbnailSectionStyle;
-  // const modalThumbImgsPodStyle = galleryStyles.modalThumbImgsPodStyle;
-  // const modalImageStyle = galleryStyles.modalImageStyle;
-  // const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
   function handleImageContainerMouseEnter(
     e: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -150,7 +127,6 @@ export function ImageGallery({
           <button
             type="button"
             className="image-btn"
-            // style={imageBtnStyle}
             key={imageInfo.id}
             onKeyDown={(e) =>
               e.key === "Enter" &&
@@ -163,7 +139,6 @@ export function ImageGallery({
             }
           >
             <figure
-              // style={imageContainerStyle}
               className="image-container"
               style={{ margin: `0 0 ${gapSize}px` }}
               onMouseEnter={(e) =>
@@ -185,13 +160,11 @@ export function ImageGallery({
                     imageInfo.mediaSizes,
                   )
                 }
-                // style={imageStyle}
                 className="image"
               />
               {imageInfo.caption ? (
                 <figcaption
                   className="image-caption"
-                  // style={imageCaptionStyle}
                   style={{
                     opacity: fixedCaption ? 1 : 0,
                     transition: fixedCaption
@@ -219,12 +192,11 @@ export function ImageGallery({
   }
 
   const lightBoxElement = (
-    <dialog ref={dialogRef} style={{ margin: "auto" }}>
+    <dialog ref={dialogRef} className="dialog">
       <article
         autoFocus
         tabIndex={-1}
         ref={lightboxRef}
-        // style={modalContainerStyle}
         className="modal-container"
         onKeyDown={(e) => handleKeyDownOnModal(e)}
         onMouseEnter={() => setShowModalControls(true)}
@@ -237,23 +209,14 @@ export function ImageGallery({
         <span
           className="modal-slide-number"
           style={{ opacity: showModalControls ? 1 : 0 }}
-          // style={{
-          //   opacity: showModalControls ? 1 : 0,
-          //   ...modalSlideNumberStyle,
-          // }}
         >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
         <span
           className="modal-toolbar"
           style={{ opacity: showModalControls ? 1 : 0 }}
-          // style={{
-          //   opacity: showModalControls ? 1 : 0,
-          //   ...modalToolbarStyle,
-          // }}
         >
           <button
             type="button"
             aria-label="Show thumbnails"
-            // style={modalToolbarBtnStyle}
             className="modal-toolbar-btn"
             title="Show thumbnails"
             onClick={() => setShowThumbnails(!showThumbnails)}
@@ -267,10 +230,6 @@ export function ImageGallery({
             aria-label="Go full screen (Keyboard shortcut f)"
             className="modal-toolbar-btn"
             style={{ display: fullscreen ? "none" : "block" }}
-            // style={{
-            //   display: fullscreen ? "none" : "block",
-            //   ...modalToolbarBtnStyle,
-            // }}
             title="Go full screen (f)"
             onClick={() => switchFullScreen(true)}
           >
@@ -283,10 +242,6 @@ export function ImageGallery({
             aria-label="Exit full screen"
             className="modal-toolbar-btn"
             style={{ display: fullscreen ? "block" : "none" }}
-            // style={{
-            //   display: fullscreen ? "block" : "none",
-            //   ...modalToolbarBtnStyle,
-            // }}
             title="Exit full screen"
             onClick={() => switchFullScreen(false)}
           >
@@ -297,7 +252,6 @@ export function ImageGallery({
           <button
             type="button"
             aria-label="Close lightbox"
-            // style={modalToolbarBtnStyle}
             className="modal-toolbar-btn"
             title="Close lightbox"
             onClick={() => exitFullScreenAndDialog()}
@@ -310,21 +264,12 @@ export function ImageGallery({
         <section
           className="modal-slide-show-section"
           style={{ height: showThumbnails ? "80vh" : "100vh" }}
-          // style={{
-          //   height: showThumbnails ? "80vh" : "100vh",
-          //   ...modalSlideShowSectionStyle,
-          // }}
         >
           <button
             type="button"
             aria-label="Previous image"
             className="modal-slide-btn"
             style={{ opacity: showModalControls ? 1 : 0, left: 0 }}
-            // style={{
-            //   opacity: showModalControls ? 1 : 0,
-            //   left: 0,
-            //   ...modalSlideBtnStyle,
-            // }}
             title="Previous image"
             onClick={() => scrollImage(false, -1, 0)}
           >
@@ -351,16 +296,9 @@ export function ImageGallery({
               alt={imagesInfoArray[slideNumber - 1].alt}
               className="modal-image"
               style={{ maxHeight: showThumbnails ? "80vh" : "100vh" }}
-              // style={{
-              //   maxHeight: showThumbnails ? "80vh" : "100vh",
-              //   ...modalImageStyle,
-              // }}
             />
             {imagesInfoArray[slideNumber - 1].caption ? (
-              <figcaption
-                // style={imageCaptionStyle}
-                className="image-caption"
-              >
+              <figcaption className="image-caption">
                 {imagesInfoArray[slideNumber - 1].caption}
               </figcaption>
             ) : (
@@ -372,11 +310,6 @@ export function ImageGallery({
             aria-label="Next image"
             className="modal-slide-btn"
             style={{ opacity: showModalControls ? 1 : 0, right: 0 }}
-            // style={{
-            //   opacity: showModalControls ? 1 : 0,
-            //   right: 0,
-            //   ...modalSlideBtnStyle,
-            // }}
             title="Next image"
             onClick={() => scrollImage(false, 1, 0)}
           >
@@ -391,15 +324,8 @@ export function ImageGallery({
         <section
           className="modal-thumbnail-section"
           style={{ opacity: showThumbnails ? 1 : 0 }}
-          // style={{
-          //   opacity: showThumbnails ? 1 : 0,
-          //   ...modalThumbnailSectionStyle,
-          // }}
         >
-          <div
-            // style={modalThumbImgsPodStyle}
-            className="modal-thumb-imgs-pod"
-          >
+          <div className="modal-thumb-imgs-pod">
             {imagesInfoArray.map((imageInfo, index) => (
               <img
                 loading={lazy ? "lazy" : "eager"}
@@ -438,7 +364,6 @@ export function ImageGallery({
 
   return (
     <div
-      // style={galleryContainerStyle}
       style={{
         columnCount,
         columnWidth: `${columnWidth}px`,
