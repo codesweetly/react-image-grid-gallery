@@ -5,26 +5,28 @@ export default {
   branches: ["main"],
   repositoryUrl: "https://github.com/codesweetly/react-image-grid-gallery",
   plugins: [
-    // 1. Analyze commits and map them to release types
     [
-      "@semantic-release/commit-analyzer", // infer bump from commits
+      "@semantic-release/commit-analyzer",
       {
         preset: "conventionalcommits",
+        parserOpts: {
+          noteKeywords: ["BREAKING CHANGE", "BREAKING CHANGES"],
+        },
         releaseRules: [
           { breaking: true, release: "major" },
           { type: "feat", release: "minor" },
           { type: "fix", release: "patch" },
           { type: "perf", release: "patch" },
           { type: "refactor", release: "patch" },
+          { type: "docs", release: "patch" },
           { type: "style", release: "patch" },
-          { type: "docs", release: false },
+          { type: "build", release: false },
           { type: "test", release: false },
           { type: "chore", release: false },
           { type: "ci", release: false },
         ],
       },
     ],
-    // 2. Generate clean, readable release notes
     [
       "@semantic-release/release-notes-generator",
       {
@@ -39,10 +41,6 @@ export default {
             { type: "style", section: "🎨 Code Style" },
           ],
         },
-        parserOpts: {
-          mergePattern: "^Merge pull request",
-          mergeCorrespondence: null,
-        },
         writerOpts: {
           groupBy: "type",
           commitGroupsSort: "title",
@@ -50,31 +48,14 @@ export default {
         },
       },
     ],
-    // 3. Write formatted changelog to CHANGELOG.md
-    [
-      "@semantic-release/changelog",
-      {
-        changelogFile: "CHANGELOG.md",
-        changelogTitle:
-          "# 📦 Changelog\n\nAll notable changes to **react-image-grid-gallery** are documented here.\n",
-        writerOpts: {
-          groupBy: "type",
-          commitGroupsSort: "title",
-        },
-      },
-    ],
-    // 4. Update version + publish to npm
     ["@semantic-release/npm", { npmPublish: true }],
-    // 5. Commit changelog + version bump back to repo
     [
-      "@semantic-release/git",
+      "@semantic-release/github",
       {
-        assets: ["package.json", "package-lock.json", "CHANGELOG.md"],
-        message:
-          "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        successComment: false,
+        failComment: false,
+        releasedLabels: false,
       },
     ],
-    // 6. Create GitHub release notes & tag
-    "@semantic-release/github",
   ],
 };
