@@ -46,8 +46,11 @@ pnpm add react-image-grid-gallery
 
 ## Usage
 
+Import the library and its stylesheet, and use it as shown below:
+
 ```js
 import { ImageGallery } from "react-image-grid-gallery";
+import "react-image-grid-gallery/style.css";
 
 const imagesArray = [
   {
@@ -80,6 +83,10 @@ function App() {
   return <ImageGallery imagesInfoArray={imagesArray} gapSize={24} />;
 }
 ```
+
+### Why import the stylesheet?
+
+The components rely on predefined CSS classes for styling. Importing the stylesheet once ensures consistent application of these styles across all components.
 
 ## Props
 
@@ -173,31 +180,6 @@ function App() {
 (**Optional**) The image's [index](https://codesweetly.com/web-tech-terms-i/#index) to begin the grid's lazy loading.
 
 **tip:** Use a negative number to lazy load all the images.
-
-</td>
-</tr>
-<tr>
-<td><code>customStyles</code></td>
-<td>ImageGalleryStylesType</td>
-<td><code>{}</code></td>
-<td>
-
-(**Optional**) Custom styles to override the following element's default styles:
-
-- Gallery container: `galleryContainerStyle`
-- Gallery image button: `imageBtnStyle`
-- Gallery image container: `imageContainerStyle`
-- Gallery image element: `imageStyle`
-- Gallery image caption: `imageCaptionStyle`
-- Modal container: `modalContainerStyle`
-- Modal slide number: `modalSlideNumberStyle`
-- Modal toolbar: `modalToolbarStyle`
-- Modal toolbar button: `modalToolbarBtnStyle`
-- Modal slideshow section: `modalSlideShowSectionStyle`
-- Modal thumbnail section: `modalThumbnailSectionStyle`
-- Modal thumbnail images container: `modalThumbImgsPodStyle`
-- Modal image element: `modalImageStyle`
-- Modal slide button: `modalSlideBtnStyle`
 
 </td>
 </tr>
