@@ -61,7 +61,7 @@ export function ImageGallery({
               imageInfo.srcSet,
               imageInfo.mediaSizes,
             )
-          : customizeImageClickAction();
+          : customizeImageClickAction(imageInfo, index);
       }
       if (imageInfo.id) {
         return (

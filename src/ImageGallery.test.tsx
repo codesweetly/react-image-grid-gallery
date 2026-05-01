@@ -161,12 +161,24 @@ test("image gallery works without lightbox", () => {
   );
 });
 
-test("users can customize image click action", () => {
+test("customizing image click action without using the built-in imageInfo and index parameters works", () => {
   render(
     <ImageGallery
       imagesInfoArray={imagesArray}
       enableDefaultLightbox={false}
       customizeImageClickAction={() => console.log("You clicked an image!")}
+    />,
+  );
+});
+
+test("customizing image click action with the built-in imageInfo and index parameters works", () => {
+  render(
+    <ImageGallery
+      imagesInfoArray={imagesArray}
+      enableDefaultLightbox={false}
+      customizeImageClickAction={(imageInfo, index) =>
+        console.log("You clicked an image!", imageInfo, index)
+      }
     />,
   );
 });

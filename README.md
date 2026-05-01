@@ -151,7 +151,33 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 
 (**Optional**) A function to be executed when an image is clicked, if `enableDefaultLightbox` is `false`. This allows you to implement your own custom lightbox or any other action on image click.
 
-**note:** This feature is not compatible with the Astro framework, as [Astro does not support passing functions to hydrated components](https://docs.astro.build/en/guides/framework-components/#passing-props-to-framework-components).
+The `customizeImageClickAction` function receives two arguments, `imageInfo` and `index`, which are automatically provided. These arguments give you access to the data of the clicked image.
+
+**Example 1:**
+
+```jsx
+<ImageGallery
+  imagesInfoArray={imagesArray}
+  enableDefaultLightbox={false}
+  customizeImageClickAction={() => {
+    console.log("Image clicked!");
+  }}
+/>
+```
+
+**Example 2:**
+
+```jsx
+<ImageGallery
+  imagesInfoArray={imagesArray}
+  enableDefaultLightbox={false}
+  customizeImageClickAction={(imageInfo, index) => {
+    console.log("Image clicked:", imageInfo, index);
+  }}
+/>
+```
+
+**note:** The `customizeImageClickAction` feature is not compatible with the Astro framework, as [Astro does not support passing functions to hydrated components](https://docs.astro.build/en/guides/framework-components/#passing-props-to-framework-components).
 
 </td>
 </tr>
