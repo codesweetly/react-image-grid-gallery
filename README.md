@@ -80,7 +80,7 @@ const imagesArray = [
 ];
 
 function App() {
-  return <ImageGallery imagesInfoArray={imagesArray} gapSize={24} />;
+  return <ImageGallery imagesData={imagesArray} gapSize={24} />;
 }
 ```
 
@@ -102,7 +102,7 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 <tbody>
 
 <tr>
-<td><code>imagesInfoArray</code></td>
+<td><code>imagesData</code></td>
 <td>array</td>
 <td><code>undefined</code></td>
 <td>
@@ -157,7 +157,7 @@ The `customizeImageClickAction` function receives two arguments, `imageInfo` and
 
 ```jsx
 <ImageGallery
-  imagesInfoArray={imagesArray}
+  imagesData={imagesArray}
   enableDefaultLightbox={false}
   customizeImageClickAction={() => {
     console.log("Image clicked!");
@@ -169,7 +169,7 @@ The `customizeImageClickAction` function receives two arguments, `imageInfo` and
 
 ```jsx
 <ImageGallery
-  imagesInfoArray={imagesArray}
+  imagesData={imagesArray}
   enableDefaultLightbox={false}
   customizeImageClickAction={(imageInfo, index) => {
     console.log("Image clicked:", imageInfo, index);
@@ -290,7 +290,7 @@ function YourComponent() {
         const ImageGallery = require("react-image-grid-gallery").ImageGallery;
         return (
           <ImageGallery
-            imagesInfoArray={imagesArray}
+            imagesData={imagesArray}
             columnCount={"auto"}
             columnWidth={230}
             gapSize={24}

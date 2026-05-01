@@ -13,7 +13,7 @@ export function ImageGallery({
   enableDefaultLightbox = true,
   fixedCaption = false,
   gapSize = 24,
-  imagesInfoArray,
+  imagesData,
   lazy = true,
   lazyFromIndex = 6,
   thumbnailBorder = "3px solid #fff",
@@ -52,7 +52,7 @@ export function ImageGallery({
   }
 
   function showImageCards() {
-    const imageElementsArray = imagesInfoArray.map((imageInfo, index) => {
+    const imageElementsArray = imagesData.map((imageInfo, index) => {
       function handleImageClick() {
         enableDefaultLightbox
           ? openLightboxOnSlide(
@@ -118,14 +118,14 @@ export function ImageGallery({
   }
 
   function changeSlide(thumbClick: boolean, step: number) {
-    const totalImages = imagesInfoArray.length;
+    const totalImages = imagesData.length;
     let newSlideNumber = thumbClick ? step + 1 : slideNumber + step;
 
     newSlideNumber < 1 && (newSlideNumber = totalImages);
     newSlideNumber > totalImages && (newSlideNumber = 1);
 
     if (newSlideNumber <= totalImages && newSlideNumber > 0) {
-      const imageInfo = imagesInfoArray[newSlideNumber - 1];
+      const imageInfo = imagesData[newSlideNumber - 1];
       setSlideNumber(newSlideNumber);
       setImgSrcInfo({
         src: imageInfo.src,
@@ -179,7 +179,7 @@ export function ImageGallery({
         <span
           className="cs-rigg-modal-slide-number"
           style={{ opacity: showModalControls ? 1 : 0 }}
-        >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
+        >{`${slideNumber} / ${imagesData.length}`}</span>
         <span
           className="cs-rigg-modal-toolbar"
           style={{ opacity: showModalControls ? 1 : 0 }}
@@ -263,13 +263,13 @@ export function ImageGallery({
               src={imgSrcInfo?.src}
               srcSet={imgSrcInfo?.srcSet}
               sizes={imgSrcInfo?.mediaSizes}
-              alt={imagesInfoArray[slideNumber - 1].alt}
+              alt={imagesData[slideNumber - 1].alt}
               className="cs-rigg-modal-image"
               style={{ maxHeight: showThumbnails ? "80vh" : "100vh" }}
             />
-            {imagesInfoArray[slideNumber - 1].caption ? (
+            {imagesData[slideNumber - 1].caption ? (
               <figcaption className="cs-rigg-image-caption">
-                {imagesInfoArray[slideNumber - 1].caption}
+                {imagesData[slideNumber - 1].caption}
               </figcaption>
             ) : (
               ""
@@ -296,7 +296,7 @@ export function ImageGallery({
           style={{ opacity: showThumbnails ? 1 : 0 }}
         >
           <div className="cs-rigg-modal-thumb-imgs-pod">
-            {imagesInfoArray.map((imageInfo, index) => (
+            {imagesData.map((imageInfo, index) => (
               <img
                 loading={lazy ? "lazy" : "eager"}
                 ref={slideNumber - 1 === index ? activeThumbImgRef : null}

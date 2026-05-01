@@ -19,7 +19,7 @@ export interface ImageGalleryPropsType {
   enableDefaultLightbox?: boolean;
   fixedCaption?: boolean;
   gapSize?: number;
-  imagesInfoArray: Array<ImageInfoType>;
+  imagesData: Array<ImageInfoType>;
   lazy?: boolean;
   lazyFromIndex?: number;
   thumbnailBorder?: string;

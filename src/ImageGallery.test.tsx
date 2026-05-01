@@ -109,7 +109,7 @@ const imagesArray = [
 test("image gallery renders correctly", () => {
   render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
+      imagesData={imagesArray}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
@@ -117,14 +117,14 @@ test("image gallery renders correctly", () => {
   );
 });
 
-test("image gallery works with only the imagesInfoArray prop", () => {
-  render(<ImageGallery imagesInfoArray={imagesArray} />);
+test("image gallery works with only the imagesData prop", () => {
+  render(<ImageGallery imagesData={imagesArray} />);
 });
 
 test("image gallery works with fixed caption", () => {
   render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
+      imagesData={imagesArray}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
@@ -136,7 +136,7 @@ test("image gallery works with fixed caption", () => {
 test("image gallery works with custom thumbnail border", () => {
   render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
+      imagesData={imagesArray}
       thumbnailBorder="medium dashed pink"
     />,
   );
@@ -144,27 +144,20 @@ test("image gallery works with custom thumbnail border", () => {
 
 test("image gallery works with lazy loading", () => {
   render(
-    <ImageGallery
-      imagesInfoArray={imagesArray}
-      lazy={true}
-      lazyFromIndex={6}
-    />,
+    <ImageGallery imagesData={imagesArray} lazy={true} lazyFromIndex={6} />,
   );
 });
 
 test("image gallery works without lightbox", () => {
   render(
-    <ImageGallery
-      imagesInfoArray={imagesArray}
-      enableDefaultLightbox={false}
-    />,
+    <ImageGallery imagesData={imagesArray} enableDefaultLightbox={false} />,
   );
 });
 
 test("customizing image click action without using the built-in imageInfo and index parameters works", () => {
   render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
+      imagesData={imagesArray}
       enableDefaultLightbox={false}
       customizeImageClickAction={() => console.log("You clicked an image!")}
     />,
@@ -174,7 +167,7 @@ test("customizing image click action without using the built-in imageInfo and in
 test("customizing image click action with the built-in imageInfo and index parameters works", () => {
   render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
+      imagesData={imagesArray}
       enableDefaultLightbox={false}
       customizeImageClickAction={(imageInfo, index) =>
         console.log("You clicked an image!", imageInfo, index)
