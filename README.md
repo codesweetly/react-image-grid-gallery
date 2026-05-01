@@ -151,7 +151,7 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 
 (**Optional**) A function to be executed when an image is clicked, if `enableDefaultLightbox` is `false`. This allows you to implement your own custom lightbox or any other action on image click.
 
-The `customizeImageClickAction` function receives two arguments, `imageInfo` and `index`, which are automatically provided. These arguments give you access to the data of the clicked image.
+The `customizeImageClickAction` function receives two arguments, `imageData` and `index`, which are automatically provided. These arguments give you access to the data of the clicked image.
 
 **Example 1:**
 
@@ -171,8 +171,8 @@ The `customizeImageClickAction` function receives two arguments, `imageInfo` and
 <ImageGallery
   imagesData={imagesArray}
   enableDefaultLightbox={false}
-  customizeImageClickAction={(imageInfo, index) => {
-    console.log("Image clicked:", imageInfo, index);
+  customizeImageClickAction={(imageData, index) => {
+    console.log("Image clicked:", imageData, index);
   }}
 />
 ```

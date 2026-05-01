@@ -13,7 +13,7 @@ export interface ImageGalleryPropsType {
   columnCount?: string | number;
   columnWidth?: string | number;
   customizeImageClickAction?: (
-    imageInfo?: ImageDataType,
+    imageData?: ImageDataType,
     index?: number,
   ) => void;
   enableDefaultLightbox?: boolean;

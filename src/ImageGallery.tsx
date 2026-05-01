@@ -52,23 +52,23 @@ export function ImageGallery({
   }
 
   function showImageCards() {
-    const imageElementsArray = imagesData.map((imageInfo, index) => {
+    const imageElementsArray = imagesData.map((imageData, index) => {
       function handleImageClick() {
         enableDefaultLightbox
           ? openLightboxOnSlide(
               index + 1,
-              imageInfo.src,
-              imageInfo.srcSet,
-              imageInfo.mediaSizes,
+              imageData.src,
+              imageData.srcSet,
+              imageData.mediaSizes,
             )
-          : customizeImageClickAction(imageInfo, index);
+          : customizeImageClickAction(imageData, index);
       }
-      if (imageInfo.id) {
+      if (imageData.id) {
         return (
           <button
             type="button"
             className="cs-rigg-image-btn"
-            key={imageInfo.id}
+            key={imageData.id}
             onKeyDown={(e) => e.key === "Enter" && handleImageClick()}
           >
             <figure
@@ -83,12 +83,12 @@ export function ImageGallery({
             >
               <img
                 loading={lazy && index >= lazyFromIndex ? "lazy" : "eager"}
-                alt={imageInfo.alt}
-                src={imageInfo.gridSrc || imageInfo.src}
+                alt={imageData.alt}
+                src={imageData.gridSrc || imageData.src}
                 onClick={() => handleImageClick()}
                 className="cs-rigg-image"
               />
-              {imageInfo.caption ? (
+              {imageData.caption ? (
                 <figcaption
                   className="cs-rigg-image-caption"
                   style={{
@@ -98,7 +98,7 @@ export function ImageGallery({
                       : "opacity 1s ease-in-out",
                   }}
                 >
-                  {imageInfo.caption}
+                  {imageData.caption}
                 </figcaption>
               ) : (
                 ""
@@ -125,12 +125,12 @@ export function ImageGallery({
     newSlideNumber > totalImages && (newSlideNumber = 1);
 
     if (newSlideNumber <= totalImages && newSlideNumber > 0) {
-      const imageInfo = imagesData[newSlideNumber - 1];
+      const imageData = imagesData[newSlideNumber - 1];
       setSlideNumber(newSlideNumber);
       setImgSrcInfo({
-        src: imageInfo.src,
-        srcSet: imageInfo.srcSet,
-        mediaSizes: imageInfo.mediaSizes,
+        src: imageData.src,
+        srcSet: imageData.srcSet,
+        mediaSizes: imageData.mediaSizes,
       });
     }
   }
@@ -296,7 +296,7 @@ export function ImageGallery({
           style={{ opacity: showThumbnails ? 1 : 0 }}
         >
           <div className="cs-rigg-modal-thumb-imgs-pod">
-            {imagesData.map((imageInfo, index) => (
+            {imagesData.map((imageData, index) => (
               <img
                 loading={lazy ? "lazy" : "eager"}
                 ref={slideNumber - 1 === index ? activeThumbImgRef : null}
@@ -304,9 +304,9 @@ export function ImageGallery({
                   border: slideNumber - 1 === index ? thumbnailBorder : "",
                   cursor: "pointer",
                 }}
-                key={imageInfo.id}
-                src={imageInfo.thumbSrc || imageInfo.src}
-                alt={imageInfo.alt}
+                key={imageData.id}
+                src={imageData.thumbSrc || imageData.src}
+                alt={imageData.alt}
                 onClick={() => scrollImage(true, 0, index)}
               />
             ))}

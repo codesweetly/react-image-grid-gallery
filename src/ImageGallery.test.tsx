@@ -154,7 +154,7 @@ test("image gallery works without lightbox", () => {
   );
 });
 
-test("customizing image click action without using the built-in imageInfo and index parameters works", () => {
+test("customizing image click action without using the built-in imageData and index parameters works", () => {
   render(
     <ImageGallery
       imagesData={imagesArray}
@@ -164,13 +164,13 @@ test("customizing image click action without using the built-in imageInfo and in
   );
 });
 
-test("customizing image click action with the built-in imageInfo and index parameters works", () => {
+test("customizing image click action with the built-in imageData and index parameters works", () => {
   render(
     <ImageGallery
       imagesData={imagesArray}
       enableDefaultLightbox={false}
-      customizeImageClickAction={(imageInfo, index) =>
-        console.log("You clicked an image!", imageInfo, index)
+      customizeImageClickAction={(imageData, index) =>
+        console.log("You clicked an image!", imageData, index)
       }
     />,
   );
