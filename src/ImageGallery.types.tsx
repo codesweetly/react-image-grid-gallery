@@ -1,4 +1,4 @@
-export interface ImageInfoType {
+export interface ImageDataType {
   id: string | number;
   alt: string;
   caption?: string;
@@ -13,13 +13,13 @@ export interface ImageGalleryPropsType {
   columnCount?: string | number;
   columnWidth?: string | number;
   customizeImageClickAction?: (
-    imageInfo?: ImageInfoType,
+    imageInfo?: ImageDataType,
     index?: number,
   ) => void;
   enableDefaultLightbox?: boolean;
   fixedCaption?: boolean;
   gapSize?: number;
-  imagesData: Array<ImageInfoType>;
+  imagesData: Array<ImageDataType>;
   lazy?: boolean;
   lazyFromIndex?: number;
   thumbnailBorder?: string;
