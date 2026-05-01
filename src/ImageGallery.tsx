@@ -1,5 +1,6 @@
-import { ReactElement, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { flushSync } from "react-dom";
+import { SvgElement, updateCaptionOpacity } from "./helpers.ts";
 import {
   ImageGalleryPropsType,
   ImgSrcInfoType,
@@ -26,43 +27,6 @@ export function ImageGallery({
   const lightboxRef = useRef<HTMLElement | null>(null);
   const activeThumbImgRef = useRef<HTMLImageElement | null>(null);
 
-  function updateCaptionOpacity(
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    range: string,
-  ) {
-    const figcaption = e.currentTarget.querySelector("figcaption");
-    figcaption && (figcaption.style.opacity = range);
-  }
-
-  function openLightboxOnSlide(
-    number: number,
-    src: string,
-    srcSet?: string,
-    mediaSizes?: string,
-  ) {
-    setImgSrcInfo({ src, srcSet, mediaSizes });
-    setSlideNumber(number);
-    dialogRef.current?.showModal();
-  }
-
-  function changeSlide(thumbClick: boolean, step: number) {
-    const totalImages = imagesInfoArray.length;
-    let newSlideNumber = thumbClick ? step + 1 : slideNumber + step;
-
-    newSlideNumber < 1 && (newSlideNumber = totalImages);
-    newSlideNumber > totalImages && (newSlideNumber = 1);
-
-    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
-      const imageInfo = imagesInfoArray[newSlideNumber - 1];
-      setSlideNumber(newSlideNumber);
-      setImgSrcInfo({
-        src: imageInfo.src,
-        srcSet: imageInfo.srcSet,
-        mediaSizes: imageInfo.mediaSizes,
-      });
-    }
-  }
-
   function switchFullScreen(on: boolean) {
     if (on) {
       lightboxRef.current?.requestFullscreen().catch((error) => {
@@ -76,44 +40,15 @@ export function ImageGallery({
     }
   }
 
-  function scrollImage(
-    thumbClick: boolean,
-    direction: number,
-    imgIndex: number,
+  function openLightboxOnSlide(
+    number: number,
+    src: string,
+    srcSet?: string,
+    mediaSizes?: string,
   ) {
-    const step = thumbClick ? imgIndex : direction;
-    flushSync(() => changeSlide(thumbClick, step));
-    activeThumbImgRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
-  }
-
-  function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
-    e.key === "ArrowLeft" && scrollImage(false, -1, 0);
-    e.key === "ArrowRight" && scrollImage(false, 1, 0);
-    e.key === "f" && fullscreen && switchFullScreen(false);
-    e.key === "f" && !fullscreen && switchFullScreen(true);
-  }
-
-  function exitFullScreenAndDialog() {
-    fullscreen && switchFullScreen(false);
-    dialogRef.current?.close();
-  }
-
-  function SvgElement(pathElement: ReactElement) {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-      >
-        {pathElement}
-      </svg>
-    );
+    setImgSrcInfo({ src, srcSet, mediaSizes });
+    setSlideNumber(number);
+    dialogRef.current?.showModal();
   }
 
   function showImageCards() {
@@ -180,6 +115,50 @@ export function ImageGallery({
       );
     });
     return imageElementsArray;
+  }
+
+  function changeSlide(thumbClick: boolean, step: number) {
+    const totalImages = imagesInfoArray.length;
+    let newSlideNumber = thumbClick ? step + 1 : slideNumber + step;
+
+    newSlideNumber < 1 && (newSlideNumber = totalImages);
+    newSlideNumber > totalImages && (newSlideNumber = 1);
+
+    if (newSlideNumber <= totalImages && newSlideNumber > 0) {
+      const imageInfo = imagesInfoArray[newSlideNumber - 1];
+      setSlideNumber(newSlideNumber);
+      setImgSrcInfo({
+        src: imageInfo.src,
+        srcSet: imageInfo.srcSet,
+        mediaSizes: imageInfo.mediaSizes,
+      });
+    }
+  }
+
+  function scrollImage(
+    thumbClick: boolean,
+    direction: number,
+    imgIndex: number,
+  ) {
+    const step = thumbClick ? imgIndex : direction;
+    flushSync(() => changeSlide(thumbClick, step));
+    activeThumbImgRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }
+
+  function handleKeyDownOnModal(e: React.KeyboardEvent<HTMLElement>) {
+    e.key === "ArrowLeft" && scrollImage(false, -1, 0);
+    e.key === "ArrowRight" && scrollImage(false, 1, 0);
+    e.key === "f" && fullscreen && switchFullScreen(false);
+    e.key === "f" && !fullscreen && switchFullScreen(true);
+  }
+
+  function exitFullScreenAndDialog() {
+    fullscreen && switchFullScreen(false);
+    dialogRef.current?.close();
   }
 
   const lightBoxElement = (
