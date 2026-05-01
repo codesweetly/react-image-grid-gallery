@@ -6,14 +6,16 @@ import {
 } from "./ImageGallery.types.tsx";
 
 export function ImageGallery({
-  imagesInfoArray,
   columnCount = "auto",
   columnWidth = 230,
-  gapSize = 24,
+  customizeImageClickAction = () => {},
+  enableDefaultLightbox = true,
   fixedCaption = false,
-  thumbnailBorder = "3px solid #fff",
+  gapSize = 24,
+  imagesInfoArray,
   lazy = true,
   lazyFromIndex = 6,
+  thumbnailBorder = "3px solid #fff",
 }: ImageGalleryPropsType) {
   const [imgSrcInfo, setImgSrcInfo] = useState<ImgSrcInfoType | null>(null);
   const [slideNumber, setSlideNumber] = useState(1);
@@ -122,21 +124,23 @@ export function ImageGallery({
 
   function showImageCards() {
     const imageElementsArray = imagesInfoArray.map((imageInfo, index) => {
+      function handleImageClick() {
+        enableDefaultLightbox
+          ? openLightboxOnSlide(
+              index + 1,
+              imageInfo.src,
+              imageInfo.srcSet,
+              imageInfo.mediaSizes,
+            )
+          : customizeImageClickAction();
+      }
       if (imageInfo.id) {
         return (
           <button
             type="button"
             className="cs-rigg-image-btn"
             key={imageInfo.id}
-            onKeyDown={(e) =>
-              e.key === "Enter" &&
-              openLightboxOnSlide(
-                index + 1,
-                imageInfo.src,
-                imageInfo.srcSet,
-                imageInfo.mediaSizes,
-              )
-            }
+            onKeyDown={(e) => e.key === "Enter" && handleImageClick()}
           >
             <figure
               className="cs-rigg-image-container"
@@ -152,14 +156,7 @@ export function ImageGallery({
                 loading={lazy && index >= lazyFromIndex ? "lazy" : "eager"}
                 alt={imageInfo.alt}
                 src={imageInfo.gridSrc || imageInfo.src}
-                onClick={() =>
-                  openLightboxOnSlide(
-                    index + 1,
-                    imageInfo.src,
-                    imageInfo.srcSet,
-                    imageInfo.mediaSizes,
-                  )
-                }
+                onClick={() => handleImageClick()}
                 className="cs-rigg-image"
               />
               {imageInfo.caption ? (

@@ -1,4 +1,10 @@
 export interface ImageGalleryPropsType {
+  columnCount?: string | number;
+  columnWidth?: string | number;
+  customizeImageClickAction?: (notUsed?: any) => void;
+  enableDefaultLightbox?: boolean;
+  fixedCaption?: boolean;
+  gapSize?: number;
   imagesInfoArray: Array<{
     id: string | number;
     alt: string;
@@ -9,17 +15,13 @@ export interface ImageGalleryPropsType {
     srcSet?: string;
     mediaSizes?: string;
   }>;
-  columnCount?: string | number;
-  columnWidth?: string | number;
-  gapSize?: number;
-  fixedCaption?: boolean;
-  thumbnailBorder?: string;
   lazy?: boolean;
   lazyFromIndex?: number;
+  thumbnailBorder?: string;
 }
 
 export interface ImgSrcInfoType {
+  mediaSizes: string | undefined;
   src: string;
   srcSet: string | undefined;
-  mediaSizes: string | undefined;
 }

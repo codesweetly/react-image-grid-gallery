@@ -100,6 +100,7 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 </tr>
 </thead>
 <tbody>
+
 <tr>
 <td><code>imagesInfoArray</code></td>
 <td>array</td>
@@ -119,6 +120,7 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 
 </td>
 </tr>
+
 <tr>
 <td>
 
@@ -129,6 +131,7 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 <td><code>"auto"</code></td>
 <td>(<strong>Optional</strong>) The number of columns.</td>
 </tr>
+
 <tr>
 <td>
 
@@ -139,16 +142,31 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 <td><code>230</code></td>
 <td>(<strong>Optional</strong>) The minimum width of the gallery's columns.</td>
 </tr>
+
 <tr>
+<td><code>customizeImageClickAction</code></td>
+<td>function</td>
+<td><code>() => {}</code></td>
 <td>
 
-[`gapSize`](https://codesweetly.com/css-gap-property)
+(**Optional**) A function to be executed when an image is clicked, if `enableDefaultLightbox` is `false`. This allows you to implement your own custom lightbox or any other action on image click.
+
+**note:** This feature is not compatible with the Astro framework, as [Astro does not support passing functions to hydrated components](https://docs.astro.build/en/guides/framework-components/#passing-props-to-framework-components).
 
 </td>
-<td>number</td>
-<td><code>24</code></td>
-<td>(<strong>Optional</strong>) The gallery's gap size.</td>
 </tr>
+
+<tr>
+<td><code>enableDefaultLightbox</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>
+
+(**Optional**) Specify whether to use the package’s default lightbox. If set to `false`, you can use the `customizeImageClickAction` prop to implement your own lightbox or any other action when an image is clicked.
+
+</td>
+</tr>
+
 <tr>
 <td><code>fixedCaption</code></td>
 <td>boolean</td>
@@ -159,18 +177,25 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 
 </td>
 </tr>
+
 <tr>
-<td><code>thumbnailBorder</code></td>
-<td>string</td>
-<td><code>"3px solid #fff"</code></td>
-<td>(<strong>Optional</strong>) The thumbnail's border style.</td>
+<td>
+
+[`gapSize`](https://codesweetly.com/css-gap-property)
+
+</td>
+<td>number</td>
+<td><code>24</code></td>
+<td>(<strong>Optional</strong>) The gallery's gap size.</td>
 </tr>
+
 <tr>
 <td><code>lazy</code></td>
 <td>boolean</td>
 <td><code>true</code></td>
 <td>(<strong>Optional</strong>) Specify whether to lazy load images.</td>
 </tr>
+
 <tr>
 <td><code>lazyFromIndex</code></td>
 <td>number</td>
@@ -182,6 +207,13 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 **tip:** Use a negative number to lazy load all the images.
 
 </td>
+</tr>
+
+<tr>
+<td><code>thumbnailBorder</code></td>
+<td>string</td>
+<td><code>"3px solid #fff"</code></td>
+<td>(<strong>Optional</strong>) The thumbnail's border style.</td>
 </tr>
 
 </tbody>

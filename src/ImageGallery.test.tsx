@@ -151,3 +151,22 @@ test("image gallery works with lazy loading", () => {
     />,
   );
 });
+
+test("image gallery works without lightbox", () => {
+  render(
+    <ImageGallery
+      imagesInfoArray={imagesArray}
+      enableDefaultLightbox={false}
+    />,
+  );
+});
+
+test("users can customize image click action", () => {
+  render(
+    <ImageGallery
+      imagesInfoArray={imagesArray}
+      enableDefaultLightbox={false}
+      customizeImageClickAction={() => console.log("You clicked an image!")}
+    />,
+  );
+});
