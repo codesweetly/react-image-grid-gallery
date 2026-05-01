@@ -26,18 +26,12 @@ export function ImageGallery({
   const lightboxRef = useRef<HTMLElement | null>(null);
   const activeThumbImgRef = useRef<HTMLImageElement | null>(null);
 
-  function handleImageContainerMouseEnter(
+  function updateCaptionOpacity(
     e: React.MouseEvent<HTMLElement, MouseEvent>,
+    range: string,
   ) {
     const figcaption = e.currentTarget.querySelector("figcaption");
-    figcaption && (figcaption.style.opacity = "1");
-  }
-
-  function handleImageContainerMouseLeave(
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-  ) {
-    const figcaption = e.currentTarget.querySelector("figcaption");
-    figcaption && (figcaption.style.opacity = "0");
+    figcaption && (figcaption.style.opacity = range);
   }
 
   function openLightboxOnSlide(
@@ -146,10 +140,10 @@ export function ImageGallery({
               className="cs-rigg-image-container"
               style={{ margin: `0 0 ${gapSize}px` }}
               onMouseEnter={(e) =>
-                fixedCaption ? undefined : handleImageContainerMouseEnter(e)
+                fixedCaption ? undefined : updateCaptionOpacity(e, "1")
               }
               onMouseLeave={(e) =>
-                fixedCaption ? undefined : handleImageContainerMouseLeave(e)
+                fixedCaption ? undefined : updateCaptionOpacity(e, "0")
               }
             >
               <img
@@ -279,10 +273,10 @@ export function ImageGallery({
           </button>
           <figure
             onMouseEnter={(e) =>
-              fixedCaption ? undefined : handleImageContainerMouseEnter(e)
+              fixedCaption ? undefined : updateCaptionOpacity(e, "1")
             }
             onMouseLeave={(e) =>
-              fixedCaption ? undefined : handleImageContainerMouseLeave(e)
+              fixedCaption ? undefined : updateCaptionOpacity(e, "0")
             }
           >
             <img
