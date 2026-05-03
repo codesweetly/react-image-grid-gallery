@@ -2,6 +2,12 @@ export interface ImageDataType {
   id: string | number;
   alt: string;
   caption?: string;
+  cta?: {
+    href: string;
+    target: string;
+    rel: string;
+    text: string;
+  };
   src: string;
   gridSrc?: string;
   thumbSrc?: string;

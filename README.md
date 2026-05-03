@@ -112,6 +112,11 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 - `id`: (**Required** - string or number) Each image's [unique identifying key](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key).
 - `alt`: (**Required** - string) The image's [alternative text](https://webaim.org/techniques/alttext).
 - `caption`: (**Optional** - string) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
+- `cta`: (**Optional** - object) This feature lets you add a link to each image's caption in the lightbox, allowing users to visit a related page. The CTA (call-to-action) object accepts the following properties:
+  - `href` (string): The URL that the CTA link will point to. (Required)
+  - `target` (string): Specifies where to open the linked document (e.g., `_blank` for a new tab).
+  - `rel` (string): Specifies the relationship between the current document and the linked document (e.g., `noopener noreferrer` for security reasons when using `_blank`).
+  - `text` (string): The text that will be displayed for the CTA link in the image caption within the lightbox. (Required)
 - `src`: (**Required** - string) The image's default [URL](https://codesweetly.com/web-address-url).
 - `gridSrc`: (**Optional** - string) The preferred grid image's URL.
 - `thumbSrc`: (**Optional** - string) The preferred thumbnail image's URL.

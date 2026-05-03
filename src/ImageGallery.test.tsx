@@ -7,6 +7,12 @@ const imagesArray = [
     id: crypto.randomUUID(),
     alt: "Image1's alt text",
     caption: "Image1's description",
+    cta: {
+      href: "https://example.com",
+      target: "_blank",
+      rel: "noopener noreferrer",
+      text: "Learn more",
+    },
     src: "https://cdn.pixabay.com/photo/2023/05/25/22/07/river-8018379_1280.jpg",
   },
   {
@@ -100,7 +106,7 @@ const imagesArray = [
   },
   {
     id: crypto.randomUUID(),
-    alt: "13's alt text",
+    alt: "Image13's alt text",
     caption: "Image13's description",
     src: "https://cdn.pixabay.com/photo/2023/09/29/12/38/winter-8283735_640.jpg",
   },
