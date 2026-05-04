@@ -1,6 +1,6 @@
 {
   "name": "react-image-grid-gallery",
-  "version": "3.1.8",
+  "version": "0.0.0-development",
   "description": "A simple image gallery with lightbox for displaying a grid of images in React apps",
   "main": "dist/cjs/ImageGallery.js",
   "module": "dist/esm/ImageGallery.js",
@@ -10,20 +10,21 @@
       "require": "./dist/cjs/ImageGallery.js",
       "import": "./dist/esm/ImageGallery.js",
       "types": "./dist/esm/ImageGallery.d.ts"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "homepage": "https://codesweetly.com/react-image-grid-gallery",
   "author": "Oluwatobi Sofela <contact@codesweetly.com> (https://www.codesweetly.com)",
   "license": "MIT",
   "scripts": {
-    "dev": "rm -r dist && npm run build",
-    "build": "npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc -p tsconfig.esm.json",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && npm run build:esm && npm run build:cjs && npm run copy-files",
+    "build:esm": "tsc -p tsconfig.esm.json && node scripts/create-package-json.js --esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json && node scripts/create-package-json.js --cjs",
+    "copy-files": "node scripts/copy-css.js",
     "test": "jest --config jest.config.cjs",
     "test-publish": "npm publish --dry-run",
     "watch": "tsc -p tsconfig.esm.json --watch",
-    "prepare": "husky && npm run build"
+    "prepare": "husky"
   },
   "files": [
     "./dist"
@@ -50,19 +51,19 @@
     "email": "contact@codesweetly.com"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.3.1",
-    "@commitlint/config-conventional": "^20.3.1",
-    "@testing-library/react": "^16.2.0",
-    "@types/react": "^19.2.9",
+    "@commitlint/cli": "^20.5.2",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "husky": "^9.1.7",
-    "jest": "^30.2.0",
-    "jest-environment-jsdom": "^30.2.0",
-    "react": "^19.2.3",
-    "ts-jest": "^29.2.5",
-    "typescript": "^5.7.3"
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "react": "^19.2.4",
+    "ts-jest": "^29.4.9",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "^19.2.4"
   }
 }

@@ -46,8 +46,11 @@ pnpm add react-image-grid-gallery
 
 ## Usage
 
+Import the library and its stylesheet, and use it as shown below:
+
 ```js
 import { ImageGallery } from "react-image-grid-gallery";
+import "react-image-grid-gallery/style.css";
 
 const imagesArray = [
   {
@@ -77,9 +80,13 @@ const imagesArray = [
 ];
 
 function App() {
-  return <ImageGallery imagesInfoArray={imagesArray} gapSize={24} />;
+  return <ImageGallery imagesData={imagesArray} gapSize={24} />;
 }
 ```
+
+### Why import the stylesheet?
+
+The components rely on predefined CSS classes for styling. Importing the stylesheet once ensures consistent application of these styles across all components.
 
 ## Props
 
@@ -93,8 +100,9 @@ function App() {
 </tr>
 </thead>
 <tbody>
+
 <tr>
-<td><code>imagesInfoArray</code></td>
+<td><code>imagesData</code></td>
 <td>array</td>
 <td><code>undefined</code></td>
 <td>
@@ -104,6 +112,11 @@ function App() {
 - `id`: (**Required** - string or number) Each image's [unique identifying key](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key).
 - `alt`: (**Required** - string) The image's [alternative text](https://webaim.org/techniques/alttext).
 - `caption`: (**Optional** - string) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
+- `cta`: (**Optional** - object) This feature lets you add a link to each image's caption in the lightbox, allowing users to visit a related page. The CTA (call-to-action) object accepts the following properties:
+  - `href` (string): The URL that the CTA link will point to. (Required)
+  - `target` (string): Specifies where to open the linked document (e.g., `_blank` for a new tab).
+  - `rel` (string): Specifies the relationship between the current document and the linked document (e.g., `noopener noreferrer` for security reasons when using `_blank`).
+  - `text` (string): The text that will be displayed for the CTA link in the image caption within the lightbox. (Required)
 - `src`: (**Required** - string) The image's default [URL](https://codesweetly.com/web-address-url).
 - `gridSrc`: (**Optional** - string) The preferred grid image's URL.
 - `thumbSrc`: (**Optional** - string) The preferred thumbnail image's URL.
@@ -112,6 +125,7 @@ function App() {
 
 </td>
 </tr>
+
 <tr>
 <td>
 
@@ -122,6 +136,7 @@ function App() {
 <td><code>"auto"</code></td>
 <td>(<strong>Optional</strong>) The number of columns.</td>
 </tr>
+
 <tr>
 <td>
 
@@ -132,16 +147,57 @@ function App() {
 <td><code>230</code></td>
 <td>(<strong>Optional</strong>) The minimum width of the gallery's columns.</td>
 </tr>
+
 <tr>
+<td><code>customizeImageClickAction</code></td>
+<td>function</td>
+<td><code>() => {}</code></td>
 <td>
 
-[`gapSize`](https://codesweetly.com/css-gap-property)
+(**Optional**) A function to be executed when an image is clicked, if `enableDefaultLightbox` is `false`. This allows you to implement your own custom lightbox or any other action on image click.
+
+The `customizeImageClickAction` function receives two arguments, `imageData` and `index`, which are automatically provided. These arguments give you access to the data of the clicked image.
+
+**Example 1:**
+
+```jsx
+<ImageGallery
+  imagesData={imagesArray}
+  enableDefaultLightbox={false}
+  customizeImageClickAction={() => {
+    console.log("Image clicked!");
+  }}
+/>
+```
+
+**Example 2:**
+
+```jsx
+<ImageGallery
+  imagesData={imagesArray}
+  enableDefaultLightbox={false}
+  customizeImageClickAction={(imageData, index) => {
+    console.log("Image clicked:", imageData, index);
+  }}
+/>
+```
+
+**note:** The `customizeImageClickAction` feature is not compatible with the Astro framework, as [Astro does not support passing functions to hydrated components](https://docs.astro.build/en/guides/framework-components/#passing-props-to-framework-components).
 
 </td>
-<td>number</td>
-<td><code>24</code></td>
-<td>(<strong>Optional</strong>) The gallery's gap size.</td>
 </tr>
+
+<tr>
+<td><code>enableDefaultLightbox</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>
+
+(**Optional**) Specify whether to use the package’s default lightbox. If set to `false`, you can use the `customizeImageClickAction` prop to implement your own lightbox or any other action when an image is clicked.
+
+</td>
+</tr>
+
 <tr>
 <td><code>fixedCaption</code></td>
 <td>boolean</td>
@@ -152,18 +208,25 @@ function App() {
 
 </td>
 </tr>
+
 <tr>
-<td><code>thumbnailBorder</code></td>
-<td>string</td>
-<td><code>"3px solid #fff"</code></td>
-<td>(<strong>Optional</strong>) The thumbnail's border style.</td>
+<td>
+
+[`gapSize`](https://codesweetly.com/css-gap-property)
+
+</td>
+<td>number</td>
+<td><code>24</code></td>
+<td>(<strong>Optional</strong>) The gallery's gap size.</td>
 </tr>
+
 <tr>
 <td><code>lazy</code></td>
 <td>boolean</td>
 <td><code>true</code></td>
 <td>(<strong>Optional</strong>) Specify whether to lazy load images.</td>
 </tr>
+
 <tr>
 <td><code>lazyFromIndex</code></td>
 <td>number</td>
@@ -176,30 +239,12 @@ function App() {
 
 </td>
 </tr>
+
 <tr>
-<td><code>customStyles</code></td>
-<td>ImageGalleryStylesType</td>
-<td><code>{}</code></td>
-<td>
-
-(**Optional**) Custom styles to override the following element's default styles:
-
-- Gallery container: `galleryContainerStyle`
-- Gallery image button: `imageBtnStyle`
-- Gallery image container: `imageContainerStyle`
-- Gallery image element: `imageStyle`
-- Gallery image caption: `imageCaptionStyle`
-- Modal container: `modalContainerStyle`
-- Modal slide number: `modalSlideNumberStyle`
-- Modal toolbar: `modalToolbarStyle`
-- Modal toolbar button: `modalToolbarBtnStyle`
-- Modal slideshow section: `modalSlideShowSectionStyle`
-- Modal thumbnail section: `modalThumbnailSectionStyle`
-- Modal thumbnail images container: `modalThumbImgsPodStyle`
-- Modal image element: `modalImageStyle`
-- Modal slide button: `modalSlideBtnStyle`
-
-</td>
+<td><code>thumbnailBorder</code></td>
+<td>string</td>
+<td><code>"3px solid #fff"</code></td>
+<td>(<strong>Optional</strong>) The thumbnail's border style.</td>
 </tr>
 
 </tbody>
@@ -250,7 +295,7 @@ function YourComponent() {
         const ImageGallery = require("react-image-grid-gallery").ImageGallery;
         return (
           <ImageGallery
-            imagesInfoArray={imagesArray}
+            imagesData={imagesArray}
             columnCount={"auto"}
             columnWidth={230}
             gapSize={24}

@@ -7,6 +7,12 @@ const imagesArray = [
     id: crypto.randomUUID(),
     alt: "Image1's alt text",
     caption: "Image1's description",
+    cta: {
+      href: "https://example.com",
+      target: "_blank",
+      rel: "noopener noreferrer",
+      text: "Learn more",
+    },
     src: "https://cdn.pixabay.com/photo/2023/05/25/22/07/river-8018379_1280.jpg",
   },
   {
@@ -100,7 +106,7 @@ const imagesArray = [
   },
   {
     id: crypto.randomUUID(),
-    alt: "13's alt text",
+    alt: "Image13's alt text",
     caption: "Image13's description",
     src: "https://cdn.pixabay.com/photo/2023/09/29/12/38/winter-8283735_640.jpg",
   },
@@ -109,7 +115,7 @@ const imagesArray = [
 test("image gallery renders correctly", () => {
   render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
+      imagesData={imagesArray}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
@@ -117,28 +123,18 @@ test("image gallery renders correctly", () => {
   );
 });
 
-test("image gallery works with only the imagesInfoArray prop", () => {
-  render(<ImageGallery imagesInfoArray={imagesArray} />);
+test("image gallery works with only the imagesData prop", () => {
+  render(<ImageGallery imagesData={imagesArray} />);
 });
 
-test("image gallery works with custom styles and fixed caption", () => {
-  const imageContainerStyle: React.CSSProperties = {
-    margin: `0 0 0`,
-    position: "relative",
-  };
-
-  const imageBtnStyle: React.CSSProperties = {
-    border: "4px solid purple",
-  };
-
+test("image gallery works with fixed caption", () => {
   render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
+      imagesData={imagesArray}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
       fixedCaption={true}
-      customStyles={{ imageContainerStyle, imageBtnStyle }}
     />,
   );
 });
@@ -146,7 +142,7 @@ test("image gallery works with custom styles and fixed caption", () => {
 test("image gallery works with custom thumbnail border", () => {
   render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
+      imagesData={imagesArray}
       thumbnailBorder="medium dashed pink"
     />,
   );
@@ -154,10 +150,34 @@ test("image gallery works with custom thumbnail border", () => {
 
 test("image gallery works with lazy loading", () => {
   render(
+    <ImageGallery imagesData={imagesArray} lazy={true} lazyFromIndex={6} />,
+  );
+});
+
+test("image gallery works without lightbox", () => {
+  render(
+    <ImageGallery imagesData={imagesArray} enableDefaultLightbox={false} />,
+  );
+});
+
+test("customizing image click action without using the built-in imageData and index parameters works", () => {
+  render(
     <ImageGallery
-      imagesInfoArray={imagesArray}
-      lazy={true}
-      lazyFromIndex={6}
+      imagesData={imagesArray}
+      enableDefaultLightbox={false}
+      customizeImageClickAction={() => console.log("You clicked an image!")}
+    />,
+  );
+});
+
+test("customizing image click action with the built-in imageData and index parameters works", () => {
+  render(
+    <ImageGallery
+      imagesData={imagesArray}
+      enableDefaultLightbox={false}
+      customizeImageClickAction={(imageData, index) =>
+        console.log("You clicked an image!", imageData, index)
+      }
     />,
   );
 });

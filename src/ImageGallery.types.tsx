@@ -1,43 +1,38 @@
-export interface ImageGalleryStylesType {
-  galleryContainerStyle?: React.CSSProperties;
-  imageBtnStyle?: React.CSSProperties;
-  imageContainerStyle?: React.CSSProperties;
-  imageStyle?: React.CSSProperties;
-  imageCaptionStyle?: React.CSSProperties;
-  modalContainerStyle?: React.CSSProperties;
-  modalSlideNumberStyle?: React.CSSProperties;
-  modalToolbarStyle?: React.CSSProperties;
-  modalToolbarBtnStyle?: React.CSSProperties;
-  modalSlideShowSectionStyle?: React.CSSProperties;
-  modalThumbnailSectionStyle?: React.CSSProperties;
-  modalThumbImgsPodStyle?: React.CSSProperties;
-  modalImageStyle?: React.CSSProperties;
-  modalSlideBtnStyle?: React.CSSProperties;
+export interface ImageDataType {
+  id: string | number;
+  alt: string;
+  caption?: string;
+  cta?: {
+    href: string;
+    target: string;
+    rel: string;
+    text: string;
+  };
+  src: string;
+  gridSrc?: string;
+  thumbSrc?: string;
+  srcSet?: string;
+  mediaSizes?: string;
 }
 
 export interface ImageGalleryPropsType {
-  imagesInfoArray: Array<{
-    id: string | number;
-    alt: string;
-    caption?: string;
-    src: string;
-    gridSrc?: string;
-    thumbSrc?: string;
-    srcSet?: string;
-    mediaSizes?: string;
-  }>;
   columnCount?: string | number;
   columnWidth?: string | number;
-  gapSize?: number;
+  customizeImageClickAction?: (
+    imageData?: ImageDataType,
+    index?: number,
+  ) => void;
+  enableDefaultLightbox?: boolean;
   fixedCaption?: boolean;
-  thumbnailBorder?: string;
+  gapSize?: number;
+  imagesData: Array<ImageDataType>;
   lazy?: boolean;
   lazyFromIndex?: number;
-  customStyles?: ImageGalleryStylesType;
+  thumbnailBorder?: string;
 }
 
 export interface ImgSrcInfoType {
+  mediaSizes: string | undefined;
   src: string;
   srcSet: string | undefined;
-  mediaSizes: string | undefined;
 }

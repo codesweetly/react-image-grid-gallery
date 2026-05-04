@@ -6,59 +6,36 @@ on:
       - main
 
 permissions:
-  contents: write # create tags, releases, and commit changelogs
-  id-token: write # exchange OIDC token with the npm registry for authentication (publish to npm)
-  packages: write # publish to npm registry via GitHub Packages (trusted publishing)
+  id-token: write
+  contents: write
 
 jobs:
   release:
-    name: semantic-release
+    name: Semantic Release
     runs-on: ubuntu-latest
-
     steps:
-      # Generate a GitHub App token for authentication instead of using a personal access token
-      - name: Generate GitHub App token
-        id: app-token
-        uses: actions/create-github-app-token@v2
-        with:
-          app-id: ${{ secrets.RELEASE_APP_ID }}
-          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
-
-      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          fetch-depth: 0 # Fetch all history for all branches and tags (required to allow semantic-release to analyze commits)
-          persist-credentials: false # Explicitly disable the token persistence
+          fetch-depth: 0
+          persist-credentials: false
 
-      # Reconfigure git remote URL to use the GitHub App token for authentication instead of the default GITHUB_TOKEN for pushing changes back to the repository by semantic-release
-      - name: Authenticate git with GitHub App token
-        run: |
-          git remote set-url origin \
-            https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
-
-      # Setup Node.js v24
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
 
-      # Install semantic-release plugins to determine the next version, update changelog, publish to npm, and create GitHub release
-      # - semantic-release: The main semantic-release package
-      # - @semantic-release/changelog: Update the changelog file
-      # - @semantic-release/git: Commit changelog and version bump
-      # - conventional-changelog-conventionalcommits: Conventional Commits preset for changelog generation
-      - name: Install semantic-release (CI-only)
+      - name: Install semantic-release
         run: |
           npm install --no-save \
             semantic-release@25 \
-            @semantic-release/changelog@6 \
-            @semantic-release/git@10 \
             conventional-changelog-conventionalcommits@9 \
 
-      # Run semantic-release to automate the release process
+      - name: Build package
+        run: npm run build
+
       - name: Run semantic-release
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }} # Use GitHub App token for semantic-release authentication
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release

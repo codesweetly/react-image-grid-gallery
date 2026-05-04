@@ -1,21 +1,22 @@
-import { ReactElement, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { flushSync } from "react-dom";
+import { SvgElement, updateCaptionOpacity } from "./helpers.ts";
 import {
   ImageGalleryPropsType,
   ImgSrcInfoType,
-} from "./ImageGallery.types.jsx";
-import { imageGalleryStyles } from "./ImageGalleryStyles.js"; // .js extension is required for ESM build import resolution
+} from "./ImageGallery.types.tsx";
 
 export function ImageGallery({
-  imagesInfoArray,
   columnCount = "auto",
   columnWidth = 230,
-  gapSize = 24,
+  customizeImageClickAction = () => {},
+  enableDefaultLightbox = true,
   fixedCaption = false,
-  thumbnailBorder = "3px solid #fff",
+  gapSize = 24,
+  imagesData,
   lazy = true,
   lazyFromIndex = 6,
-  customStyles = {},
+  thumbnailBorder = "3px solid #fff",
 }: ImageGalleryPropsType) {
   const [imgSrcInfo, setImgSrcInfo] = useState<ImgSrcInfoType | null>(null);
   const [slideNumber, setSlideNumber] = useState(1);
@@ -25,40 +26,18 @@ export function ImageGallery({
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const lightboxRef = useRef<HTMLElement | null>(null);
   const activeThumbImgRef = useRef<HTMLImageElement | null>(null);
-  const defaultStyles = imageGalleryStyles(
-    columnCount,
-    columnWidth,
-    gapSize,
-    fixedCaption,
-  );
-  const galleryStyles = { ...defaultStyles, ...customStyles };
-  const galleryContainerStyle = galleryStyles.galleryContainerStyle;
-  const imageContainerStyle = galleryStyles.imageContainerStyle;
-  const imageBtnStyle = galleryStyles.imageBtnStyle;
-  const imageStyle = galleryStyles.imageStyle;
-  const imageCaptionStyle = galleryStyles.imageCaptionStyle;
-  const modalContainerStyle = galleryStyles.modalContainerStyle;
-  const modalSlideNumberStyle = galleryStyles.modalSlideNumberStyle;
-  const modalToolbarStyle = galleryStyles.modalToolbarStyle;
-  const modalToolbarBtnStyle = galleryStyles.modalToolbarBtnStyle;
-  const modalSlideShowSectionStyle = galleryStyles.modalSlideShowSectionStyle;
-  const modalThumbnailSectionStyle = galleryStyles.modalThumbnailSectionStyle;
-  const modalThumbImgsPodStyle = galleryStyles.modalThumbImgsPodStyle;
-  const modalImageStyle = galleryStyles.modalImageStyle;
-  const modalSlideBtnStyle = galleryStyles.modalSlideBtnStyle;
 
-  function handleImageContainerMouseEnter(
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-  ) {
-    const figcaption = e.currentTarget.querySelector("figcaption");
-    figcaption && (figcaption.style.opacity = "1");
-  }
-
-  function handleImageContainerMouseLeave(
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-  ) {
-    const figcaption = e.currentTarget.querySelector("figcaption");
-    figcaption && (figcaption.style.opacity = "0");
+  function switchFullScreen(on: boolean) {
+    if (on) {
+      lightboxRef.current?.requestFullscreen().catch((error) => {
+        alert(
+          `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`,
+        );
+      });
+    }
+    if (!on) {
+      document.exitFullscreen().catch((error) => console.error(error));
+    }
   }
 
   function openLightboxOnSlide(
@@ -72,34 +51,87 @@ export function ImageGallery({
     dialogRef.current?.showModal();
   }
 
+  function showImageCards() {
+    const imageElementsArray = imagesData.map((imageData, index) => {
+      function handleImageClick() {
+        enableDefaultLightbox
+          ? openLightboxOnSlide(
+              index + 1,
+              imageData.src,
+              imageData.srcSet,
+              imageData.mediaSizes,
+            )
+          : customizeImageClickAction(imageData, index);
+      }
+      if (imageData.id) {
+        return (
+          <button
+            type="button"
+            className="cs-rigg-image-btn"
+            key={imageData.id}
+            onKeyDown={(e) => e.key === "Enter" && handleImageClick()}
+          >
+            <figure
+              className="cs-rigg-image-container"
+              style={{ margin: `0 0 ${gapSize}px` }}
+              onMouseEnter={(e) =>
+                fixedCaption ? undefined : updateCaptionOpacity(e, "1")
+              }
+              onMouseLeave={(e) =>
+                fixedCaption ? undefined : updateCaptionOpacity(e, "0")
+              }
+            >
+              <img
+                loading={lazy && index >= lazyFromIndex ? "lazy" : "eager"}
+                alt={imageData.alt}
+                src={imageData.gridSrc || imageData.src}
+                onClick={() => handleImageClick()}
+                className="cs-rigg-image"
+              />
+              {imageData.caption ? (
+                <figcaption
+                  className="cs-rigg-image-caption"
+                  style={{
+                    opacity: fixedCaption ? 1 : 0,
+                    transition: fixedCaption
+                      ? undefined
+                      : "opacity 1s ease-in-out",
+                  }}
+                >
+                  {imageData.caption}
+                </figcaption>
+              ) : (
+                ""
+              )}
+            </figure>
+          </button>
+        );
+      }
+      return (
+        <div>
+          <strong>Error:</strong> Each item in the `imagesArray` needs a unique
+          `id`
+        </div>
+      );
+    });
+    return imageElementsArray;
+  }
+
   function changeSlide(thumbClick: boolean, step: number) {
-    const totalImages = imagesInfoArray.length;
+    const totalImages = imagesData.length;
     let newSlideNumber = thumbClick ? step + 1 : slideNumber + step;
 
     newSlideNumber < 1 && (newSlideNumber = totalImages);
     newSlideNumber > totalImages && (newSlideNumber = 1);
 
     if (newSlideNumber <= totalImages && newSlideNumber > 0) {
-      const imageInfo = imagesInfoArray[newSlideNumber - 1];
+      const imageData = imagesData[newSlideNumber - 1];
       setSlideNumber(newSlideNumber);
       setImgSrcInfo({
-        src: imageInfo.src,
-        srcSet: imageInfo.srcSet,
-        mediaSizes: imageInfo.mediaSizes,
+        src: imageData.src,
+        srcSet: imageData.srcSet,
+        mediaSizes: imageData.mediaSizes,
       });
-    }
-  }
-
-  function switchFullScreen(on: boolean) {
-    if (on) {
-      lightboxRef.current?.requestFullscreen().catch((error) => {
-        alert(
-          `Error while attempting to switch into fullscreen mode: ${error.message} (${error.name})`,
-        );
-      });
-    }
-    if (!on) {
-      document.exitFullscreen().catch((error) => console.error(error));
     }
   }
 
@@ -129,256 +161,174 @@ export function ImageGallery({
     dialogRef.current?.close();
   }
 
-  function SvgElement(pathElement: ReactElement) {
+  function showLightBox() {
+    const imageData = imagesData[slideNumber - 1];
     return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-      >
-        {pathElement}
-      </svg>
-    );
-  }
-
-  function showImageCards() {
-    const imageElementsArray = imagesInfoArray.map((imageInfo, index) => {
-      if (imageInfo.id) {
-        return (
-          <button
-            type="button"
-            style={imageBtnStyle}
-            key={imageInfo.id}
-            onKeyDown={(e) =>
-              e.key === "Enter" &&
-              openLightboxOnSlide(
-                index + 1,
-                imageInfo.src,
-                imageInfo.srcSet,
-                imageInfo.mediaSizes,
-              )
-            }
+      <dialog ref={dialogRef} className="cs-rigg-dialog">
+        <article
+          autoFocus
+          tabIndex={-1}
+          ref={lightboxRef}
+          className="cs-rigg-modal-container"
+          onKeyDown={(e) => handleKeyDownOnModal(e)}
+          onMouseEnter={() => setShowModalControls(true)}
+          onMouseLeave={() => setShowModalControls(false)}
+          onClick={(e) =>
+            (e.target as HTMLElement).tagName === "SECTION" &&
+            exitFullScreenAndDialog()
+          }
+        >
+          <span
+            className="cs-rigg-modal-slide-number"
+            style={{ opacity: showModalControls ? 1 : 0 }}
+          >{`${slideNumber} / ${imagesData.length}`}</span>
+          <span
+            className="cs-rigg-modal-toolbar"
+            style={{ opacity: showModalControls ? 1 : 0 }}
           >
+            <button
+              type="button"
+              aria-label="Show thumbnails"
+              className="cs-rigg-modal-toolbar-btn"
+              title="Show thumbnails"
+              onClick={() => setShowThumbnails(!showThumbnails)}
+            >
+              {SvgElement(
+                <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />,
+              )}
+            </button>
+            <button
+              type="button"
+              aria-label="Go full screen (Keyboard shortcut f)"
+              className="cs-rigg-modal-toolbar-btn"
+              style={{ display: fullscreen ? "none" : "block" }}
+              title="Go full screen (f)"
+              onClick={() => switchFullScreen(true)}
+            >
+              {SvgElement(
+                <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />,
+              )}
+            </button>
+            <button
+              type="button"
+              aria-label="Exit full screen"
+              className="cs-rigg-modal-toolbar-btn"
+              style={{ display: fullscreen ? "block" : "none" }}
+              title="Exit full screen"
+              onClick={() => switchFullScreen(false)}
+            >
+              {SvgElement(
+                <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />,
+              )}
+            </button>
+            <button
+              type="button"
+              aria-label="Close lightbox"
+              className="cs-rigg-modal-toolbar-btn"
+              title="Close lightbox"
+              onClick={() => exitFullScreenAndDialog()}
+            >
+              {SvgElement(
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />,
+              )}
+            </button>
+          </span>
+          <section
+            className="cs-rigg-modal-slide-show-section"
+            style={{ height: showThumbnails ? "80vh" : "100vh" }}
+          >
+            <button
+              type="button"
+              aria-label="Previous image"
+              className="cs-rigg-modal-slide-btn"
+              style={{ opacity: showModalControls ? 1 : 0, left: 0 }}
+              title="Previous image"
+              onClick={() => scrollImage(false, -1, 0)}
+            >
+              {SvgElement(
+                <path
+                  fillRule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+                />,
+              )}
+            </button>
             <figure
-              style={imageContainerStyle}
               onMouseEnter={(e) =>
-                fixedCaption ? undefined : handleImageContainerMouseEnter(e)
+                fixedCaption ? undefined : updateCaptionOpacity(e, "1")
               }
               onMouseLeave={(e) =>
-                fixedCaption ? undefined : handleImageContainerMouseLeave(e)
+                fixedCaption ? undefined : updateCaptionOpacity(e, "0")
               }
             >
               <img
-                loading={lazy && index >= lazyFromIndex ? "lazy" : "eager"}
-                alt={imageInfo.alt}
-                src={imageInfo.gridSrc || imageInfo.src}
-                onClick={() =>
-                  openLightboxOnSlide(
-                    index + 1,
-                    imageInfo.src,
-                    imageInfo.srcSet,
-                    imageInfo.mediaSizes,
-                  )
-                }
-                style={imageStyle}
+                loading={lazy ? "lazy" : "eager"}
+                src={imgSrcInfo?.src}
+                srcSet={imgSrcInfo?.srcSet}
+                sizes={imgSrcInfo?.mediaSizes}
+                alt={imageData.alt}
+                className="cs-rigg-modal-image"
+                style={{ maxHeight: showThumbnails ? "80vh" : "100vh" }}
               />
-              {imageInfo.caption ? (
-                <figcaption style={imageCaptionStyle}>
-                  {imageInfo.caption}
+              {imageData.caption ? (
+                <figcaption className="cs-rigg-image-caption">
+                  <div>{imageData.caption}</div>
+                  {imageData?.cta?.href && imageData?.cta?.text && (
+                    <div>
+                      <a
+                        href={imageData.cta.href}
+                        target={imageData.cta.target}
+                        rel={imageData.cta.rel}
+                      >
+                        {imageData.cta.text}
+                      </a>
+                    </div>
+                  )}
                 </figcaption>
               ) : (
                 ""
               )}
             </figure>
-          </button>
-        );
-      }
-      return (
-        <div>
-          <strong>Error:</strong> Each item in the `imagesArray` needs a unique
-          `id`
-        </div>
-      );
-    });
-    return imageElementsArray;
+            <button
+              type="button"
+              aria-label="Next image"
+              className="cs-rigg-modal-slide-btn"
+              style={{ opacity: showModalControls ? 1 : 0, right: 0 }}
+              title="Next image"
+              onClick={() => scrollImage(false, 1, 0)}
+            >
+              {SvgElement(
+                <path
+                  fillRule="evenodd"
+                  d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
+                />,
+              )}
+            </button>
+          </section>
+          <section
+            className="cs-rigg-modal-thumbnail-section"
+            style={{ opacity: showThumbnails ? 1 : 0 }}
+          >
+            <div className="cs-rigg-modal-thumb-imgs-pod">
+              {imagesData.map((imageData, index) => (
+                <img
+                  loading={lazy ? "lazy" : "eager"}
+                  ref={slideNumber - 1 === index ? activeThumbImgRef : null}
+                  style={{
+                    border: slideNumber - 1 === index ? thumbnailBorder : "",
+                    cursor: "pointer",
+                  }}
+                  key={imageData.id}
+                  src={imageData.thumbSrc || imageData.src}
+                  alt={imageData.alt}
+                  onClick={() => scrollImage(true, 0, index)}
+                />
+              ))}
+            </div>
+          </section>
+        </article>
+      </dialog>
+    );
   }
-
-  const lightBoxElement = (
-    <dialog ref={dialogRef} style={{ margin: "auto" }}>
-      <article
-        autoFocus
-        tabIndex={-1}
-        ref={lightboxRef}
-        style={modalContainerStyle}
-        onKeyDown={(e) => handleKeyDownOnModal(e)}
-        onMouseEnter={() => setShowModalControls(true)}
-        onMouseLeave={() => setShowModalControls(false)}
-        onClick={(e) =>
-          (e.target as HTMLElement).tagName === "SECTION" &&
-          exitFullScreenAndDialog()
-        }
-      >
-        <span
-          style={{
-            opacity: showModalControls ? 1 : 0,
-            ...modalSlideNumberStyle,
-          }}
-        >{`${slideNumber} / ${imagesInfoArray.length}`}</span>
-        <span
-          style={{
-            opacity: showModalControls ? 1 : 0,
-            ...modalToolbarStyle,
-          }}
-        >
-          <button
-            type="button"
-            aria-label="Show thumbnails"
-            style={modalToolbarBtnStyle}
-            title="Show thumbnails"
-            onClick={() => setShowThumbnails(!showThumbnails)}
-          >
-            {SvgElement(
-              <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />,
-            )}
-          </button>
-          <button
-            type="button"
-            aria-label="Go full screen (Keyboard shortcut f)"
-            style={{
-              display: fullscreen ? "none" : "block",
-              ...modalToolbarBtnStyle,
-            }}
-            title="Go full screen (f)"
-            onClick={() => switchFullScreen(true)}
-          >
-            {SvgElement(
-              <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />,
-            )}
-          </button>
-          <button
-            type="button"
-            aria-label="Exit full screen"
-            style={{
-              display: fullscreen ? "block" : "none",
-              ...modalToolbarBtnStyle,
-            }}
-            title="Exit full screen"
-            onClick={() => switchFullScreen(false)}
-          >
-            {SvgElement(
-              <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />,
-            )}
-          </button>
-          <button
-            type="button"
-            aria-label="Close lightbox"
-            style={modalToolbarBtnStyle}
-            title="Close lightbox"
-            onClick={() => exitFullScreenAndDialog()}
-          >
-            {SvgElement(
-              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />,
-            )}
-          </button>
-        </span>
-        <section
-          style={{
-            height: showThumbnails ? "80vh" : "100vh",
-            ...modalSlideShowSectionStyle,
-          }}
-        >
-          <button
-            type="button"
-            aria-label="Previous image"
-            style={{
-              opacity: showModalControls ? 1 : 0,
-              left: 0,
-              ...modalSlideBtnStyle,
-            }}
-            title="Previous image"
-            onClick={() => scrollImage(false, -1, 0)}
-          >
-            {SvgElement(
-              <path
-                fillRule="evenodd"
-                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
-              />,
-            )}
-          </button>
-          <figure
-            onMouseEnter={(e) =>
-              fixedCaption ? undefined : handleImageContainerMouseEnter(e)
-            }
-            onMouseLeave={(e) =>
-              fixedCaption ? undefined : handleImageContainerMouseLeave(e)
-            }
-          >
-            <img
-              loading={lazy ? "lazy" : "eager"}
-              src={imgSrcInfo?.src}
-              srcSet={imgSrcInfo?.srcSet}
-              sizes={imgSrcInfo?.mediaSizes}
-              alt={imagesInfoArray[slideNumber - 1].alt}
-              style={{
-                maxHeight: showThumbnails ? "80vh" : "100vh",
-                ...modalImageStyle,
-              }}
-            />
-            {imagesInfoArray[slideNumber - 1].caption ? (
-              <figcaption style={imageCaptionStyle}>
-                {imagesInfoArray[slideNumber - 1].caption}
-              </figcaption>
-            ) : (
-              ""
-            )}
-          </figure>
-          <button
-            type="button"
-            aria-label="Next image"
-            style={{
-              opacity: showModalControls ? 1 : 0,
-              right: 0,
-              ...modalSlideBtnStyle,
-            }}
-            title="Next image"
-            onClick={() => scrollImage(false, 1, 0)}
-          >
-            {SvgElement(
-              <path
-                fillRule="evenodd"
-                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
-              />,
-            )}
-          </button>
-        </section>
-        <section
-          style={{
-            opacity: showThumbnails ? 1 : 0,
-            ...modalThumbnailSectionStyle,
-          }}
-        >
-          <div style={modalThumbImgsPodStyle}>
-            {imagesInfoArray.map((imageInfo, index) => (
-              <img
-                loading={lazy ? "lazy" : "eager"}
-                ref={slideNumber - 1 === index ? activeThumbImgRef : null}
-                style={{
-                  border: slideNumber - 1 === index ? thumbnailBorder : "",
-                  cursor: "pointer",
-                }}
-                key={imageInfo.id}
-                src={imageInfo.thumbSrc || imageInfo.src}
-                alt={imageInfo.alt}
-                onClick={() => scrollImage(true, 0, index)}
-              />
-            ))}
-          </div>
-        </section>
-      </article>
-    </dialog>
-  );
 
   useEffect(() => {
     function handleFullscreenChange() {
@@ -397,9 +347,15 @@ export function ImageGallery({
   });
 
   return (
-    <div style={galleryContainerStyle}>
+    <div
+      style={{
+        columnCount,
+        columnWidth: `${columnWidth}px`,
+        columnGap: `${gapSize}px`,
+      }}
+    >
       {showImageCards()}
-      {lightBoxElement}
+      {enableDefaultLightbox && showLightBox()}
     </div>
   );
 }

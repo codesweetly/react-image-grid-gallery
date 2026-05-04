@@ -1,0 +1,122 @@
+.cs-rigg-image-btn {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cs-rigg-image-container {
+  position: relative;
+}
+
+.cs-rigg-image {
+  width: 100%;
+  aspect-ratio: 1/1 auto;
+  background-color: #d3d3d3;
+  cursor: pointer;
+}
+
+.cs-rigg-image-caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(180deg, rgba(25, 27, 38, 0), rgba(25, 27, 38, 1));
+  padding: 16px;
+  font-size: 0.85rem;
+  text-align: center;
+  color: #fff;
+}
+
+.cs-rigg-dialog {
+  margin: auto;
+}
+
+.cs-rigg-modal-container {
+  outline: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.73);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.cs-rigg-modal-slide-number {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  padding: 13px;
+  background-color: rgba(35, 35, 35, 0.73);
+  color: #fff;
+  font-size: 0.93rem;
+  transition: opacity 1s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cs-rigg-modal-toolbar {
+  z-index: 1;
+  display: flex;
+  position: absolute;
+  right: 0;
+  align-items: center;
+  background-color: rgba(35, 35, 35, 0.73);
+  transition: opacity 1s ease-in-out;
+  cursor: pointer;
+}
+
+.cs-rigg-modal-toolbar-btn {
+  margin: 0;
+  border: none;
+  background: none;
+  padding: 13px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.cs-rigg-modal-slide-show-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: inherit;
+  transition: height 0.7s linear;
+}
+
+.cs-rigg-modal-slide-btn {
+  position: absolute;
+  border: none;
+  margin-inline: 7px;
+  padding: 10px 15px;
+  background-color: rgba(35, 35, 35, 0.73);
+  color: #fff;
+  transition: opacity 1s ease-in-out;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cs-rigg-modal-image {
+  margin: auto;
+  max-width: 100vw;
+  transition: height 0.7s linear;
+}
+
+.cs-rigg-modal-thumbnail-section {
+  overflow: hidden;
+  height: 20vh;
+  text-align: center;
+}
+
+.cs-rigg-modal-thumb-imgs-pod {
+  display: inline-flex;
+  height: inherit;
+  padding-block: 12px;
+  column-gap: 7px;
+}
