@@ -9,8 +9,8 @@ const imagesArray = [
     caption: "Image1's description",
     cta: {
       href: "https://example.com",
-      target: "_blank",
       rel: "noopener noreferrer",
+      target: "_blank",
       text: "Learn more",
     },
     src: "https://cdn.pixabay.com/photo/2023/05/25/22/07/river-8018379_1280.jpg",

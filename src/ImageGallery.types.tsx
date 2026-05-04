@@ -4,8 +4,8 @@ export interface ImageDataType {
   caption?: string;
   cta?: {
     href: string;
-    target: string;
-    rel: string;
+    rel?: string;
+    target?: string;
     text: string;
   };
   src: string;

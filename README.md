@@ -70,6 +70,12 @@ const imagesArray = [
     id: "uniqueid333",
     alt: "Image3's alt text",
     caption: "Image3's description",
+    cta: {
+      href: "https://example.com",
+      rel: "noopener noreferrer",
+      target: "_blank",
+      text: "Learn more",
+    },
     src: "http://example.com/image3.webp?w=2400",
     gridSrc: "http://example.com/image3.webp?w=1280",
     thumbSrc: "http://example.com/image3.webp?w=640",
@@ -114,8 +120,8 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 - `caption`: (**Optional** - string) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
 - `cta`: (**Optional** - object) This feature lets you add a link to each image's caption in the lightbox, allowing users to visit a related page. The CTA (call-to-action) object accepts the following properties:
   - `href` (string): The URL that the CTA link will point to. (Required)
-  - `target` (string): Specifies where to open the linked document (e.g., `_blank` for a new tab).
   - `rel` (string): Specifies the relationship between the current document and the linked document (e.g., `noopener noreferrer` for security reasons when using `_blank`).
+  - `target` (string): Specifies where to open the linked document (e.g., `_blank` for a new tab).
   - `text` (string): The text that will be displayed for the CTA link in the image caption within the lightbox. (Required)
 - `src`: (**Required** - string) The image's default [URL](https://codesweetly.com/web-address-url).
 - `gridSrc`: (**Optional** - string) The preferred grid image's URL.
