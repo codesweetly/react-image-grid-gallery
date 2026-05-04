@@ -70,6 +70,12 @@ const imagesArray = [
     id: "uniqueid333",
     alt: "Image3's alt text",
     caption: "Image3's description",
+    cta: {
+      href: "https://example.com",
+      target: "_blank",
+      rel: "noopener noreferrer",
+      text: "Learn more",
+    },
     src: "http://example.com/image3.webp?w=2400",
     gridSrc: "http://example.com/image3.webp?w=1280",
     thumbSrc: "http://example.com/image3.webp?w=640",
