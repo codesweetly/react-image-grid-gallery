@@ -278,6 +278,7 @@ The [`serverDependenciesToBundle`](https://remix.run/docs/en/1.19.0/file-convent
 ```diff
 + "use client";
 import { ImageGallery } from "react-image-grid-gallery";
+import "react-image-grid-gallery/style.css";
 import { YouTubePlaylist } from "@codesweetly/react-youtube-playlist";
 ```
 
@@ -299,6 +300,7 @@ function YourComponent() {
     <BrowserOnly fallback={<div>Loading...</div>}>
       {() => {
         const ImageGallery = require("react-image-grid-gallery").ImageGallery;
+        require("react-image-grid-gallery/style.css");
         return (
           <ImageGallery
             imagesData={imagesArray}
