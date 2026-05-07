@@ -1,6 +1,6 @@
 # React Image Grid Gallery
 
-A simple, easy-to-use, and responsive image gallery component with a lightbox for displaying a grid of images in React apps.
+A responsive React image gallery component with an optional lightbox for displaying image grids in React applications.
 
 ![npm](https://img.shields.io/npm/v/react-image-grid-gallery) ![NPM](https://img.shields.io/npm/l/react-image-grid-gallery)
 
@@ -20,11 +20,13 @@ A simple, easy-to-use, and responsive image gallery component with a lightbox fo
 
 ## Live Demo and Tutorial
 
-Available at: https://codesweetly.com/react-image-grid-gallery
+Live demo, installation guide, and walkthrough:
+
+https://codesweetly.com/react-image-grid-gallery
 
 ## Installation
 
-This section shows how to install the React Image Grid Gallery package.
+Install the package with your preferred package manager.
 
 ### Using npm
 
@@ -46,7 +48,7 @@ pnpm add react-image-grid-gallery
 
 ## Usage
 
-Import the library and its stylesheet, and use it as shown below:
+Import the library and its stylesheet, then use it like this:
 
 ```js
 import { ImageGallery } from "react-image-grid-gallery";
@@ -92,7 +94,7 @@ function App() {
 
 ### Why import the stylesheet?
 
-The components rely on predefined CSS classes for styling. Importing the stylesheet once ensures consistent application of these styles across all components.
+The components rely on predefined CSS classes for styling. Importing the stylesheet once ensures consistent styling across the gallery components.
 
 ## Props
 
@@ -118,15 +120,15 @@ The components rely on predefined CSS classes for styling. Importing the stylesh
 - `id`: (**Required** - string or number) Each image's [unique identifying key](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key).
 - `alt`: (**Required** - string) The image's [alternative text](https://webaim.org/techniques/alttext).
 - `caption`: (**Optional** - string) The [image's description](https://www.studysmarter.co.uk/explanations/english/blog/image-caption).
-- `cta`: (**Optional** - object) This feature lets you add a link to each image's caption in the lightbox, allowing users to visit a related page. The CTA (call-to-action) object accepts the following properties:
-  - `href` (string): The URL that the CTA link will point to. (Required)
-  - `rel` (string): Specifies the relationship between the current document and the linked document (e.g., `noopener noreferrer` for security reasons when using `_blank`).
-  - `target` (string): Specifies where to open the linked document (e.g., `_blank` for a new tab).
-  - `text` (string): The text that will be displayed for the CTA link in the image caption within the lightbox. (Required)
-- `src`: (**Required** - string) The image's default [URL](https://codesweetly.com/web-address-url).
-- `gridSrc`: (**Optional** - string) The preferred grid image's URL.
-- `thumbSrc`: (**Optional** - string) The preferred thumbnail image's URL.
-- `srcSet`: (**Optional** - string) The set of images' URLs and sizes for [resolution switching](https://developer.mozilla.org/en-US/docs/Web/HTML/Responsive_images#resolution_switching_different_sizes).
+- `cta`: (**Optional** - object) Adds a call-to-action link to the image's caption in the lightbox. The `cta` object accepts:
+  - `href` (string, required): Destination URL.
+  - `rel` (string): Link relationship between the current and the linked document (e.g., `noopener noreferrer` for security reasons when using `_blank`).
+  - `target` (string): Where to open the linked document (e.g., `_blank` for a new tab).
+  - `text` (string, required): CTA label.
+- `src`: (**Required** - string) Default image [URL](https://codesweetly.com/web-address-url).
+- `gridSrc`: (**Optional** - string) Preferred grid image's URL.
+- `thumbSrc`: (**Optional** - string) Preferred thumbnail image's URL.
+- `srcSet`: (**Optional** - string) [Resolution switching](https://developer.mozilla.org/en-US/docs/Web/HTML/Responsive_images#resolution_switching_different_sizes) image URLs and sizes.
 - [`mediaSizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Responsive_images#resolution_switching_different_sizes): (**Optional** - string) The media conditions and image sizes that hint the browser on the specific `srcSet` to display when a media condition is true.
 
 </td>
@@ -326,6 +328,20 @@ npm run build
 ## YouTube Demo
 
 [React Image Grid Gallery Demo](https://youtu.be/WoqO2AFxEMY)
+
+## Contributing
+
+Contributions, bug reports, and suggestions are welcome and appreciated.
+
+If you find an issue or have an improvement to propose, please open an issue or submit a pull request.
+
+For larger changes, it is helpful to open an issue first so we can discuss the proposed direction before implementation.
+
+## Need help?
+
+Need help integrating this package, customizing the gallery, or solving a frontend implementation issue?
+
+See [Work with me on CodeSweetly](https://codesweetly.com/work-with-me).
 
 ## Support
 
