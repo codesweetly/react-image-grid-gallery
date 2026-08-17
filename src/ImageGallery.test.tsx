@@ -1,6 +1,77 @@
-import { render } from "@testing-library/react";
-import { test } from "@jest/globals";
+import { expect, test, beforeAll, jest } from "@jest/globals";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { ImageGallery } from "./ImageGallery";
+
+beforeAll(() => {
+  HTMLDialogElement.prototype.showModal = function () {
+    this.setAttribute("open", "");
+  };
+  HTMLDialogElement.prototype.close = function () {
+    this.removeAttribute("open");
+  };
+
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+
+  Element.prototype.scrollIntoView = jest.fn();
+  Element.prototype.setPointerCapture = jest.fn();
+  Element.prototype.releasePointerCapture = jest.fn();
+
+  class MockPointerEvent extends Event {
+    clientX: number;
+    clientY: number;
+    isPrimary: boolean;
+    pointerId: number;
+    constructor(type: string, props: any) {
+      super(type, props);
+      this.clientX = props?.clientX || 0;
+      this.clientY = props?.clientY || 0;
+      this.isPrimary = props?.isPrimary || false;
+      this.pointerId = props?.pointerId || 0;
+    }
+  }
+  window.PointerEvent = MockPointerEvent as any;
+});
+
+beforeAll(() => {
+  HTMLDialogElement.prototype.showModal = jest.fn(function mock(
+    this: HTMLDialogElement
+  ) {
+    this.open = true;
+    this.setAttribute('open', '');
+  });
+  HTMLDialogElement.prototype.close = jest.fn(function mock(
+    this: HTMLDialogElement
+  ) {
+    this.open = false;
+    this.removeAttribute('open');
+  });
+
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: query === '(prefers-reduced-motion: reduce)',
+      media: query,
+      onchange: null,
+      addListener: jest.fn(), // Deprecated
+      removeListener: jest.fn(), // Deprecated
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+});
 
 const imagesArray = [
   {
@@ -180,4 +251,122 @@ test("customizing image click action with the built-in imageData and index param
       }
     />,
   );
+});
+
+test("lightbox navigation updates counter and loops correctly", async () => {
+  render(<ImageGallery imagesData={imagesArray} />);
+
+  // Open lightbox on image 9
+  const img9 = screen.getAllByAltText("Image9's alt text")[0];
+  fireEvent.click(img9);
+
+  // Initial state should be 9 / 13
+  expect(await screen.findByText("9 / 13")).toBeTruthy();
+
+  // Click next button
+  const nextBtn = screen.getByTitle("Next image");
+  act(() => {
+    fireEvent.click(nextBtn);
+  });
+  expect(await screen.findByText("10 / 13")).toBeTruthy();
+
+  // Click previous button twice to go to 8
+  const prevBtn = screen.getByTitle("Previous image");
+  act(() => {
+    fireEvent.click(prevBtn);
+  });
+  act(() => {
+    fireEvent.click(prevBtn);
+  });
+  expect(await screen.findByText("8 / 13")).toBeTruthy();
+});
+
+test("lightbox looping boundary 13 -> 1 and 1 -> 13", async () => {
+  render(<ImageGallery imagesData={imagesArray} />);
+
+  // Open lightbox on last image
+  const img13 = screen.getAllByAltText("Image13's alt text")[0];
+  fireEvent.click(img13);
+  expect(await screen.findByText("13 / 13")).toBeTruthy();
+
+  // Click next -> should loop to 1
+  const nextBtn = screen.getByTitle("Next image");
+  act(() => {
+    fireEvent.click(nextBtn);
+  });
+  expect(screen.getByText("1 / 13")).toBeTruthy();
+
+  // Click prev -> should loop back to 13
+  const prevBtn = screen.getByTitle("Previous image");
+  act(() => {
+    fireEvent.click(prevBtn);
+  });
+  expect(screen.getByText("13 / 13")).toBeTruthy();
+});
+
+test("lightbox gesture navigation threshold and state update", async () => {
+  render(<ImageGallery imagesData={imagesArray} />);
+
+  // Open lightbox on image 1
+  const img1 = screen.getAllByAltText("Image1's alt text")[0];
+  fireEvent.click(img1);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+
+  // Find the track container
+  const track = document.querySelector(".cs-rigg-carousel-track") as HTMLElement;
+  if (!track) throw new Error("Track not found");
+
+  // Mock getBoundingClientRect for trackWidth
+  track.getBoundingClientRect = () => ({ width: 1000 } as any);
+
+  const originalNow = performance.now;
+  let currentTime = 0;
+  jest.spyOn(performance, 'now').mockImplementation(() => currentTime);
+
+  // 1. Short slow drag (should cancel) - deltaX < 200, duration > 250
+  act(() => {
+    currentTime = 0;
+    fireEvent.pointerDown(track, { isPrimary: true, clientX: 500, clientY: 500, pointerId: 1 });
+  });
+  act(() => {
+    currentTime = 500;
+    fireEvent.pointerMove(track, { isPrimary: true, clientX: 450, clientY: 500, pointerId: 1 }); // deltaX = -50
+  });
+  act(() => {
+    currentTime = 510;
+    fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
+  });
+  expect(await screen.findByText("1 / 13")).toBeTruthy(); // Cancelled
+
+  // 2. Long slow drag (should commit next) - deltaX < -200, duration > 250
+  act(() => {
+    currentTime = 1000;
+    fireEvent.pointerDown(track, { isPrimary: true, clientX: 500, clientY: 500, pointerId: 1 });
+  });
+  act(() => {
+    currentTime = 1500;
+    fireEvent.pointerMove(track, { isPrimary: true, clientX: 200, clientY: 500, pointerId: 1 }); // deltaX = -300
+  });
+  act(() => {
+    currentTime = 1510;
+    fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
+  });
+  expect(await screen.findByText("2 / 13")).toBeTruthy();
+
+  // 3. Short fast flick (should commit next) - deltaX < 200, duration < 250
+  act(() => {
+    currentTime = 2000;
+    fireEvent.pointerDown(track, { isPrimary: true, clientX: 500, clientY: 500, pointerId: 1 });
+  });
+  act(() => {
+    currentTime = 2050; // 50ms duration
+    fireEvent.pointerMove(track, { isPrimary: true, clientX: 450, clientY: 500, pointerId: 1 }); // deltaX = -50
+  });
+  act(() => {
+    currentTime = 2060;
+    fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
+  });
+  expect(await screen.findByText("3 / 13")).toBeTruthy();
+
+  performance.now = originalNow;
 });
