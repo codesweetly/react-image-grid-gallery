@@ -39,19 +39,27 @@ export function Lightbox({
     setSlideNumber(initialSlideNumber);
   }, [initialSlideNumber]);
 
-  // Handle open/close
+  // Handle open/close and scroll lock
   useEffect(() => {
-    if (isOpen) {
-      if (dialogRef.current && !dialogRef.current.open) {
-        dialogRef.current.showModal();
-        document.documentElement.style.overflow = "hidden";
-      }
-    } else {
-      if (dialogRef.current && dialogRef.current.open) {
+    if (!isOpen) {
+      if (dialogRef.current?.open) {
         dialogRef.current.close();
-        document.documentElement.style.overflow = "";
       }
+      return;
     }
+
+    if (dialogRef.current && !dialogRef.current.open) {
+      dialogRef.current.showModal();
+    }
+
+    const html = document.documentElement;
+    const originalHtmlOverflow = html.style.overflow;
+    
+    html.style.overflow = "hidden";
+
+    return () => {
+      html.style.overflow = originalHtmlOverflow;
+    };
   }, [isOpen]);
 
   function switchFullScreen(on: boolean) {
@@ -65,13 +73,15 @@ export function Lightbox({
   }
 
   useEffect(() => {
+    if (!isOpen) return;
+    
     function handleFullscreenChange() {
       setFullscreen(Boolean(document.fullscreenElement));
       lightboxRef.current?.focus();
     }
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
-  }, []);
+  }, [isOpen]);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLElement>) {
     if (e.key === "ArrowLeft") {
@@ -108,12 +118,13 @@ export function Lightbox({
         tabIndex={-1}
         ref={lightboxRef}
         className="cs-rigg-modal-container"
+        data-backdrop="true"
         onKeyDown={handleKeyDown}
         onMouseEnter={() => setShowModalControls(true)}
         onMouseLeave={() => setShowModalControls(false)}
         // We use pointer down to close when clicking the backdrop
         onPointerDown={(e) => {
-          if ((e.target as HTMLElement).tagName === "ARTICLE") {
+          if ((e.target as HTMLElement).getAttribute("data-backdrop") === "true") {
             exitFullScreenAndDialog();
           }
         }}
@@ -128,7 +139,7 @@ export function Lightbox({
           onClose={exitFullScreenAndDialog}
         />
         
-        <section className="cs-rigg-modal-slide-show-section">
+        <section className="cs-rigg-modal-slide-show-section" data-backdrop="true">
           <CarouselTrack
             ref={carouselRef}
             imagesData={imagesData}

@@ -370,3 +370,109 @@ test("lightbox gesture navigation threshold and state update", async () => {
 
   performance.now = originalNow;
 });
+
+test("direct thumbnail navigation completely resets state", async () => {
+  render(<ImageGallery imagesData={imagesArray} />);
+
+  // Open lightbox on image 1
+  const img1 = screen.getAllByAltText("Image1's alt text")[0];
+  fireEvent.click(img1);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+
+  // Show thumbnails and click thumbnail for image 4
+  const toggleThumbBtn = screen.getByTitle("Show thumbnails");
+  fireEvent.click(toggleThumbBtn);
+  
+  const thumbs = document.querySelectorAll(".cs-rigg-modal-thumb-imgs-pod img");
+  expect(thumbs.length).toBe(13);
+  
+  act(() => {
+    fireEvent.click(thumbs[3]); // index 3 is image 4
+  });
+  
+  // Counter should instantly be 4 / 13
+  expect(await screen.findByText("4 / 13")).toBeTruthy();
+  
+  // Ensure Next button goes to 5, meaning state is perfectly synced
+  const nextBtn = screen.getByTitle("Next image");
+  act(() => {
+    fireEvent.click(nextBtn);
+  });
+  expect(await screen.findByText("5 / 13")).toBeTruthy();
+  
+  // Click thumbnail 10
+  act(() => {
+    fireEvent.click(thumbs[9]); // index 9 is image 10
+  });
+  expect(await screen.findByText("10 / 13")).toBeTruthy();
+  
+  // Previous button goes to 9
+  const prevBtn = screen.getByTitle("Previous image");
+  act(() => {
+    fireEvent.click(prevBtn);
+  });
+  expect(await screen.findByText("9 / 13")).toBeTruthy();
+});
+
+test("backdrop click closes lightbox, but content click does not", async () => {
+  render(<ImageGallery imagesData={imagesArray} />);
+  
+  // Open lightbox
+  fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+  
+  // Click the image - should not close
+  const modalImg = document.querySelector(".cs-rigg-modal-image") as HTMLElement;
+  fireEvent.click(modalImg);
+  expect(screen.queryByText("1 / 13")).toBeTruthy(); // still open
+  
+  // Click toolbar button - should not close
+  const nextBtn = screen.getByTitle("Next image");
+  fireEvent.click(nextBtn);
+  expect(screen.queryByText("2 / 13")).toBeTruthy(); // still open, just moved to slide 2
+  
+  // Click the background area (track container which has data-backdrop="true")
+  const trackContainer = document.querySelector(".cs-rigg-carousel-track-container") as HTMLElement;
+  act(() => {
+    fireEvent.pointerDown(trackContainer);
+  });
+  
+  // Should close
+  const dialog = document.querySelector(".cs-rigg-dialog") as HTMLDialogElement;
+  expect(dialog.open).toBe(false);
+});
+
+test("scroll lock lifecycle correctly restores exactly previous styles", async () => {
+  // Set initial overflow to something custom
+  document.documentElement.style.overflow = "scroll";
+  
+  const { unmount } = render(<ImageGallery imagesData={imagesArray} />);
+  
+  expect(document.documentElement.style.overflow).toBe("scroll");
+  
+  // Open lightbox
+  fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+  
+  // Should be locked
+  expect(document.documentElement.style.overflow).toBe("hidden");
+  
+  // Close via escape
+  act(() => {
+    const dialog = document.querySelector(".cs-rigg-dialog") as HTMLDialogElement;
+    fireEvent(dialog, new Event('cancel'));
+  });
+  
+  expect((document.querySelector(".cs-rigg-dialog") as HTMLDialogElement).open).toBe(false);
+  
+  // Should exact restore previous style
+  expect(document.documentElement.style.overflow).toBe("scroll");
+  
+  // Test unmount cleanup
+  fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+  expect(document.documentElement.style.overflow).toBe("hidden");
+  
+  unmount();
+  expect(document.documentElement.style.overflow).toBe("scroll");
+});

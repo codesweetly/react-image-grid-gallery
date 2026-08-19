@@ -134,17 +134,19 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
     };
 
     const goToSlide = (newSlideNumber: number) => {
-      if (isAnimating.current || newSlideNumber === slideNumber || total <= 1) return;
+      if (newSlideNumber === slideNumber || total <= 1) return;
       
-      const diff = newSlideNumber - slideNumber;
-      let direction: -1 | 1 = diff > 0 ? 1 : -1;
+      // Direct navigation: completely reset visual state and instantly jump
+      isAnimating.current = false;
+      targetSlide.current = newSlideNumber;
+      setCurrentLogicalIndex(newSlideNumber - 1);
       
-      // Take the shortest path for looping carousels
-      if (Math.abs(diff) > total / 2) {
-        direction = direction === 1 ? -1 : 1;
+      if (trackRef.current) {
+        trackRef.current.style.transition = "";
+        trackRef.current.style.transform = "translate3d(0px, 0, 0)";
       }
       
-      executeNavigation(direction);
+      onSlideChange(newSlideNumber);
     };
 
     const handleDragEnd = (result: { action: "next" | "prev" | "cancel" }) => {
@@ -179,7 +181,7 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
 
       // Stable keys based on imageData.id
       return (
-        <div key={imageData.id} className={`cs-rigg-carousel-slide`} data-position={position}>
+        <div key={imageData.id} className={`cs-rigg-carousel-slide`} data-position={position} data-backdrop="true">
           <figure>
             <img
               loading={imageLoading}
@@ -205,13 +207,14 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
     return (
       <div 
         className="cs-rigg-carousel-track-container"
+        data-backdrop="true"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerCancel}
         onLostPointerCapture={onLostPointerCapture}
       >
-        <div className="cs-rigg-carousel-track" ref={trackRef}>
+        <div className="cs-rigg-carousel-track" ref={trackRef} data-backdrop="true">
           {total > 1 && renderSlide(prevIndex, "prev")}
           {total > 0 && renderSlide(currentIndex, "curr")}
           {total > 1 && renderSlide(nextIndex, "next")}
