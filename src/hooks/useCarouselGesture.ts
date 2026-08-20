@@ -35,7 +35,7 @@ export function useCarouselGesture({
     [trackRef],
   );
 
-  const handlePointerDown = useCallback(
+  const trackGesture = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       if (!e.isPrimary) return;
 
@@ -61,7 +61,7 @@ export function useCarouselGesture({
     [trackRef],
   );
 
-  const handlePointerMove = useCallback(
+  const trackDragOffset = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       if (!isDragging.current || !e.isPrimary) return;
 
@@ -102,7 +102,7 @@ export function useCarouselGesture({
     [canNavigateNext, canNavigatePrev, updateTransform],
   );
 
-  const handlePointerUp = useCallback(
+  const evaluateAndCommitSwipe = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       if (!isDragging.current || !e.isPrimary) return;
 
@@ -140,7 +140,7 @@ export function useCarouselGesture({
     [canNavigateNext, canNavigatePrev, onDragEnd, resetRefs, trackRef],
   );
 
-  const handlePointerCancel = useCallback(
+  const cancelGesture = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       if (!isDragging.current || !e.isPrimary) return;
 
@@ -162,10 +162,10 @@ export function useCarouselGesture({
   }, []);
 
   return {
-    onPointerDown: handlePointerDown,
-    onPointerMove: handlePointerMove,
-    onPointerUp: handlePointerUp,
-    onPointerCancel: handlePointerCancel,
-    onLostPointerCapture: handlePointerCancel,
+    onPointerDown: trackGesture,
+    onPointerMove: trackDragOffset,
+    onPointerUp: evaluateAndCommitSwipe,
+    onPointerCancel: cancelGesture,
+    onLostPointerCapture: cancelGesture,
   };
 }
