@@ -34,36 +34,13 @@ export function CarouselTrack({
   const trackRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
   const targetSlide = useRef(slideNumber);
-  const [currentLogicalIndex, setCurrentLogicalIndex] = useState(
-    slideNumber - 1,
-  );
+  const [currentIndex, setCurrentIndex] = useState(slideNumber - 1);
 
-  // Keep targetSlide in sync with external changes (e.g. thumbnails)
-  useEffect(() => {
-    targetSlide.current = slideNumber;
-    setCurrentLogicalIndex(slideNumber - 1);
-  }, [slideNumber]);
-
-  const total = imagesData.length;
-  const currentIndex = currentLogicalIndex;
+  const totalImages = imagesData.length;
 
   // Determine the indices for prev and next slides, looping
-  const prevIndex = currentIndex === 0 ? total - 1 : currentIndex - 1;
-  const nextIndex = currentIndex === total - 1 ? 0 : currentIndex + 1;
-
-  // Reset track position instantly after a logical slide change
-  useLayoutEffect(() => {
-    if (trackRef.current) {
-      trackRef.current.style.transition = "";
-      trackRef.current.style.transform = "translate3d(0px, 0, 0)";
-
-      // Force layout recalculation
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      trackRef.current.offsetHeight;
-
-      isAnimating.current = false;
-    }
-  }, [slideNumber]);
+  const prevIndex = currentIndex === 0 ? totalImages - 1 : currentIndex - 1;
+  const nextIndex = currentIndex === totalImages - 1 ? 0 : currentIndex + 1;
 
   function executeNavigation(direction: -1 | 1 | 0, fromX: number = 0) {
     if (!trackRef.current) return;
@@ -101,11 +78,11 @@ export function CarouselTrack({
         newSlideNumber -= 1;
       }
 
-      if (newSlideNumber > total) newSlideNumber = 1;
-      if (newSlideNumber < 1) newSlideNumber = total;
+      if (newSlideNumber > totalImages) newSlideNumber = 1;
+      if (newSlideNumber < 1) newSlideNumber = totalImages;
 
       targetSlide.current = newSlideNumber;
-      setCurrentLogicalIndex(newSlideNumber - 1);
+      setCurrentIndex(newSlideNumber - 1);
       // Updating the state will trigger the useLayoutEffect which resets the track
       onSlideChange(newSlideNumber);
     }
@@ -150,17 +127,17 @@ export function CarouselTrack({
   }
 
   function navigate(direction: -1 | 1) {
-    if (isAnimating.current || !trackRef.current || total <= 1) return;
+    if (isAnimating.current || !trackRef.current || totalImages <= 1) return;
     executeNavigation(direction);
   }
 
   function goToSlide(newSlideNumber: number) {
-    if (newSlideNumber === slideNumber || total <= 1) return;
+    if (newSlideNumber === slideNumber || totalImages <= 1) return;
 
     // Direct navigation: completely reset visual state and instantly jump
     isAnimating.current = false;
     targetSlide.current = newSlideNumber;
-    setCurrentLogicalIndex(newSlideNumber - 1);
+    setCurrentIndex(newSlideNumber - 1);
 
     if (trackRef.current) {
       trackRef.current.style.transition = "";
@@ -173,7 +150,7 @@ export function CarouselTrack({
   function executeSwipeNavigation(result: {
     action: "next" | "prev" | "cancel";
   }) {
-    if (!trackRef.current || total <= 1) return;
+    if (!trackRef.current || totalImages <= 1) return;
 
     // Get current transform X from the track style to know where to animate from
     const style = trackRef.current.style.transform;
@@ -198,8 +175,8 @@ export function CarouselTrack({
   } = useCarouselGesture({
     trackRef,
     onDragEnd: executeSwipeNavigation,
-    canNavigatePrev: total > 1, // Currently looping is always enabled if > 1 slide
-    canNavigateNext: total > 1,
+    canNavigatePrev: totalImages > 1, // Currently looping is always enabled if > 1 slide
+    canNavigateNext: totalImages > 1,
   });
 
   function renderSlide(index: number, position: "prev" | "curr" | "next") {
@@ -239,24 +216,44 @@ export function CarouselTrack({
     goToSlide,
   }));
 
+  // Keep targetSlide in sync with external changes (e.g. thumbnails)
+  useEffect(() => {
+    targetSlide.current = slideNumber;
+    setCurrentIndex(slideNumber - 1);
+  }, [slideNumber]);
+
+  // Reset track position instantly after a logical slide change
+  useLayoutEffect(() => {
+    if (trackRef.current) {
+      trackRef.current.style.transition = "";
+      trackRef.current.style.transform = "translate3d(0px, 0, 0)";
+
+      // Force layout recalculation
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      trackRef.current.offsetHeight;
+
+      isAnimating.current = false;
+    }
+  }, [slideNumber]);
+
   return (
     <div
       className="cs-rigg-carousel-track-container"
       data-backdrop="true"
+      onLostPointerCapture={onLostPointerCapture}
+      onPointerCancel={onPointerCancel}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
-      onPointerCancel={onPointerCancel}
-      onLostPointerCapture={onLostPointerCapture}
     >
       <div
         className="cs-rigg-carousel-track"
-        ref={trackRef}
         data-backdrop="true"
+        ref={trackRef}
       >
-        {total > 1 && renderSlide(prevIndex, "prev")}
-        {total > 0 && renderSlide(currentIndex, "curr")}
-        {total > 1 && renderSlide(nextIndex, "next")}
+        {totalImages > 1 && renderSlide(prevIndex, "prev")}
+        {totalImages > 0 && renderSlide(currentIndex, "curr")}
+        {totalImages > 1 && renderSlide(nextIndex, "next")}
       </div>
     </div>
   );
