@@ -1,8 +1,14 @@
-import { useRef, useImperativeHandle, forwardRef, useLayoutEffect, useState, useEffect } from "react";
-import { ImageDataType } from "../ImageGallery.types";
-import { useCarouselGesture } from "../hooks/useCarouselGesture";
-
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Caption } from "./Caption";
+import { useCarouselGesture } from "../hooks/useCarouselGesture";
+import { ImageDataType } from "../ImageGallery.types";
 
 export interface CarouselTrackRef {
   navigate: (direction: -1 | 1) => void;
@@ -22,17 +28,19 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
     const trackRef = useRef<HTMLDivElement>(null);
     const isAnimating = useRef(false);
     const targetSlide = useRef(slideNumber);
-    const [currentLogicalIndex, setCurrentLogicalIndex] = useState(slideNumber - 1);
-    
+    const [currentLogicalIndex, setCurrentLogicalIndex] = useState(
+      slideNumber - 1,
+    );
+
     // Keep targetSlide in sync with external changes (e.g. thumbnails)
     useEffect(() => {
       targetSlide.current = slideNumber;
       setCurrentLogicalIndex(slideNumber - 1);
     }, [slideNumber]);
-    
+
     const total = imagesData.length;
     const currentIndex = currentLogicalIndex;
-    
+
     // Determine the indices for prev and next slides, looping
     const prevIndex = currentIndex === 0 ? total - 1 : currentIndex - 1;
     const nextIndex = currentIndex === total - 1 ? 0 : currentIndex + 1;
@@ -42,26 +50,30 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
       if (trackRef.current) {
         trackRef.current.style.transition = "";
         trackRef.current.style.transform = "translate3d(0px, 0, 0)";
-        
+
         // Force layout recalculation
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        trackRef.current.offsetHeight; 
-        
+        trackRef.current.offsetHeight;
+
         isAnimating.current = false;
       }
     }, [slideNumber]);
 
-    const executeNavigation = (direction: -1 | 1 | 0, fromX: number = 0) => {
+    function executeNavigation(direction: -1 | 1 | 0, fromX: number = 0) {
       if (!trackRef.current) return;
       isAnimating.current = true;
 
       const track = trackRef.current;
       const trackWidth = track.getBoundingClientRect().width;
-      const targetX = direction === 1 ? -trackWidth : (direction === -1 ? trackWidth : 0);
-      
-      // If we are cancelling a drag, targetX is 0. 
+      const targetX =
+        direction === 1 ? -trackWidth : direction === -1 ? trackWidth : 0;
+
+      // If we are cancelling a drag, targetX is 0.
       // Ensure we start from currentX if provided (for smooth cancel)
-      if (fromX !== 0 && track.style.transform !== `translate3d(${fromX}px, 0px, 0px)`) {
+      if (
+        fromX !== 0 &&
+        track.style.transform !== `translate3d(${fromX}px, 0px, 0px)`
+      ) {
         track.style.transition = "";
         track.style.transform = `translate3d(${fromX}px, 0, 0)`;
         // Force layout
@@ -69,9 +81,33 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
         track.offsetHeight;
       }
 
+      function finishTransition(direction: -1 | 1 | 0) {
+        if (direction === 0) {
+          // Just a cancel, reset animation state
+          isAnimating.current = false;
+          return;
+        }
+
+        let newSlideNumber = targetSlide.current;
+        if (direction === 1) {
+          newSlideNumber += 1;
+        } else if (direction === -1) {
+          newSlideNumber -= 1;
+        }
+
+        if (newSlideNumber > total) newSlideNumber = 1;
+        if (newSlideNumber < 1) newSlideNumber = total;
+
+        targetSlide.current = newSlideNumber;
+        setCurrentLogicalIndex(newSlideNumber - 1);
+        // Updating the state will trigger the useLayoutEffect which resets the track
+        onSlideChange(newSlideNumber);
+      }
+
       // Check if reduced motion is enabled
-      const isReducedMotion = typeof window !== 'undefined' && 
-        typeof window.matchMedia === 'function' && 
+      const isReducedMotion =
+        typeof window !== "undefined" &&
+        typeof window.matchMedia === "function" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       if (isReducedMotion) {
@@ -81,77 +117,58 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
       }
 
       // Enable transition
-      track.style.transition = "transform var(--cs-lightbox-transition-duration, 300ms) var(--cs-lightbox-transition-easing, cubic-bezier(0.22, 1, 0.36, 1))";
+      track.style.transition =
+        "transform var(--cs-lightbox-transition-duration, 300ms) var(--cs-lightbox-transition-easing, cubic-bezier(0.22, 1, 0.36, 1))";
       track.style.transform = `translate3d(${targetX}px, 0, 0)`;
 
       let transitionFired = false;
-      const onTransitionEnd = (e: TransitionEvent) => {
+
+      function onTransitionEnd(e: TransitionEvent) {
         if (e.target === track && e.propertyName === "transform") {
           transitionFired = true;
           track.removeEventListener("transitionend", onTransitionEnd);
           clearTimeout(fallbackTimeout);
           finishTransition(direction);
         }
-      };
+      }
 
       track.addEventListener("transitionend", onTransitionEnd);
-      
+
       // Fallback for interrupted transitions
       const fallbackTimeout = setTimeout(() => {
         if (!transitionFired) {
           track.removeEventListener("transitionend", onTransitionEnd);
           finishTransition(direction);
         }
-      }, 400); 
-    };
+      }, 400);
+    }
 
-    const finishTransition = (direction: -1 | 1 | 0) => {
-      if (direction === 0) {
-        // Just a cancel, reset animation state
-        isAnimating.current = false;
-        return;
-      }
-
-      let newSlideNumber = targetSlide.current;
-      if (direction === 1) {
-        newSlideNumber += 1;
-      } else if (direction === -1) {
-        newSlideNumber -= 1;
-      }
-
-      if (newSlideNumber > total) newSlideNumber = 1;
-      if (newSlideNumber < 1) newSlideNumber = total;
-
-      targetSlide.current = newSlideNumber;
-      setCurrentLogicalIndex(newSlideNumber - 1);
-      // Updating the state will trigger the useLayoutEffect which resets the track
-      onSlideChange(newSlideNumber);
-    };
-
-    const navigate = (direction: -1 | 1) => {
+    function navigate(direction: -1 | 1) {
       if (isAnimating.current || !trackRef.current || total <= 1) return;
       executeNavigation(direction);
-    };
+    }
 
-    const goToSlide = (newSlideNumber: number) => {
+    function goToSlide(newSlideNumber: number) {
       if (newSlideNumber === slideNumber || total <= 1) return;
-      
+
       // Direct navigation: completely reset visual state and instantly jump
       isAnimating.current = false;
       targetSlide.current = newSlideNumber;
       setCurrentLogicalIndex(newSlideNumber - 1);
-      
+
       if (trackRef.current) {
         trackRef.current.style.transition = "";
         trackRef.current.style.transform = "translate3d(0px, 0, 0)";
       }
-      
-      onSlideChange(newSlideNumber);
-    };
 
-    const handleDragEnd = (result: { action: "next" | "prev" | "cancel" }) => {
+      onSlideChange(newSlideNumber);
+    }
+
+    function executeSwipeNavigation(result: {
+      action: "next" | "prev" | "cancel";
+    }) {
       if (!trackRef.current || total <= 1) return;
-      
+
       // Get current transform X from the track style to know where to animate from
       const style = trackRef.current.style.transform;
       const match = style.match(/translate3d\(([-\d.]+)px/);
@@ -164,24 +181,36 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
       } else {
         executeNavigation(0, currentX); // cancel / snap back
       }
-    };
+    }
 
-    const { onPointerDown, onPointerMove, onPointerUp, onPointerCancel, onLostPointerCapture } = useCarouselGesture({
+    const {
+      onPointerDown,
+      onPointerMove,
+      onPointerUp,
+      onPointerCancel,
+      onLostPointerCapture,
+    } = useCarouselGesture({
       trackRef,
-      onDragEnd: handleDragEnd,
+      onDragEnd: executeSwipeNavigation,
       canNavigatePrev: total > 1, // Currently looping is always enabled if > 1 slide
       canNavigateNext: total > 1,
     });
 
-    const renderSlide = (index: number, position: "prev" | "curr" | "next") => {
+    function renderSlide(index: number, position: "prev" | "curr" | "next") {
       const imageData = imagesData[index];
       if (!imageData) return null;
 
-      const imageLoading = position === "curr" ? (lazy ? "lazy" : "eager") : "eager";
+      const imageLoading =
+        position === "curr" ? (lazy ? "lazy" : "eager") : "eager";
 
       // Stable keys based on imageData.id
       return (
-        <div key={imageData.id} className={`cs-rigg-carousel-slide`} data-position={position} data-backdrop="true">
+        <div
+          key={imageData.id}
+          className={`cs-rigg-carousel-slide`}
+          data-position={position}
+          data-backdrop="true"
+        >
           <figure>
             <img
               loading={imageLoading}
@@ -197,7 +226,7 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
           </figure>
         </div>
       );
-    };
+    }
 
     useImperativeHandle(ref, () => ({
       navigate,
@@ -205,7 +234,7 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
     }));
 
     return (
-      <div 
+      <div
         className="cs-rigg-carousel-track-container"
         data-backdrop="true"
         onPointerDown={onPointerDown}
@@ -214,12 +243,16 @@ export const CarouselTrack = forwardRef<CarouselTrackRef, CarouselTrackProps>(
         onPointerCancel={onPointerCancel}
         onLostPointerCapture={onLostPointerCapture}
       >
-        <div className="cs-rigg-carousel-track" ref={trackRef} data-backdrop="true">
+        <div
+          className="cs-rigg-carousel-track"
+          ref={trackRef}
+          data-backdrop="true"
+        >
           {total > 1 && renderSlide(prevIndex, "prev")}
           {total > 0 && renderSlide(currentIndex, "curr")}
           {total > 1 && renderSlide(nextIndex, "next")}
         </div>
       </div>
     );
-  }
+  },
 );
