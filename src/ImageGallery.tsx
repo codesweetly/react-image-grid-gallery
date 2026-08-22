@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { updateCaptionOpacity } from "./helpers.ts";
 import { ImageGalleryPropsType } from "./ImageGallery.types.tsx";
-import { Lightbox } from "./lightbox";
+import { Lightbox } from "./lightbox/Lightbox.tsx";
 
 export function ImageGallery({
   columnCount = "auto",
