@@ -46,6 +46,25 @@ export function Lightbox({
     }
   }
 
+  function exitFullScreenAndDialog() {
+    if (fullscreen) switchFullScreen(false);
+    dialogRef.current?.close();
+    onClose();
+  }
+
+  function closeLightbox(e: React.MouseEvent<HTMLElement>) {
+    const target = e.target as HTMLElement;
+    const isBackdropClick =
+      target.tagName === "SECTION" ||
+      target.tagName === "ARTICLE" ||
+      target.tagName === "FIGURE" ||
+      target.classList.contains("cs-rigg-carousel-slide") ||
+      target.classList.contains("cs-rigg-carousel-track-container") ||
+      target.classList.contains("cs-rigg-carousel-track");
+
+    if (isBackdropClick) exitFullScreenAndDialog();
+  }
+
   function handleKeyboardShortcut(e: React.KeyboardEvent<HTMLElement>) {
     if (e.key === "ArrowLeft") {
       carouselRef.current?.navigate(-1);
@@ -57,12 +76,6 @@ export function Lightbox({
       e.preventDefault(); // Prevent default dialog closing so we can run our cleanup
       exitFullScreenAndDialog();
     }
-  }
-
-  function exitFullScreenAndDialog() {
-    if (fullscreen) switchFullScreen(false);
-    dialogRef.current?.close();
-    onClose();
   }
 
   function goToClickedThumbnail(index: number) {
@@ -119,18 +132,10 @@ export function Lightbox({
       <article
         autoFocus
         className="cs-rigg-modal-container"
-        data-backdrop="true"
+        onClick={closeLightbox}
         onKeyDown={handleKeyboardShortcut}
         onMouseEnter={() => setShowModalControls(true)}
         onMouseLeave={() => setShowModalControls(false)}
-        // We use pointer down to close when clicking the backdrop
-        onPointerDown={(e) => {
-          if (
-            (e.target as HTMLElement).getAttribute("data-backdrop") === "true"
-          ) {
-            exitFullScreenAndDialog();
-          }
-        }}
         ref={lightboxRef}
         tabIndex={-1}
       >
@@ -143,10 +148,7 @@ export function Lightbox({
           onToggleFullscreen={switchFullScreen}
           onClose={exitFullScreenAndDialog}
         />
-        <section
-          className="cs-rigg-modal-slide-show-section"
-          data-backdrop="true"
-        >
+        <section className="cs-rigg-modal-slide-show-section">
           <CarouselTrack
             ref={carouselRef}
             imagesData={imagesData}

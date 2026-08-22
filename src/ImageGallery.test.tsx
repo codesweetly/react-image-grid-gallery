@@ -10,9 +10,9 @@ beforeAll(() => {
     this.removeAttribute("open");
   };
 
-  Object.defineProperty(window, 'matchMedia', {
+  Object.defineProperty(window, "matchMedia", {
     writable: true,
-    value: jest.fn().mockImplementation(query => ({
+    value: jest.fn().mockImplementation((query) => ({
       matches: true,
       media: query,
       onchange: null,
@@ -46,22 +46,22 @@ beforeAll(() => {
 
 beforeAll(() => {
   HTMLDialogElement.prototype.showModal = jest.fn(function mock(
-    this: HTMLDialogElement
+    this: HTMLDialogElement,
   ) {
     this.open = true;
-    this.setAttribute('open', '');
+    this.setAttribute("open", "");
   });
   HTMLDialogElement.prototype.close = jest.fn(function mock(
-    this: HTMLDialogElement
+    this: HTMLDialogElement,
   ) {
     this.open = false;
-    this.removeAttribute('open');
+    this.removeAttribute("open");
   });
 
-  Object.defineProperty(window, 'matchMedia', {
+  Object.defineProperty(window, "matchMedia", {
     writable: true,
-    value: jest.fn().mockImplementation(query => ({
-      matches: query === '(prefers-reduced-motion: reduce)',
+    value: jest.fn().mockImplementation((query) => ({
+      matches: query === "(prefers-reduced-motion: reduce)",
       media: query,
       onchange: null,
       addListener: jest.fn(), // Deprecated
@@ -313,24 +313,36 @@ test("lightbox gesture navigation threshold and state update", async () => {
   expect(await screen.findByText("1 / 13")).toBeTruthy();
 
   // Find the track container
-  const track = document.querySelector(".cs-rigg-carousel-track") as HTMLElement;
+  const track = document.querySelector(
+    ".cs-rigg-carousel-track",
+  ) as HTMLElement;
   if (!track) throw new Error("Track not found");
 
   // Mock getBoundingClientRect for trackWidth
-  track.getBoundingClientRect = () => ({ width: 1000 } as any);
+  track.getBoundingClientRect = () => ({ width: 1000 }) as any;
 
   const originalNow = performance.now;
   let currentTime = 0;
-  jest.spyOn(performance, 'now').mockImplementation(() => currentTime);
+  jest.spyOn(performance, "now").mockImplementation(() => currentTime);
 
   // 1. Short slow drag (should cancel) - deltaX < 200, duration > 250
   act(() => {
     currentTime = 0;
-    fireEvent.pointerDown(track, { isPrimary: true, clientX: 500, clientY: 500, pointerId: 1 });
+    fireEvent.pointerDown(track, {
+      isPrimary: true,
+      clientX: 500,
+      clientY: 500,
+      pointerId: 1,
+    });
   });
   act(() => {
     currentTime = 500;
-    fireEvent.pointerMove(track, { isPrimary: true, clientX: 450, clientY: 500, pointerId: 1 }); // deltaX = -50
+    fireEvent.pointerMove(track, {
+      isPrimary: true,
+      clientX: 450,
+      clientY: 500,
+      pointerId: 1,
+    }); // deltaX = -50
   });
   act(() => {
     currentTime = 510;
@@ -341,11 +353,21 @@ test("lightbox gesture navigation threshold and state update", async () => {
   // 2. Long slow drag (should commit next) - deltaX < -200, duration > 250
   act(() => {
     currentTime = 1000;
-    fireEvent.pointerDown(track, { isPrimary: true, clientX: 500, clientY: 500, pointerId: 1 });
+    fireEvent.pointerDown(track, {
+      isPrimary: true,
+      clientX: 500,
+      clientY: 500,
+      pointerId: 1,
+    });
   });
   act(() => {
     currentTime = 1500;
-    fireEvent.pointerMove(track, { isPrimary: true, clientX: 200, clientY: 500, pointerId: 1 }); // deltaX = -300
+    fireEvent.pointerMove(track, {
+      isPrimary: true,
+      clientX: 200,
+      clientY: 500,
+      pointerId: 1,
+    }); // deltaX = -300
   });
   act(() => {
     currentTime = 1510;
@@ -356,11 +378,21 @@ test("lightbox gesture navigation threshold and state update", async () => {
   // 3. Short fast flick (should commit next) - deltaX < 200, duration < 250
   act(() => {
     currentTime = 2000;
-    fireEvent.pointerDown(track, { isPrimary: true, clientX: 500, clientY: 500, pointerId: 1 });
+    fireEvent.pointerDown(track, {
+      isPrimary: true,
+      clientX: 500,
+      clientY: 500,
+      pointerId: 1,
+    });
   });
   act(() => {
     currentTime = 2050; // 50ms duration
-    fireEvent.pointerMove(track, { isPrimary: true, clientX: 450, clientY: 500, pointerId: 1 }); // deltaX = -50
+    fireEvent.pointerMove(track, {
+      isPrimary: true,
+      clientX: 450,
+      clientY: 500,
+      pointerId: 1,
+    }); // deltaX = -50
   });
   act(() => {
     currentTime = 2060;
@@ -382,30 +414,30 @@ test("direct thumbnail navigation completely resets state", async () => {
   // Show thumbnails and click thumbnail for image 4
   const toggleThumbBtn = screen.getByTitle("Show thumbnails");
   fireEvent.click(toggleThumbBtn);
-  
+
   const thumbs = document.querySelectorAll(".cs-rigg-modal-thumb-imgs-pod img");
   expect(thumbs.length).toBe(13);
-  
+
   act(() => {
     fireEvent.click(thumbs[3]); // index 3 is image 4
   });
-  
+
   // Counter should instantly be 4 / 13
   expect(await screen.findByText("4 / 13")).toBeTruthy();
-  
+
   // Ensure Next button goes to 5, meaning state is perfectly synced
   const nextBtn = screen.getByTitle("Next image");
   act(() => {
     fireEvent.click(nextBtn);
   });
   expect(await screen.findByText("5 / 13")).toBeTruthy();
-  
+
   // Click thumbnail 10
   act(() => {
     fireEvent.click(thumbs[9]); // index 9 is image 10
   });
   expect(await screen.findByText("10 / 13")).toBeTruthy();
-  
+
   // Previous button goes to 9
   const prevBtn = screen.getByTitle("Previous image");
   act(() => {
@@ -416,27 +448,31 @@ test("direct thumbnail navigation completely resets state", async () => {
 
 test("backdrop click closes lightbox, but content click does not", async () => {
   render(<ImageGallery imagesData={imagesArray} />);
-  
+
   // Open lightbox
   fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
   expect(await screen.findByText("1 / 13")).toBeTruthy();
-  
+
   // Click the image - should not close
-  const modalImg = document.querySelector(".cs-rigg-modal-image") as HTMLElement;
+  const modalImg = document.querySelector(
+    ".cs-rigg-modal-image",
+  ) as HTMLElement;
   fireEvent.click(modalImg);
   expect(screen.queryByText("1 / 13")).toBeTruthy(); // still open
-  
+
   // Click toolbar button - should not close
   const nextBtn = screen.getByTitle("Next image");
   fireEvent.click(nextBtn);
   expect(screen.queryByText("2 / 13")).toBeTruthy(); // still open, just moved to slide 2
-  
-  // Click the background area (track container which has data-backdrop="true")
-  const trackContainer = document.querySelector(".cs-rigg-carousel-track-container") as HTMLElement;
+
+  // Click the backdrop area (the track container empty space)
+  const backdrop = document.querySelector(
+    ".cs-rigg-carousel-track-container",
+  ) as HTMLElement;
   act(() => {
-    fireEvent.pointerDown(trackContainer);
+    fireEvent.click(backdrop);
   });
-  
+
   // Should close
   const dialog = document.querySelector(".cs-rigg-dialog") as HTMLDialogElement;
   expect(dialog.open).toBe(false);
@@ -445,34 +481,38 @@ test("backdrop click closes lightbox, but content click does not", async () => {
 test("scroll lock lifecycle correctly restores exactly previous styles", async () => {
   // Set initial overflow to something custom
   document.documentElement.style.overflow = "scroll";
-  
+
   const { unmount } = render(<ImageGallery imagesData={imagesArray} />);
-  
+
   expect(document.documentElement.style.overflow).toBe("scroll");
-  
+
   // Open lightbox
   fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
   expect(await screen.findByText("1 / 13")).toBeTruthy();
-  
+
   // Should be locked
   expect(document.documentElement.style.overflow).toBe("hidden");
-  
+
   // Close via escape
   act(() => {
-    const dialog = document.querySelector(".cs-rigg-dialog") as HTMLDialogElement;
-    fireEvent(dialog, new Event('cancel'));
+    const dialog = document.querySelector(
+      ".cs-rigg-dialog",
+    ) as HTMLDialogElement;
+    fireEvent(dialog, new Event("cancel"));
   });
-  
-  expect((document.querySelector(".cs-rigg-dialog") as HTMLDialogElement).open).toBe(false);
-  
+
+  expect(
+    (document.querySelector(".cs-rigg-dialog") as HTMLDialogElement).open,
+  ).toBe(false);
+
   // Should exact restore previous style
   expect(document.documentElement.style.overflow).toBe("scroll");
-  
+
   // Test unmount cleanup
   fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
   expect(await screen.findByText("1 / 13")).toBeTruthy();
   expect(document.documentElement.style.overflow).toBe("hidden");
-  
+
   unmount();
   expect(document.documentElement.style.overflow).toBe("scroll");
 });

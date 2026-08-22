@@ -192,7 +192,6 @@ export function CarouselTrack({
         key={imageData.id}
         className={`cs-rigg-carousel-slide`}
         data-position={position}
-        data-backdrop="true"
       >
         <figure>
           <img
@@ -227,11 +226,9 @@ export function CarouselTrack({
     if (trackRef.current) {
       trackRef.current.style.transition = "";
       trackRef.current.style.transform = "translate3d(0px, 0, 0)";
-
       // Force layout recalculation
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       trackRef.current.offsetHeight;
-
       isAnimating.current = false;
     }
   }, [slideNumber]);
@@ -239,18 +236,13 @@ export function CarouselTrack({
   return (
     <div
       className="cs-rigg-carousel-track-container"
-      data-backdrop="true"
       onLostPointerCapture={onLostPointerCapture}
       onPointerCancel={onPointerCancel}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
     >
-      <div
-        className="cs-rigg-carousel-track"
-        data-backdrop="true"
-        ref={trackRef}
-      >
+      <div className="cs-rigg-carousel-track" ref={trackRef}>
         {totalImages > 1 && renderSlide(prevIndex, "prev")}
         {totalImages > 0 && renderSlide(currentIndex, "curr")}
         {totalImages > 1 && renderSlide(nextIndex, "next")}
