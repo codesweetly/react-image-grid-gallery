@@ -158,7 +158,7 @@ export function Lightbox({
             lazy={lazy}
           />
           <Navigation
-            onNavigate={(dir) => carouselRef.current?.navigate(dir)}
+            changeSlide={(dir) => carouselRef.current?.navigate(dir)}
             showControls={showModalControls}
           />
         </section>
