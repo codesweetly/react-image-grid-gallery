@@ -3,6 +3,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { ImageGallery } from "./ImageGallery";
 
 beforeAll(() => {
+  // JSDOM doesn't implement showModal/close, so we polyfill them.
+  // Setting this.open keeps dialog.open readable in assertions.
   HTMLDialogElement.prototype.showModal = jest.fn(function mock(
     this: HTMLDialogElement,
   ) {
@@ -16,6 +18,8 @@ beforeAll(() => {
     this.removeAttribute("open");
   });
 
+  // JSDOM doesn't implement matchMedia. The carousel reads this to disable
+  // CSS transitions when the user prefers reduced motion.
   Object.defineProperty(window, "matchMedia", {
     writable: true,
     value: jest.fn().mockImplementation((query) => ({
@@ -28,10 +32,14 @@ beforeAll(() => {
     })),
   });
 
+  // JSDOM stubs: scrollIntoView is called by the thumbnail strip; pointer
+  // capture methods are called by the gesture hook on drag start/end.
   Element.prototype.scrollIntoView = jest.fn();
   Element.prototype.setPointerCapture = jest.fn();
   Element.prototype.releasePointerCapture = jest.fn();
 
+  // JSDOM doesn't implement PointerEvent. This minimal mock adds the fields
+  // (clientX, clientY, isPrimary, pointerId) that the gesture hook reads.
   class MockPointerEvent extends Event {
     clientX: number;
     clientY: number;
