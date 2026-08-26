@@ -112,6 +112,7 @@ export function ImageGallery({
       {enableDefaultLightbox && (
         <Lightbox
           exitLightbox={() => setLightboxOpen(false)}
+          fixedCaption={fixedCaption}
           imagesData={imagesData}
           initialSlideNumber={slideNumber}
           isOpen={lightboxOpen}

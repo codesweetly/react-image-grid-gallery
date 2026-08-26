@@ -10,26 +10,32 @@ import { useCarouselGesture } from "../hooks/useCarouselGesture";
 import { ImageDataType } from "../ImageGallery.types";
 
 export interface CarouselTrackRef {
-  navigate: (direction: -1 | 1) => void;
   goToSlide: (newSlideNumber: number) => void;
+  navigate: (direction: -1 | 1) => void;
 }
 
 interface CarouselTrackProps {
-  imagesData: Array<ImageDataType>;
-  slideNumber: number; // 1-indexed
   changeSlide: (newSlideNumber: number) => void;
-  showThumbnails: boolean;
+  fixedCaption?: boolean;
+  imagesData: Array<ImageDataType>;
   lazy: boolean;
   ref: React.Ref<CarouselTrackRef>;
+  showControls: boolean;
+  showThumbnails: boolean;
+  slideNumber: number; // 1-indexed
+  toggleControls: () => void;
 }
 
 export function CarouselTrack({
-  imagesData,
-  slideNumber,
   changeSlide,
-  showThumbnails,
+  fixedCaption,
+  imagesData,
   lazy,
   ref,
+  showControls,
+  showThumbnails,
+  slideNumber,
+  toggleControls,
 }: CarouselTrackProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
@@ -203,8 +209,16 @@ export function CarouselTrack({
             className="cs-rigg-modal-image"
             style={{ maxHeight: showThumbnails ? "80vh" : "100vh" }}
             draggable={false}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleControls();
+            }}
           />
-          <Caption imageData={imageData} />
+          <Caption
+            fixedCaption={fixedCaption}
+            imageData={imageData}
+            showControls={showControls}
+          />
         </figure>
       </div>
     );

@@ -7,6 +7,7 @@ import { ImageDataType } from "../ImageGallery.types";
 
 interface LightboxProps {
   exitLightbox: () => void;
+  fixedCaption?: boolean;
   imagesData: Array<ImageDataType>;
   initialSlideNumber: number;
   isOpen: boolean;
@@ -18,6 +19,7 @@ interface LightboxProps {
 
 export function Lightbox({
   exitLightbox,
+  fixedCaption,
   imagesData,
   initialSlideNumber,
   isOpen,
@@ -151,10 +153,13 @@ export function Lightbox({
         <section className="cs-rigg-modal-slide-show-section">
           <CarouselTrack
             changeSlide={setSlideNumber}
+            fixedCaption={fixedCaption}
             imagesData={imagesData}
             lazy={lazy}
             showThumbnails={showThumbnails}
             slideNumber={slideNumber}
+            showControls={showModalControls}
+            toggleControls={() => setShowModalControls((prev) => !prev)}
             ref={carouselRef}
           />
           <Navigation
