@@ -1,7 +1,3 @@
-export interface DragResult {
-  action: "next" | "prev" | "cancel";
-}
-
 export interface ImageDataType {
   id: string | number;
   alt: string;
@@ -17,11 +13,4 @@ export interface ImageDataType {
   thumbSrc?: string;
   srcSet?: string;
   mediaSizes?: string;
-}
-
-export interface UseCarouselGestureProps {
-  trackRef: React.RefObject<HTMLElement | null>;
-  onDragEnd: (result: DragResult) => void;
-  canNavigatePrev: boolean;
-  canNavigateNext: boolean;
 }

@@ -1,5 +1,15 @@
 import { useCallback, useEffect, useRef } from "react";
-import type { UseCarouselGestureProps } from "../ImageGallery.types";
+
+interface DragResult {
+  action: "next" | "prev" | "cancel";
+}
+
+interface UseCarouselGestureProps {
+  trackRef: React.RefObject<HTMLElement | null>;
+  onDragEnd: (result: DragResult) => void;
+  canNavigatePrev: boolean;
+  canNavigateNext: boolean;
+}
 
 export function useCarouselGesture({
   trackRef,
