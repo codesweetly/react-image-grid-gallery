@@ -19,12 +19,6 @@ export interface ImageDataType {
   mediaSizes?: string;
 }
 
-export interface ImgSrcInfoType {
-  mediaSizes: string | undefined;
-  src: string;
-  srcSet: string | undefined;
-}
-
 export interface UseCarouselGestureProps {
   trackRef: React.RefObject<HTMLElement | null>;
   onDragEnd: (result: DragResult) => void;
