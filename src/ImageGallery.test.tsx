@@ -1,5 +1,5 @@
 import { expect, test, beforeAll, jest } from "@jest/globals";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { ImageGallery } from "./ImageGallery";
 
 beforeAll(() => {
@@ -240,19 +240,13 @@ test("lightbox navigation updates counter and loops correctly", async () => {
 
   // Click next button
   const nextBtn = screen.getByTitle("Next image");
-  act(() => {
-    fireEvent.click(nextBtn);
-  });
+  fireEvent.click(nextBtn);
   expect(await screen.findByText("10 / 13")).toBeTruthy();
 
   // Click previous button twice to go to 8
   const prevBtn = screen.getByTitle("Previous image");
-  act(() => {
-    fireEvent.click(prevBtn);
-  });
-  act(() => {
-    fireEvent.click(prevBtn);
-  });
+  fireEvent.click(prevBtn);
+  fireEvent.click(prevBtn);
   expect(await screen.findByText("8 / 13")).toBeTruthy();
 });
 
@@ -266,16 +260,12 @@ test("lightbox looping boundary 13 -> 1 and 1 -> 13", async () => {
 
   // Click next -> should loop to 1
   const nextBtn = screen.getByTitle("Next image");
-  act(() => {
-    fireEvent.click(nextBtn);
-  });
+  fireEvent.click(nextBtn);
   expect(screen.getByText("1 / 13")).toBeTruthy();
 
   // Click prev -> should loop back to 13
   const prevBtn = screen.getByTitle("Previous image");
-  act(() => {
-    fireEvent.click(prevBtn);
-  });
+  fireEvent.click(prevBtn);
   expect(screen.getByText("13 / 13")).toBeTruthy();
 });
 
@@ -301,78 +291,66 @@ test("lightbox gesture navigation threshold and state update", async () => {
   jest.spyOn(performance, "now").mockImplementation(() => currentTime);
 
   // 1. Short slow drag (should cancel) - deltaX < 200, duration > 250
-  act(() => {
-    currentTime = 0;
-    fireEvent.pointerDown(track, {
-      isPrimary: true,
-      clientX: 500,
-      clientY: 500,
-      pointerId: 1,
-    });
+  currentTime = 0;
+  fireEvent.pointerDown(track, {
+    isPrimary: true,
+    clientX: 500,
+    clientY: 500,
+    pointerId: 1,
   });
-  act(() => {
-    currentTime = 500;
-    fireEvent.pointerMove(track, {
-      isPrimary: true,
-      clientX: 450,
-      clientY: 500,
-      pointerId: 1,
-    }); // deltaX = -50
-  });
-  act(() => {
-    currentTime = 510;
-    fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
-  });
+
+  currentTime = 500;
+  fireEvent.pointerMove(track, {
+    isPrimary: true,
+    clientX: 450,
+    clientY: 500,
+    pointerId: 1,
+  }); // deltaX = -50
+
+  currentTime = 510;
+  fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
   expect(await screen.findByText("1 / 13")).toBeTruthy(); // Cancelled
 
   // 2. Long slow drag (should commit next) - deltaX < -200, duration > 250
-  act(() => {
-    currentTime = 1000;
-    fireEvent.pointerDown(track, {
-      isPrimary: true,
-      clientX: 500,
-      clientY: 500,
-      pointerId: 1,
-    });
+  currentTime = 1000;
+  fireEvent.pointerDown(track, {
+    isPrimary: true,
+    clientX: 500,
+    clientY: 500,
+    pointerId: 1,
   });
-  act(() => {
-    currentTime = 1500;
-    fireEvent.pointerMove(track, {
-      isPrimary: true,
-      clientX: 200,
-      clientY: 500,
-      pointerId: 1,
-    }); // deltaX = -300
-  });
-  act(() => {
-    currentTime = 1510;
-    fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
-  });
+
+  currentTime = 1500;
+  fireEvent.pointerMove(track, {
+    isPrimary: true,
+    clientX: 200,
+    clientY: 500,
+    pointerId: 1,
+  }); // deltaX = -300
+
+  currentTime = 1510;
+  fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
   expect(await screen.findByText("2 / 13")).toBeTruthy();
 
   // 3. Short fast flick (should commit next) - deltaX < 200, duration < 250
-  act(() => {
-    currentTime = 2000;
-    fireEvent.pointerDown(track, {
-      isPrimary: true,
-      clientX: 500,
-      clientY: 500,
-      pointerId: 1,
-    });
+  currentTime = 2000;
+  fireEvent.pointerDown(track, {
+    isPrimary: true,
+    clientX: 500,
+    clientY: 500,
+    pointerId: 1,
   });
-  act(() => {
-    currentTime = 2050; // 50ms duration
-    fireEvent.pointerMove(track, {
-      isPrimary: true,
-      clientX: 450,
-      clientY: 500,
-      pointerId: 1,
-    }); // deltaX = -50
-  });
-  act(() => {
-    currentTime = 2060;
-    fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
-  });
+
+  currentTime = 2050; // 50ms duration
+  fireEvent.pointerMove(track, {
+    isPrimary: true,
+    clientX: 450,
+    clientY: 500,
+    pointerId: 1,
+  }); // deltaX = -50
+
+  currentTime = 2060;
+  fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
   expect(await screen.findByText("3 / 13")).toBeTruthy();
 
   performance.now = originalNow;
@@ -393,31 +371,23 @@ test("direct thumbnail navigation completely resets state", async () => {
   const thumbs = document.querySelectorAll(".cs-rigg-modal-thumb-imgs-pod img");
   expect(thumbs.length).toBe(13);
 
-  act(() => {
-    fireEvent.click(thumbs[3]); // index 3 is image 4
-  });
+  fireEvent.click(thumbs[3]); // index 3 is image 4
 
   // Counter should instantly be 4 / 13
   expect(await screen.findByText("4 / 13")).toBeTruthy();
 
   // Ensure Next button goes to 5, meaning state is perfectly synced
   const nextBtn = screen.getByTitle("Next image");
-  act(() => {
-    fireEvent.click(nextBtn);
-  });
+  fireEvent.click(nextBtn);
   expect(await screen.findByText("5 / 13")).toBeTruthy();
 
   // Click thumbnail 10
-  act(() => {
-    fireEvent.click(thumbs[9]); // index 9 is image 10
-  });
+  fireEvent.click(thumbs[9]); // index 9 is image 10
   expect(await screen.findByText("10 / 13")).toBeTruthy();
 
   // Previous button goes to 9
   const prevBtn = screen.getByTitle("Previous image");
-  act(() => {
-    fireEvent.click(prevBtn);
-  });
+  fireEvent.click(prevBtn);
   expect(await screen.findByText("9 / 13")).toBeTruthy();
 });
 
@@ -444,9 +414,7 @@ test("backdrop click closes lightbox, but content click does not", async () => {
   const backdrop = document.querySelector(
     ".cs-rigg-carousel-track-container",
   ) as HTMLElement;
-  act(() => {
-    fireEvent.click(backdrop);
-  });
+  fireEvent.click(backdrop);
 
   // Should close
   const dialog = document.querySelector(".cs-rigg-dialog") as HTMLDialogElement;
@@ -469,12 +437,8 @@ test("scroll lock lifecycle correctly restores exactly previous styles", async (
   expect(document.documentElement.style.overflow).toBe("hidden");
 
   // Close via escape
-  act(() => {
-    const dialog = document.querySelector(
-      ".cs-rigg-dialog",
-    ) as HTMLDialogElement;
-    fireEvent(dialog, new Event("cancel"));
-  });
+  const dialog = document.querySelector(".cs-rigg-dialog") as HTMLDialogElement;
+  fireEvent(dialog, new Event("cancel"));
 
   expect(
     (document.querySelector(".cs-rigg-dialog") as HTMLDialogElement).open,
