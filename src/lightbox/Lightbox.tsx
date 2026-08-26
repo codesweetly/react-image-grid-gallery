@@ -6,22 +6,22 @@ import { Toolbar } from "./Toolbar";
 import { ImageDataType } from "../ImageGallery.types";
 
 interface LightboxProps {
+  exitLightbox: () => void;
   imagesData: Array<ImageDataType>;
   initialSlideNumber: number;
   isOpen: boolean;
   lazy: boolean;
-  onClose: () => void;
   setShowThumbnails: (show: boolean) => void;
   showThumbnails: boolean;
   thumbnailBorder: string;
 }
 
 export function Lightbox({
+  exitLightbox,
   imagesData,
   initialSlideNumber,
   isOpen,
   lazy,
-  onClose,
   setShowThumbnails,
   showThumbnails,
   thumbnailBorder,
@@ -49,7 +49,7 @@ export function Lightbox({
   function exitFullScreenAndDialog() {
     if (fullscreen) switchFullScreen(false);
     dialogRef.current?.close();
-    onClose();
+    exitLightbox();
   }
 
   function closeLightbox(e: React.MouseEvent<HTMLElement>) {
@@ -140,13 +140,13 @@ export function Lightbox({
         tabIndex={-1}
       >
         <Toolbar
+          fullscreen={fullscreen}
           showControls={showModalControls}
           slideNumber={slideNumber}
+          toggleFullscreen={switchFullScreen}
+          toggleThumbnails={() => setShowThumbnails(!showThumbnails)}
           totalImages={imagesData.length}
-          onToggleThumbnails={() => setShowThumbnails(!showThumbnails)}
-          fullscreen={fullscreen}
-          onToggleFullscreen={switchFullScreen}
-          onClose={exitFullScreenAndDialog}
+          exitFullScreenAndDialog={exitFullScreenAndDialog}
         />
         <section className="cs-rigg-modal-slide-show-section">
           <CarouselTrack

@@ -95,14 +95,14 @@ export function ImageGallery({
       {showImageCards()}
       {enableDefaultLightbox && (
         <Lightbox
-          isOpen={lightboxOpen}
+          exitLightbox={() => setLightboxOpen(false)}
           imagesData={imagesData}
           initialSlideNumber={slideNumber}
-          onClose={() => setLightboxOpen(false)}
-          showThumbnails={showThumbnails}
-          setShowThumbnails={setShowThumbnails}
-          thumbnailBorder={thumbnailBorder}
+          isOpen={lightboxOpen}
           lazy={lazy}
+          setShowThumbnails={setShowThumbnails}
+          showThumbnails={showThumbnails}
+          thumbnailBorder={thumbnailBorder}
         />
       )}
     </div>
