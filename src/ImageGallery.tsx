@@ -1,7 +1,22 @@
 import { useState } from "react";
 import { updateCaptionOpacity } from "./helpers.ts";
-import { ImageGalleryPropsType } from "./ImageGallery.types.tsx";
 import { Lightbox } from "./lightbox/Lightbox.tsx";
+
+interface ImageGalleryPropsType {
+  columnCount?: string | number;
+  columnWidth?: string | number;
+  customizeImageClickAction?: (
+    imageData?: ImageDataType,
+    index?: number,
+  ) => void;
+  enableDefaultLightbox?: boolean;
+  fixedCaption?: boolean;
+  gapSize?: number;
+  imagesData: Array<ImageDataType>;
+  lazy?: boolean;
+  lazyFromIndex?: number;
+  thumbnailBorder?: string;
+}
 
 export function ImageGallery({
   columnCount = "auto",
