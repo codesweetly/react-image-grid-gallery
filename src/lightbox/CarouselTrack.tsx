@@ -17,7 +17,7 @@ export interface CarouselTrackRef {
 interface CarouselTrackProps {
   imagesData: Array<ImageDataType>;
   slideNumber: number; // 1-indexed
-  onSlideChange: (newSlideNumber: number) => void;
+  changeSlide: (newSlideNumber: number) => void;
   showThumbnails: boolean;
   lazy: boolean;
   ref: React.Ref<CarouselTrackRef>;
@@ -26,7 +26,7 @@ interface CarouselTrackProps {
 export function CarouselTrack({
   imagesData,
   slideNumber,
-  onSlideChange,
+  changeSlide,
   showThumbnails,
   lazy,
   ref,
@@ -84,7 +84,7 @@ export function CarouselTrack({
       targetSlide.current = newSlideNumber;
       setCurrentIndex(newSlideNumber - 1);
       // Updating the state will trigger the useLayoutEffect which resets the track
-      onSlideChange(newSlideNumber);
+      changeSlide(newSlideNumber);
     }
 
     // Check if reduced motion is enabled
@@ -144,7 +144,7 @@ export function CarouselTrack({
       trackRef.current.style.transform = "translate3d(0px, 0, 0)";
     }
 
-    onSlideChange(newSlideNumber);
+    changeSlide(newSlideNumber);
   }
 
   function executeSwipeNavigation(result: {

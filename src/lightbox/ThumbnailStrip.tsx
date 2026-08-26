@@ -2,21 +2,21 @@ import { useEffect, useRef } from "react";
 import { ImageDataType } from "../ImageGallery.types";
 
 interface ThumbnailStripProps {
+  goToClickedThumbnail: (index: number) => void;
   imagesData: Array<ImageDataType>;
-  slideNumber: number;
-  showThumbnails: boolean;
-  onThumbnailClick: (index: number) => void;
-  thumbnailBorder: string;
   lazy: boolean;
+  showThumbnails: boolean;
+  slideNumber: number;
+  thumbnailBorder: string;
 }
 
 export function ThumbnailStrip({
+  goToClickedThumbnail,
   imagesData,
-  slideNumber,
-  showThumbnails,
-  onThumbnailClick,
-  thumbnailBorder,
   lazy,
+  showThumbnails,
+  slideNumber,
+  thumbnailBorder,
 }: ThumbnailStripProps) {
   const activeThumbImgRef = useRef<HTMLImageElement | null>(null);
 
@@ -51,7 +51,7 @@ export function ThumbnailStrip({
             key={imageData.id}
             src={imageData.thumbSrc || imageData.src}
             alt={imageData.alt}
-            onClick={() => onThumbnailClick(index)}
+            onClick={() => goToClickedThumbnail(index)}
           />
         ))}
       </div>

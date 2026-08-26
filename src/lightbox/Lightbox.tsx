@@ -150,12 +150,12 @@ export function Lightbox({
         />
         <section className="cs-rigg-modal-slide-show-section">
           <CarouselTrack
-            ref={carouselRef}
+            changeSlide={setSlideNumber}
             imagesData={imagesData}
-            slideNumber={slideNumber}
-            onSlideChange={setSlideNumber}
-            showThumbnails={showThumbnails}
             lazy={lazy}
+            showThumbnails={showThumbnails}
+            slideNumber={slideNumber}
+            ref={carouselRef}
           />
           <Navigation
             changeSlide={(dir) => carouselRef.current?.navigate(dir)}
@@ -163,12 +163,12 @@ export function Lightbox({
           />
         </section>
         <ThumbnailStrip
+          goToClickedThumbnail={goToClickedThumbnail}
           imagesData={imagesData}
-          slideNumber={slideNumber}
-          showThumbnails={showThumbnails}
-          onThumbnailClick={goToClickedThumbnail}
-          thumbnailBorder={thumbnailBorder}
           lazy={lazy}
+          showThumbnails={showThumbnails}
+          slideNumber={slideNumber}
+          thumbnailBorder={thumbnailBorder}
         />
       </article>
     </dialog>
