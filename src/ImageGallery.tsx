@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateCaptionOpacity } from "./helpers.ts";
 import { Lightbox } from "./lightbox/Lightbox.tsx";
+import { ImageDataType } from "./ImageGallery.types";
 
 interface ImageGalleryPropsType {
   columnCount?: string | number;
