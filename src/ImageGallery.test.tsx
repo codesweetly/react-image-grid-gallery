@@ -3,48 +3,6 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import { ImageGallery } from "./ImageGallery";
 
 beforeAll(() => {
-  HTMLDialogElement.prototype.showModal = function () {
-    this.setAttribute("open", "");
-  };
-  HTMLDialogElement.prototype.close = function () {
-    this.removeAttribute("open");
-  };
-
-  Object.defineProperty(window, "matchMedia", {
-    writable: true,
-    value: jest.fn().mockImplementation((query) => ({
-      matches: true,
-      media: query,
-      onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
-    })),
-  });
-
-  Element.prototype.scrollIntoView = jest.fn();
-  Element.prototype.setPointerCapture = jest.fn();
-  Element.prototype.releasePointerCapture = jest.fn();
-
-  class MockPointerEvent extends Event {
-    clientX: number;
-    clientY: number;
-    isPrimary: boolean;
-    pointerId: number;
-    constructor(type: string, props: any) {
-      super(type, props);
-      this.clientX = props?.clientX || 0;
-      this.clientY = props?.clientY || 0;
-      this.isPrimary = props?.isPrimary || false;
-      this.pointerId = props?.pointerId || 0;
-    }
-  }
-  window.PointerEvent = MockPointerEvent as any;
-});
-
-beforeAll(() => {
   HTMLDialogElement.prototype.showModal = jest.fn(function mock(
     this: HTMLDialogElement,
   ) {
@@ -71,6 +29,25 @@ beforeAll(() => {
       dispatchEvent: jest.fn(),
     })),
   });
+
+  Element.prototype.scrollIntoView = jest.fn();
+  Element.prototype.setPointerCapture = jest.fn();
+  Element.prototype.releasePointerCapture = jest.fn();
+
+  class MockPointerEvent extends Event {
+    clientX: number;
+    clientY: number;
+    isPrimary: boolean;
+    pointerId: number;
+    constructor(type: string, props: any) {
+      super(type, props);
+      this.clientX = props?.clientX || 0;
+      this.clientY = props?.clientY || 0;
+      this.isPrimary = props?.isPrimary || false;
+      this.pointerId = props?.pointerId || 0;
+    }
+  }
+  window.PointerEvent = MockPointerEvent as any;
 });
 
 const imagesArray = [
