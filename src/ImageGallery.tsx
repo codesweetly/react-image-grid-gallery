@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { updateCaptionOpacity } from "./helpers.ts";
-import { Lightbox } from "./lightbox/Lightbox.tsx";
 import { ImageDataType } from "./ImageGallery.types";
+import { Lightbox } from "./lightbox/Lightbox.tsx";
 
 interface ImageGalleryPropsType {
   columnCount?: string | number;
@@ -32,8 +32,8 @@ export function ImageGallery({
   thumbnailBorder = "3px solid #fff",
 }: ImageGalleryPropsType) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [slideNumber, setSlideNumber] = useState(1);
   const [showThumbnails, setShowThumbnails] = useState(false);
+  const [slideNumber, setSlideNumber] = useState(1);
 
   function openLightboxOnSlide(number: number) {
     setSlideNumber(number);
@@ -93,7 +93,7 @@ export function ImageGallery({
       }
       return (
         <div key={index}>
-          <strong>Error:</strong> Each item in the `imagesArray` needs a unique
+          <strong>Error:</strong> Each item in the `imagesData` needs a unique
           `id`
         </div>
       );

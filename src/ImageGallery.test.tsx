@@ -56,7 +56,7 @@ beforeAll(() => {
   window.PointerEvent = MockPointerEvent as any;
 });
 
-const imagesArray = [
+const imagesData = [
   {
     id: crypto.randomUUID(),
     alt: "Image1's alt text",
@@ -169,7 +169,7 @@ const imagesArray = [
 test("image gallery renders correctly", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
@@ -178,13 +178,13 @@ test("image gallery renders correctly", () => {
 });
 
 test("image gallery works with only the imagesData prop", () => {
-  render(<ImageGallery imagesData={imagesArray} />);
+  render(<ImageGallery imagesData={imagesData} />);
 });
 
 test("image gallery works with fixed caption", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
@@ -196,7 +196,7 @@ test("image gallery works with fixed caption", () => {
 test("image gallery works with custom thumbnail border", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       thumbnailBorder="medium dashed pink"
     />,
   );
@@ -204,20 +204,20 @@ test("image gallery works with custom thumbnail border", () => {
 
 test("image gallery works with lazy loading", () => {
   render(
-    <ImageGallery imagesData={imagesArray} lazy={true} lazyFromIndex={6} />,
+    <ImageGallery imagesData={imagesData} lazy={true} lazyFromIndex={6} />,
   );
 });
 
 test("image gallery works without lightbox", () => {
   render(
-    <ImageGallery imagesData={imagesArray} enableDefaultLightbox={false} />,
+    <ImageGallery imagesData={imagesData} enableDefaultLightbox={false} />,
   );
 });
 
 test("customizing image click action without using the built-in imageData and index parameters works", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       enableDefaultLightbox={false}
       customizeImageClickAction={() => console.log("You clicked an image!")}
     />,
@@ -227,7 +227,7 @@ test("customizing image click action without using the built-in imageData and in
 test("customizing image click action with the built-in imageData and index parameters works", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       enableDefaultLightbox={false}
       customizeImageClickAction={(imageData, index) =>
         console.log("You clicked an image!", imageData, index)
@@ -237,7 +237,7 @@ test("customizing image click action with the built-in imageData and index param
 });
 
 test("lightbox navigation updates counter and loops correctly", async () => {
-  render(<ImageGallery imagesData={imagesArray} />);
+  render(<ImageGallery imagesData={imagesData} />);
 
   // Open lightbox on image 9
   const img9 = screen.getAllByAltText("Image9's alt text")[0];
@@ -259,7 +259,7 @@ test("lightbox navigation updates counter and loops correctly", async () => {
 });
 
 test("lightbox looping boundary 13 -> 1 and 1 -> 13", async () => {
-  render(<ImageGallery imagesData={imagesArray} />);
+  render(<ImageGallery imagesData={imagesData} />);
 
   // Open lightbox on last image
   const img13 = screen.getAllByAltText("Image13's alt text")[0];
@@ -278,7 +278,7 @@ test("lightbox looping boundary 13 -> 1 and 1 -> 13", async () => {
 });
 
 test("lightbox gesture navigation threshold and state update", async () => {
-  render(<ImageGallery imagesData={imagesArray} />);
+  render(<ImageGallery imagesData={imagesData} />);
 
   // Open lightbox on image 1
   const img1 = screen.getAllByAltText("Image1's alt text")[0];
@@ -365,7 +365,7 @@ test("lightbox gesture navigation threshold and state update", async () => {
 });
 
 test("direct thumbnail navigation completely resets state", async () => {
-  render(<ImageGallery imagesData={imagesArray} />);
+  render(<ImageGallery imagesData={imagesData} />);
 
   // Open lightbox on image 1
   const img1 = screen.getAllByAltText("Image1's alt text")[0];
@@ -400,7 +400,7 @@ test("direct thumbnail navigation completely resets state", async () => {
 });
 
 test("backdrop click closes lightbox, but content click does not", async () => {
-  render(<ImageGallery imagesData={imagesArray} />);
+  render(<ImageGallery imagesData={imagesData} />);
 
   // Open lightbox
   fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
@@ -433,7 +433,7 @@ test("scroll lock lifecycle correctly restores exactly previous styles", async (
   // Set initial overflow to something custom
   document.documentElement.style.overflow = "scroll";
 
-  const { unmount } = render(<ImageGallery imagesData={imagesArray} />);
+  const { unmount } = render(<ImageGallery imagesData={imagesData} />);
 
   expect(document.documentElement.style.overflow).toBe("scroll");
 
