@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from "react";
-import { CarouselTrack, CarouselTrackRef } from "./CarouselTrack";
-import { Navigation } from "./Navigation";
-import { ThumbnailStrip } from "./ThumbnailStrip";
-import { Toolbar } from "./Toolbar";
-import { ImageDataType } from "../ImageGallery.types";
+import { CarouselTrack, CarouselTrackRef } from "./CarouselTrack.tsx";
+import { Navigation } from "./Navigation.tsx";
+import { ThumbnailStrip } from "./ThumbnailStrip.tsx";
+import { Toolbar } from "./Toolbar.tsx";
+import { ImageDataType } from "../ImageGallery.types.tsx";
 
 interface LightboxProps {
   exitLightbox: () => void;

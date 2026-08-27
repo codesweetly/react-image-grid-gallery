@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { updateCaptionOpacity } from "./helpers.ts";
-import { ImageDataType } from "./ImageGallery.types";
+import { ImageDataType } from "./ImageGallery.types.tsx";
 import { Lightbox } from "./lightbox/Lightbox.tsx";
 
 interface ImageGalleryPropsType {

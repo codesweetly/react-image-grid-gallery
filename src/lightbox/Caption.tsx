@@ -1,4 +1,4 @@
-import { ImageDataType } from "../ImageGallery.types";
+import { ImageDataType } from "../ImageGallery.types.tsx";
 
 interface CaptionProps {
   fixedCaption?: boolean;
