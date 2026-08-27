@@ -1,4 +1,4 @@
-import { SvgElement } from "../helpers";
+import { SvgElement } from "../helpers.tsx";
 
 interface ToolbarProps {
   exitFullScreenAndDialog: () => void;

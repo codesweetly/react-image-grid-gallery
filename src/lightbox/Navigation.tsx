@@ -1,4 +1,4 @@
-import { SvgElement } from "../helpers";
+import { SvgElement } from "../helpers.tsx";
 
 interface NavigationProps {
   changeSlide: (direction: -1 | 1) => void;

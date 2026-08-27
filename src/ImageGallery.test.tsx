@@ -1,6 +1,6 @@
 import { expect, test, beforeAll, jest } from "@jest/globals";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ImageGallery } from "./ImageGallery";
+import { ImageGallery } from "./ImageGallery.tsx";
 
 beforeAll(() => {
   // JSDOM doesn't implement showModal/close, so we polyfill them.

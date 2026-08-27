@@ -5,9 +5,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { Caption } from "./Caption";
-import { useCarouselGesture } from "../hooks/useCarouselGesture";
-import { ImageDataType } from "../ImageGallery.types";
+import { Caption } from "./Caption.tsx";
+import { useCarouselGesture } from "../hooks/useCarouselGesture.ts";
+import { ImageDataType } from "../ImageGallery.types.tsx";
 
 export interface CarouselTrackRef {
   goToSlide: (newSlideNumber: number) => void;

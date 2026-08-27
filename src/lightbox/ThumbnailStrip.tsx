@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { ImageDataType } from "../ImageGallery.types";
+import { ImageDataType } from "../ImageGallery.types.tsx";
 
 interface ThumbnailStripProps {
   goToClickedThumbnail: (index: number) => void;
