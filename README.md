@@ -1,17 +1,20 @@
 # React Image Grid Gallery
 
-A responsive React image gallery component with an optional lightbox for displaying image grids in React applications.
+A responsive React image gallery component with an optional lightbox carousel for displaying image grids in React applications.
 
-![npm](https://img.shields.io/npm/v/react-image-grid-gallery) ![NPM](https://img.shields.io/npm/l/react-image-grid-gallery)
+[![npm](https://img.shields.io/npm/v/react-image-grid-gallery)](https://www.npmjs.com/package/react-image-grid-gallery) [![NPM](https://img.shields.io/npm/l/react-image-grid-gallery)](https://github.com/codesweetly/react-image-grid-gallery/tree/main?tab=MIT-1-ov-file) [![Release](https://github.com/codesweetly/react-image-grid-gallery/actions/workflows/release.yml/badge.svg)](https://github.com/codesweetly/react-image-grid-gallery/actions/workflows/release.yml)
 
 ## Features
 
 - SEO friendly
-- Fullscreen support
+- Full-screen support
 - Keyboard accessible
+- Keyboard navigation
 - Mobile responsive
+- Swipe and gesture navigation
+- Carousel-style lightbox
 - Lightbox with translucent background
-- Thumbnails
+- Thumbnail navigation
 - Image captions
 - Lazy loading support
 - Set column numbers dynamically or manually
@@ -54,7 +57,7 @@ Import the library and its stylesheet, then use it like this:
 import { ImageGallery } from "react-image-grid-gallery";
 import "react-image-grid-gallery/style.css";
 
-const imagesArray = [
+const imagesData = [
   {
     id: "uniqueid111",
     alt: "Image1's alt text",
@@ -88,13 +91,28 @@ const imagesArray = [
 ];
 
 function App() {
-  return <ImageGallery imagesData={imagesArray} gapSize={24} />;
+  return <ImageGallery imagesData={imagesData} gapSize={24} />;
 }
 ```
 
 ### Why import the stylesheet?
 
 The components rely on predefined CSS classes for styling. Importing the stylesheet once ensures consistent styling across the gallery components.
+
+## Lightbox Navigation
+
+When the default lightbox is enabled, the gallery provides a carousel-style image viewing experience.
+
+Users can navigate between images using:
+
+- Previous and next controls
+- Thumbnail navigation
+- Keyboard arrow keys
+- Swipe and gesture navigation on supported devices
+
+The current image position is displayed in the lightbox, and the active thumbnail remains synchronized with the displayed image.
+
+Swipe navigation is built into the default lightbox and requires no additional configuration.
 
 ## Props
 
@@ -170,7 +188,7 @@ The `customizeImageClickAction` function receives two arguments, `imageData` and
 
 ```jsx
 <ImageGallery
-  imagesData={imagesArray}
+  imagesData={imagesData}
   enableDefaultLightbox={false}
   customizeImageClickAction={() => {
     console.log("Image clicked!");
@@ -182,7 +200,7 @@ The `customizeImageClickAction` function receives two arguments, `imageData` and
 
 ```jsx
 <ImageGallery
-  imagesData={imagesArray}
+  imagesData={imagesData}
   enableDefaultLightbox={false}
   customizeImageClickAction={(imageData, index) => {
     console.log("Image clicked:", imageData, index);
@@ -288,36 +306,27 @@ The `"use client"` directive tells NextJS to consider all modules imported into 
 
 The `ImageGallery` package works _only_ as a Client Component because it uses React's State and Lifecycle effects, such as `useState()` and `useEffect()`.
 
-## Note for Docusaurus users
+## Browser-Only APIs and Static Rendering
 
-Did you get a `ReferenceError: crypto is not defined` error during the build step? If so, this note is for you.
+If your `imagesData` uses browser-only APIs such as the Web Crypto API (for example, `crypto.randomUUID()` to generate image IDs), you may need to ensure that the code generating those values runs only in the browser when using a framework or static site generator that performs server-side rendering (SSR) or static rendering (SSG).
 
-Wrap the `ImageGallery` component in [`<BrowserOnly>`](https://docusaurus.io/docs/next/advanced/ssg#browseronly) if you get a `ReferenceError: crypto is not defined` error during your build step.
+**Example:**
 
 ```jsx
-import BrowserOnly from "@docusaurus/BrowserOnly";
-
-function YourComponent() {
-  return (
-    <BrowserOnly fallback={<div>Loading...</div>}>
-      {() => {
-        const ImageGallery = require("react-image-grid-gallery").ImageGallery;
-        require("react-image-grid-gallery/style.css");
-        return (
-          <ImageGallery
-            imagesData={imagesArray}
-            columnCount={"auto"}
-            columnWidth={230}
-            gapSize={24}
-          />
-        );
-      }}
-    </BrowserOnly>
-  );
-}
+const imagesData = [
+  {
+    id: crypto.randomUUID(),
+    alt: "A beautiful landscape",
+    src: "/images/landscape.jpg",
+  },
+];
 ```
 
-This process is essential if your `imagesArray` uses the Web Crypto API. The `<BrowserOnly>` component tells Docusaurus to render the `ImageGallery` library only in the browser. It ensures that the Crypto API runs only in CSR (Client-Side Rendering) rather than during build or SSR (Server-Side Rendering).
+If your framework attempts to evaluate browser-only APIs during server-side rendering or the build process, you may encounter errors such as `ReferenceError: crypto is not defined`.
+
+In such cases, follow your framework's recommended approach for deferring browser-only code to client-side execution.
+
+**Note:** `react-image-grid-gallery` does not require the Web Crypto API. This consideration applies only when your application uses browser-only APIs while creating or processing the data passed to the gallery.
 
 ## Build
 
@@ -341,7 +350,7 @@ For larger changes, it is helpful to open an issue first so we can discuss the p
 
 Need help integrating this package, customizing the gallery, or solving a frontend implementation issue?
 
-See [Work with me on CodeSweetly](https://codesweetly.com/work-with-me).
+See [Let's build on CodeSweetly](https://codesweetly.com/work-with-me).
 
 ## Support
 

@@ -14,25 +14,3 @@ export interface ImageDataType {
   srcSet?: string;
   mediaSizes?: string;
 }
-
-export interface ImageGalleryPropsType {
-  columnCount?: string | number;
-  columnWidth?: string | number;
-  customizeImageClickAction?: (
-    imageData?: ImageDataType,
-    index?: number,
-  ) => void;
-  enableDefaultLightbox?: boolean;
-  fixedCaption?: boolean;
-  gapSize?: number;
-  imagesData: Array<ImageDataType>;
-  lazy?: boolean;
-  lazyFromIndex?: number;
-  thumbnailBorder?: string;
-}
-
-export interface ImgSrcInfoType {
-  mediaSizes: string | undefined;
-  src: string;
-  srcSet: string | undefined;
-}

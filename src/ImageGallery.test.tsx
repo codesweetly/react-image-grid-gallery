@@ -1,8 +1,62 @@
-import { render } from "@testing-library/react";
-import { test } from "@jest/globals";
+import { expect, test, beforeAll, jest } from "@jest/globals";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { ImageGallery } from "./ImageGallery";
 
-const imagesArray = [
+beforeAll(() => {
+  // JSDOM doesn't implement showModal/close, so we polyfill them.
+  // Setting this.open keeps dialog.open readable in assertions.
+  HTMLDialogElement.prototype.showModal = jest.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+    this.setAttribute("open", "");
+  });
+  HTMLDialogElement.prototype.close = jest.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = false;
+    this.removeAttribute("open");
+  });
+
+  // JSDOM doesn't implement matchMedia. The carousel reads this to disable
+  // CSS transitions when the user prefers reduced motion.
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    value: jest.fn().mockImplementation((query) => ({
+      matches: query === "(prefers-reduced-motion: reduce)",
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+
+  // JSDOM stubs: scrollIntoView is called by the thumbnail strip; pointer
+  // capture methods are called by the gesture hook on drag start/end.
+  Element.prototype.scrollIntoView = jest.fn();
+  Element.prototype.setPointerCapture = jest.fn();
+  Element.prototype.releasePointerCapture = jest.fn();
+
+  // JSDOM doesn't implement PointerEvent. This minimal mock adds the fields
+  // (clientX, clientY, isPrimary, pointerId) that the gesture hook reads.
+  class MockPointerEvent extends Event {
+    clientX: number;
+    clientY: number;
+    isPrimary: boolean;
+    pointerId: number;
+    constructor(type: string, props: any) {
+      super(type, props);
+      this.clientX = props?.clientX || 0;
+      this.clientY = props?.clientY || 0;
+      this.isPrimary = props?.isPrimary || false;
+      this.pointerId = props?.pointerId || 0;
+    }
+  }
+  window.PointerEvent = MockPointerEvent as any;
+});
+
+const imagesData = [
   {
     id: crypto.randomUUID(),
     alt: "Image1's alt text",
@@ -115,7 +169,7 @@ const imagesArray = [
 test("image gallery renders correctly", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
@@ -124,13 +178,13 @@ test("image gallery renders correctly", () => {
 });
 
 test("image gallery works with only the imagesData prop", () => {
-  render(<ImageGallery imagesData={imagesArray} />);
+  render(<ImageGallery imagesData={imagesData} />);
 });
 
 test("image gallery works with fixed caption", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       columnCount={1}
       columnWidth={300}
       gapSize={2}
@@ -142,7 +196,7 @@ test("image gallery works with fixed caption", () => {
 test("image gallery works with custom thumbnail border", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       thumbnailBorder="medium dashed pink"
     />,
   );
@@ -150,20 +204,20 @@ test("image gallery works with custom thumbnail border", () => {
 
 test("image gallery works with lazy loading", () => {
   render(
-    <ImageGallery imagesData={imagesArray} lazy={true} lazyFromIndex={6} />,
+    <ImageGallery imagesData={imagesData} lazy={true} lazyFromIndex={6} />,
   );
 });
 
 test("image gallery works without lightbox", () => {
   render(
-    <ImageGallery imagesData={imagesArray} enableDefaultLightbox={false} />,
+    <ImageGallery imagesData={imagesData} enableDefaultLightbox={false} />,
   );
 });
 
 test("customizing image click action without using the built-in imageData and index parameters works", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       enableDefaultLightbox={false}
       customizeImageClickAction={() => console.log("You clicked an image!")}
     />,
@@ -173,11 +227,239 @@ test("customizing image click action without using the built-in imageData and in
 test("customizing image click action with the built-in imageData and index parameters works", () => {
   render(
     <ImageGallery
-      imagesData={imagesArray}
+      imagesData={imagesData}
       enableDefaultLightbox={false}
       customizeImageClickAction={(imageData, index) =>
         console.log("You clicked an image!", imageData, index)
       }
     />,
   );
+});
+
+test("lightbox navigation updates counter and loops correctly", async () => {
+  render(<ImageGallery imagesData={imagesData} />);
+
+  // Open lightbox on image 9
+  const img9 = screen.getAllByAltText("Image9's alt text")[0];
+  fireEvent.click(img9);
+
+  // Initial state should be 9 / 13
+  expect(await screen.findByText("9 / 13")).toBeTruthy();
+
+  // Click next button
+  const nextBtn = screen.getByTitle("Next image");
+  fireEvent.click(nextBtn);
+  expect(await screen.findByText("10 / 13")).toBeTruthy();
+
+  // Click previous button twice to go to 8
+  const prevBtn = screen.getByTitle("Previous image");
+  fireEvent.click(prevBtn);
+  fireEvent.click(prevBtn);
+  expect(await screen.findByText("8 / 13")).toBeTruthy();
+});
+
+test("lightbox looping boundary 13 -> 1 and 1 -> 13", async () => {
+  render(<ImageGallery imagesData={imagesData} />);
+
+  // Open lightbox on last image
+  const img13 = screen.getAllByAltText("Image13's alt text")[0];
+  fireEvent.click(img13);
+  expect(await screen.findByText("13 / 13")).toBeTruthy();
+
+  // Click next -> should loop to 1
+  const nextBtn = screen.getByTitle("Next image");
+  fireEvent.click(nextBtn);
+  expect(screen.getByText("1 / 13")).toBeTruthy();
+
+  // Click prev -> should loop back to 13
+  const prevBtn = screen.getByTitle("Previous image");
+  fireEvent.click(prevBtn);
+  expect(screen.getByText("13 / 13")).toBeTruthy();
+});
+
+test("lightbox gesture navigation threshold and state update", async () => {
+  render(<ImageGallery imagesData={imagesData} />);
+
+  // Open lightbox on image 1
+  const img1 = screen.getAllByAltText("Image1's alt text")[0];
+  fireEvent.click(img1);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+
+  // Find the track container
+  const track = document.querySelector(
+    ".cs-rigg-carousel-track",
+  ) as HTMLElement;
+  if (!track) throw new Error("Track not found");
+
+  // Mock getBoundingClientRect for trackWidth
+  track.getBoundingClientRect = () => ({ width: 1000 }) as any;
+
+  const originalNow = performance.now;
+  let currentTime = 0;
+  jest.spyOn(performance, "now").mockImplementation(() => currentTime);
+
+  // 1. Short slow drag (should cancel) - deltaX < 200, duration > 250
+  currentTime = 0;
+  fireEvent.pointerDown(track, {
+    isPrimary: true,
+    clientX: 500,
+    clientY: 500,
+    pointerId: 1,
+  });
+
+  currentTime = 500;
+  fireEvent.pointerMove(track, {
+    isPrimary: true,
+    clientX: 450,
+    clientY: 500,
+    pointerId: 1,
+  }); // deltaX = -50
+
+  currentTime = 510;
+  fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
+  expect(await screen.findByText("1 / 13")).toBeTruthy(); // Cancelled
+
+  // 2. Long slow drag (should commit next) - deltaX < -200, duration > 250
+  currentTime = 1000;
+  fireEvent.pointerDown(track, {
+    isPrimary: true,
+    clientX: 500,
+    clientY: 500,
+    pointerId: 1,
+  });
+
+  currentTime = 1500;
+  fireEvent.pointerMove(track, {
+    isPrimary: true,
+    clientX: 200,
+    clientY: 500,
+    pointerId: 1,
+  }); // deltaX = -300
+
+  currentTime = 1510;
+  fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
+  expect(await screen.findByText("2 / 13")).toBeTruthy();
+
+  // 3. Short fast flick (should commit next) - deltaX < 200, duration < 250
+  currentTime = 2000;
+  fireEvent.pointerDown(track, {
+    isPrimary: true,
+    clientX: 500,
+    clientY: 500,
+    pointerId: 1,
+  });
+
+  currentTime = 2050; // 50ms duration
+  fireEvent.pointerMove(track, {
+    isPrimary: true,
+    clientX: 450,
+    clientY: 500,
+    pointerId: 1,
+  }); // deltaX = -50
+
+  currentTime = 2060;
+  fireEvent.pointerUp(track, { isPrimary: true, pointerId: 1 });
+  expect(await screen.findByText("3 / 13")).toBeTruthy();
+
+  performance.now = originalNow;
+});
+
+test("direct thumbnail navigation completely resets state", async () => {
+  render(<ImageGallery imagesData={imagesData} />);
+
+  // Open lightbox on image 1
+  const img1 = screen.getAllByAltText("Image1's alt text")[0];
+  fireEvent.click(img1);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+
+  // Show thumbnails and click thumbnail for image 4
+  const toggleThumbBtn = screen.getByTitle("Show thumbnails");
+  fireEvent.click(toggleThumbBtn);
+
+  const thumbs = document.querySelectorAll(".cs-rigg-modal-thumb-imgs-pod img");
+  expect(thumbs.length).toBe(13);
+
+  fireEvent.click(thumbs[3]); // index 3 is image 4
+
+  // Counter should instantly be 4 / 13
+  expect(await screen.findByText("4 / 13")).toBeTruthy();
+
+  // Ensure Next button goes to 5, meaning state is perfectly synced
+  const nextBtn = screen.getByTitle("Next image");
+  fireEvent.click(nextBtn);
+  expect(await screen.findByText("5 / 13")).toBeTruthy();
+
+  // Click thumbnail 10
+  fireEvent.click(thumbs[9]); // index 9 is image 10
+  expect(await screen.findByText("10 / 13")).toBeTruthy();
+
+  // Previous button goes to 9
+  const prevBtn = screen.getByTitle("Previous image");
+  fireEvent.click(prevBtn);
+  expect(await screen.findByText("9 / 13")).toBeTruthy();
+});
+
+test("backdrop click closes lightbox, but content click does not", async () => {
+  render(<ImageGallery imagesData={imagesData} />);
+
+  // Open lightbox
+  fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+
+  // Click the image - should not close
+  const modalImg = document.querySelector(
+    ".cs-rigg-modal-image",
+  ) as HTMLElement;
+  fireEvent.click(modalImg);
+  expect(screen.queryByText("1 / 13")).toBeTruthy(); // still open
+
+  // Click toolbar button - should not close
+  const nextBtn = screen.getByTitle("Next image");
+  fireEvent.click(nextBtn);
+  expect(screen.queryByText("2 / 13")).toBeTruthy(); // still open, just moved to slide 2
+
+  // Click the backdrop area (the track container empty space)
+  const backdrop = document.querySelector(
+    ".cs-rigg-carousel-track-container",
+  ) as HTMLElement;
+  fireEvent.click(backdrop);
+
+  // Should close
+  const dialog = document.querySelector(".cs-rigg-dialog") as HTMLDialogElement;
+  expect(dialog.open).toBe(false);
+});
+
+test("scroll lock lifecycle correctly restores exactly previous styles", async () => {
+  // Set initial overflow to something custom
+  document.documentElement.style.overflow = "scroll";
+
+  const { unmount } = render(<ImageGallery imagesData={imagesData} />);
+
+  expect(document.documentElement.style.overflow).toBe("scroll");
+
+  // Open lightbox
+  fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+
+  // Should be locked
+  expect(document.documentElement.style.overflow).toBe("hidden");
+
+  // Close via escape
+  const dialog = document.querySelector(".cs-rigg-dialog") as HTMLDialogElement;
+  fireEvent(dialog, new Event("cancel"));
+
+  expect(
+    (document.querySelector(".cs-rigg-dialog") as HTMLDialogElement).open,
+  ).toBe(false);
+
+  // Should exact restore previous style
+  expect(document.documentElement.style.overflow).toBe("scroll");
+
+  // Test unmount cleanup
+  fireEvent.click(screen.getAllByAltText("Image1's alt text")[0]);
+  expect(await screen.findByText("1 / 13")).toBeTruthy();
+  expect(document.documentElement.style.overflow).toBe("hidden");
+
+  unmount();
+  expect(document.documentElement.style.overflow).toBe("scroll");
 });
