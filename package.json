@@ -22,7 +22,7 @@
     "build:cjs": "tsc -p tsconfig.cjs.json && node scripts/create-package-json.js --cjs",
     "copy-files": "node scripts/copy-css.js",
     "test": "jest --config jest.config.cjs",
-    "test-publish": "npm publish --dry-run",
+    "test-publish": "npm publish --dry-run --tag next",
     "watch": "tsc -p tsconfig.esm.json --watch",
     "prepare": "husky"
   },
