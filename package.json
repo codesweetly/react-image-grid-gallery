@@ -11,7 +11,8 @@
       "import": "./dist/esm/ImageGallery.js",
       "types": "./dist/esm/ImageGallery.d.ts"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./dist/style.css": "./dist/style.css"
   },
   "homepage": "https://codesweetly.com/react-image-grid-gallery",
   "author": "Oluwatobi Sofela <contact@codesweetly.com> (https://www.codesweetly.com)",
@@ -21,8 +22,9 @@
     "build:esm": "tsc -p tsconfig.esm.json && node scripts/create-package-json.js --esm",
     "build:cjs": "tsc -p tsconfig.cjs.json && node scripts/create-package-json.js --cjs",
     "copy-files": "node scripts/copy-css.js",
+    "dev:test-app": "npm --prefix test-app run dev",
     "test": "jest --config jest.config.cjs",
-    "test-publish": "npm publish --dry-run --tag next",
+    "test:publish": "npm publish --dry-run --tag next",
     "watch": "tsc -p tsconfig.esm.json --watch",
     "prepare": "husky"
   },
@@ -53,7 +55,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
-    "@testing-library/react": "^16.3.2",
+    "@testing-library/react": "^16.3.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "husky": "^9.1.7",

@@ -3,6 +3,8 @@
   background: none;
   margin: 0;
   padding: 0;
+  display: block;
+  width: 100%;
 }
 
 .cs-rigg-image-container {
@@ -47,8 +49,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(18, 18, 18, 0.85);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -123,6 +125,7 @@
   justify-content: center;
   width: 100%;
   flex: 1;
+  min-width: 0;
   min-height: 0;
   overflow: hidden;
 }
@@ -222,8 +225,8 @@
 
 .cs-rigg-modal-image {
   margin: auto;
-  max-width: 100vw;
-  max-height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   user-select: none;
